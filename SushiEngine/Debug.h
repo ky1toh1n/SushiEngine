@@ -5,12 +5,23 @@
 #include <string.h>
 #include <string>
 #include <fstream>
+#include <vector>
 
 //The following code uses the __FILE__ macro to get the file name.
 //It gets rid of the file path to reduce clutter in the log file.
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 namespace SushiEngine {
+
+#ifdef NDEBUG
+	const bool enableValidationLayers = false;
+#else
+	const bool enableValidationLayers = true;
+#endif
+
+	const std::vector<const char*> validationLayers = {
+		"VK_LAYER_LUNARG_standard_validation"
+	};
 
 	enum class EMessageType : unsigned char {
 		INFO = 0,
