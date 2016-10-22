@@ -1,0 +1,7 @@
+
+INFO: PROGRAM START On Main.cpp (main.cpp:13)
+INFO: Game() Created (game.cpp:39)
+INFO: Game->Run() (game.cpp:87)
+INFO: Game->Initialize() (game.cpp:58)
+INFO: 	Window->Initialize() (window.cpp:13)
+INFO: 		Game->InitVulkan() (game.cpp:137)
