@@ -11,12 +11,18 @@ namespace SushiEngine
 
 	GameSceneManager::~GameSceneManager() {
 		Debug::Log(EMessageType::INFO, "GameSceneManager() Destroyed", __FILENAME__, __LINE__);
+		glfwTerminate();
 		delete renderer;
 	}
 
 	void GameSceneManager::Update()
 	{
 		currentScene->Update();
+
+		if (glfwWindowShouldClose(window->GetWindowHandle())) {
+			window->Shutdown();
+			isRunning = false;
+		}
 	}
 
 	void GameSceneManager::Render()
