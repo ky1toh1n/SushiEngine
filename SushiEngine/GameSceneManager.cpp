@@ -47,7 +47,7 @@ namespace SushiEngine
 		
 		//Instantiate main components - order is important; a renderer is dependent on a window
 		window = new Window("Hau5tastic", 300, 300);
-		renderer = new VkRenderer();
+		renderer = new VRenderer(window->GetWindowHandle());
 
 		//initialize glfw callbacks
 		glfwSetWindowUserPointer(window->GetWindowHandle(), this);

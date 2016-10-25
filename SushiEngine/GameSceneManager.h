@@ -3,7 +3,7 @@
 #define GAME_H
 
 #include <memory>
-#include "VkRenderer.h"
+#include "VRenderer.h"
 #include "Debug.h"
 #include "Window.h"
 #include "InputManager.h"
@@ -32,7 +32,7 @@ namespace SushiEngine
 		bool isRunning;
 		Scene *currentScene;
 		Window* window;
-		VkRenderer* renderer;
+		VRenderer* renderer;
 
 		//Private methods
 		bool Initialize();
