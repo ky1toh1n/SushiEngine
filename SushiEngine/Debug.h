@@ -20,14 +20,15 @@ namespace SushiEngine {
 #endif
 
 	const std::vector<const char*> validationLayers = {
-		"VK_LAYER_LUNARG_standard_validation"
+		"VK_LAYER_LUNARG_api_dump"
 	};
 
+
 	enum class EMessageType : unsigned char {
-		INFO = 0,
-		WARNING,
-		ERROR,
-		FATAL_ERROR
+		S_INFO = 0,
+		S_WARNING,
+		S_ERROR,
+		S_FATAL_ERROR
 	};
 
 	class Debug {

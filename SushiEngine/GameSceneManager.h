@@ -1,5 +1,7 @@
+// GameSceneManager : Manages the current game Scene. It ensures that there's only one active Scene at a time.
 #ifndef GAME_H
 #define GAME_H
+
 #include <memory>
 #include "VkRenderer.h"
 #include "Debug.h"
@@ -8,7 +10,6 @@
 
 namespace SushiEngine 
 {
-
 	class GameSceneManager
 	{
 	private:
@@ -20,24 +21,36 @@ namespace SushiEngine
 		/// when no deleter is specified, therefore I'll make std::default_delete my friend as well. 
 		friend std::default_delete<GameSceneManager>;
 
-		bool Initialize();
-
-		VkRenderer* renderer;
-		bool isRunning;
+		//Private constructor
 		GameSceneManager();
 		virtual ~GameSceneManager();
+
+		//Private fields
+		bool isRunning;
+		Scene *currentScene;
 		Window* window;
-		Scene* currentScene;
+		VkRenderer* renderer;
 
-	public:
+		//Private methods
+		bool Initialize();
+		void Update();
+		void Render();
+	public:		
+		//Public interface
 		static GameSceneManager* GetInstance();
+		Window* getWindowInstance();
+		//TODO: Find a way to specify the starting scene through type specifier. 
 		void Run();
-		virtual void Update();
-		virtual void Render();
 
+		//TODO: move this to Input Manager
 		void HandleInput(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
 		void HandleClick(GLFWwindow* glfwWindow, int button, int action, int mods);
 
+		/// C11 precautions delete these non-needed default constructors and operators
+		GameSceneManager(const GameSceneManager&) = delete;
+		GameSceneManager(GameSceneManager&&) = delete;
+		GameSceneManager& operator = (const GameSceneManager&) = delete;
+		GameSceneManager& operator = (GameSceneManager&&) = delete;
 	};
 }
 #endif
