@@ -1,13 +1,11 @@
 #include "GameSceneManager.h"
-#include "Scene.h"
-#include "VRenderer.h"
+#include "TestScene.h"
 
 int main(int count, char** args) {
 	SushiEngine::Debug::Init();
 	SushiEngine::GameSceneManager* game = SushiEngine::GameSceneManager::GetInstance();
 
-	game->Run();
-
+	game->Run(new TestScene());
 
 	return 0;
 }

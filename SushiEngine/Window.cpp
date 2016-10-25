@@ -1,6 +1,5 @@
 #include "Window.h"
 
-
 namespace SushiEngine 
 {
 	//Creates a window with specificed parameters
@@ -29,17 +28,15 @@ namespace SushiEngine
 		// Unless you will be using OpenGL or OpenGL ES with the same window as Vulkan, there is no need to create a context.
 		// You can disable context creation with the GLFW_CLIENT_API hint.
 
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		//glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
 		// glfwWindow = glfwCreateWindow(640, 480, "My Title", glfwGetPrimaryMonitor(), NULL); // Reserved for multiple viewports or fullscreen handling
-		glfwWindow = glfwCreateWindow(width, height, title, NULL, NULL);
+		glfwWindow = glfwCreateWindow(width, height, title, nullptr, nullptr);
 		if (!glfwWindow) {
 			Debug::Log(EMessageType::S_FATAL_ERROR, "Unable to Create GLFW Window!", __FILENAME__, __LINE__);
 			return false;
 		}
-		//glfwSetWindowSizeLimits(glfwWindow, 640, 480, GLFW_DONT_CARE, GLFW_DONT_CARE);
-		//SetSize(width / 2, height);
 
 		//glfwMakeContextCurrent(glfwWindow); Context not needed when involving vulkan i think
 

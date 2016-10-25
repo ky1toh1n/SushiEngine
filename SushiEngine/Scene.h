@@ -3,14 +3,15 @@
 #define SCENE_H
 
 #include "Window.h"
+#include "GameSceneManager.h"
 
 namespace SushiEngine {
 	class Scene
 	{
 	public:
-		//
-		explicit Scene(Window *);
-		virtual ~Scene()/* = 0*/;
+		//Constructor
+		Scene();
+		virtual ~Scene() = 0;
 		
 		/// C11 precautions delete these non-needed default constructors and operators
 		Scene(const Scene&) = delete;
@@ -18,11 +19,11 @@ namespace SushiEngine {
 		Scene& operator = (const Scene&) = delete;
 		Scene& operator = (Scene&&) = delete;
 
-		//
-		virtual void Initialize()/* = 0*/;
+		//Main methods of a scene
+		virtual void Initialize();
 		virtual void Update();
 		virtual void Render();
-		virtual void Destroy()/* = 0*/;
+		virtual void Destroy() = 0;
 
 	protected:
 		//
