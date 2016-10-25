@@ -1,0 +1,12 @@
+Nicco Report:
+
+Issues:
+
+- Unhandled Exception stating access violation when I'm using a dual setup. This might be specific to my system so tell me what you guys have.
+Or, it could be related to GLFW's viewport handling since that currently isn't being accounted for in the program.
+
+- Currently not handling frame limiting calculations correctly. FPS on my system stuck on 33fps but nothing is running.
+
+- In Timer.cpp the current glfw method is glfw.GetTime(), but there is a .GetTimerValue() and grabs more hi-res values.
+
+- Currently more interested in how to link Vulkan against GLFW so I'm kind of doing minimal stuff for the Genjine framework.

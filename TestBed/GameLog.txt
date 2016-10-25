@@ -1,0 +1,8 @@
+
+INFO: GameSceneManager() Created (gamescenemanager.cpp:10)
+INFO: GameSceneManager() Initialize (gamescenemanager.cpp:54)
+INFO: 	Window(char*,int,int) (window.cpp:8)
+INFO: 	Window->Initialize() (window.cpp:21)
+INFO: 	Window->Destroy() (window.cpp:52)
+INFO: GameSceneManager() Destroyed (gamescenemanager.cpp:15)
+INFO: 	~Window() (window.cpp:14)
