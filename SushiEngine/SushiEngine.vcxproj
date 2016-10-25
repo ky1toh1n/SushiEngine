@@ -154,7 +154,7 @@
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="VDeleter.cpp" />
-    <ClCompile Include="VkRenderer.cpp" />
+    <ClCompile Include="VRenderer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +162,8 @@
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="VDeleter.h" />
-    <ClInclude Include="VkRenderer.h" />
+    <ClInclude Include="VRenderer.h" />
+    <ClInclude Include="VStructs.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

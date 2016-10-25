@@ -21,9 +21,6 @@
     <Text Include="EngineReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="VkRenderer.h">
-      <Filter>Vulkan</Filter>
-    </ClInclude>
     <ClInclude Include="Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,11 +36,14 @@
     <ClInclude Include="VDeleter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VRenderer.h">
+      <Filter>Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VStructs.h">
+      <Filter>Vulkan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VkRenderer.cpp">
-      <Filter>Vulkan</Filter>
-    </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="VDeleter.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VRenderer.cpp">
+      <Filter>Vulkan</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
