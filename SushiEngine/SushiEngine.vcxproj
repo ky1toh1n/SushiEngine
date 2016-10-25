@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="VDeleter.cpp" />
     <ClCompile Include="VkRenderer.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Debug.h" />
     <ClInclude Include="GameSceneManager.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="VDeleter.h" />
     <ClInclude Include="VkRenderer.h" />

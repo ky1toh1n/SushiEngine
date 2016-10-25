@@ -22,13 +22,6 @@ namespace SushiEngine
 	void GameSceneManager::Update()
 	{
 		currentScene->Update();
-
-		//Gracefully shutdown scene and window
-		if (glfwWindowShouldClose(window->GetWindowHandle())) {
-			currentScene->Destroy();
-			window->Destroy();
-			isRunning = false;
-		}
 	}
 
 	//Renders the current scene.
@@ -41,12 +34,11 @@ namespace SushiEngine
 	GameSceneManager* GameSceneManager::GetInstance() {
 		if (gameInstance == nullptr) {
 			gameInstance.reset(new GameSceneManager());
-		}		return gameInstance.get();
+		}		
+		return gameInstance.get();
 	}
 
 	static void CloseWindowCallback(GLFWwindow* glfwWindow);
-	static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
-	static void ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods);
 
 	//Initialzes all the components necessary for a game scene to function properly.
 	bool GameSceneManager::Initialize()
@@ -62,25 +54,32 @@ namespace SushiEngine
 		glfwSetWindowCloseCallback(window->GetWindowHandle(), CloseWindowCallback);
 
 		// Key and Character are both for Keyboard Event Polling, see documentation for the difference between the two.
-		glfwSetKeyCallback(window->GetWindowHandle(), KeyCallback);
+		glfwSetKeyCallback(window->GetWindowHandle(), InputManager::KeyCallback);
 		// glfwSetCharCallback(glfwWindow, character_callback);
-		glfwSetMouseButtonCallback(window->GetWindowHandle(), ClickCallback);
-
+		glfwSetMouseButtonCallback(window->GetWindowHandle(), InputManager::ClickCallback);
+		
 		return true;
 	}
 	
 	//Initializes and runs the game. Contains the main loop.
-	void GameSceneManager::Run()
+	void GameSceneManager::Run(Scene* startingScene)
 	{
 		isRunning = Initialize();
-		currentScene = new Scene(window);
+		currentScene = startingScene;
+		currentScene->Initialize();
 
 		//The main loop of the whole program.
 		while (isRunning)
 		{
-			//Update must be after Render, because the window closing code happens in Update. Otherwise, the code will crash at Render.
-			Render();
 			Update();
+			Render();
+
+			//Gracefully shutdown scene and window
+			if (glfwWindowShouldClose(window->GetWindowHandle())) {
+				currentScene->Destroy();
+				window->Destroy();
+				isRunning = false;
+			}
 		}
 	}
 	
@@ -89,29 +88,8 @@ namespace SushiEngine
 		return window;
 	}
 
-	// TODO: Create an abstraction between InputHandling and the Game Class
-	void GameSceneManager::HandleInput(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) {
-		if (key == GLFW_KEY_W && action == GLFW_PRESS) {
-			Debug::Print("Pressed W");
-		}
-	}
-
-	void GameSceneManager::HandleClick(GLFWwindow* window, int button, int action, int mods) {
-		Debug::Print("Click!");
-	}
-
 	// ---- Callback Functions ---
 	static void CloseWindowCallback(GLFWwindow* glfwWindow) {
 		glfwSetWindowShouldClose(glfwWindow, GLFW_TRUE);
-	}
-
-	static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) {
-		//Game* game = reinterpret_cast<Game*>(glfwGetWindowUserPointer(glfwWindow));
-		GameSceneManager::GetInstance()->HandleInput(glfwWindow, key, scancode, action, mods);
-	}
-
-	static void ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods) {
-		//Game* game = reinterpret_cast<Game*>(glfwGetWindowUserPointer(glfwWindow));
-		GameSceneManager::GetInstance()->HandleClick(glfwWindow, button, action, mods);
 	}
 }

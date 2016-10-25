@@ -6,10 +6,13 @@
 #include "VkRenderer.h"
 #include "Debug.h"
 #include "Window.h"
+#include "InputManager.h"
 #include "Scene.h"
 
 namespace SushiEngine 
 {
+	class Scene;
+
 	class GameSceneManager
 	{
 	private:
@@ -39,12 +42,7 @@ namespace SushiEngine
 		//Public interface
 		static GameSceneManager* GetInstance();
 		Window* getWindowInstance();
-		//TODO: Find a way to specify the starting scene through type specifier. 
-		void Run();
-
-		//TODO: move this to Input Manager
-		void HandleInput(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
-		void HandleClick(GLFWwindow* glfwWindow, int button, int action, int mods);
+		void Run(Scene*);
 
 		/// C11 precautions delete these non-needed default constructors and operators
 		GameSceneManager(const GameSceneManager&) = delete;

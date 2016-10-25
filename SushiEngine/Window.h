@@ -3,21 +3,15 @@
 #define WINDOW_H
 
 #define GLFW_INCLUDE_VULKAN
-//#define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW\glfw3.h>
-//#include "GLFW\glfw3native.h"
 #include "Debug.h"
 
 namespace SushiEngine {
-	//Avoids circular dependency
-	class GameSceneManager;
-
 	class Window {
-		//A window may only be instantiated in GameSceneManager
-		friend class GameSceneManager;
 	private:
 		//Private constructor
-		Window(const char* title, const int width, const int height);
+		friend class GameSceneManager;
+		explicit Window(const char* title, const int width, const int height);
 		~Window();
 
 		//Private fields
