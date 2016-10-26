@@ -70,7 +70,8 @@ namespace SushiEngine {
 		Debug::Log(EMessageType::S_INFO, "Vulkan Renderer Destroyed.", __FILENAME__, __LINE__);
 	}
 
-	/*Member Functions*/
+
+	/* Member Functions */
 	void VRenderer::Initialize()
 	{
 		createInstance();
@@ -81,6 +82,8 @@ namespace SushiEngine {
 		createSwapChain();
 		createImageViews();
 	}
+
+	/* Setup: Instance + Validation layers*/
 
 	void VRenderer::createInstance() {
 		//Throw an error if validation layers are enabled but aren't supported.
@@ -133,12 +136,33 @@ namespace SushiEngine {
 		}
 	}
 
-	void VRenderer::createSurface()
+	bool VRenderer::checkValidationLayerSupport()
 	{
-		if (glfwCreateWindowSurface(instance, _window, nullptr, surface.replace()) != VK_SUCCESS) {
-			throw std::runtime_error("failed to create window surface!");
+		uint32_t layerCount;
+		vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+
+		std::vector<VkLayerProperties> availableLayers(layerCount);
+		vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+
+		for (const char* layerName : validationLayers) {
+			bool layerFound = false;
+
+			for (const auto& layerProperties : availableLayers) {
+				if (strcmp(layerName, layerProperties.layerName) == 0) {
+					layerFound = true;
+					break;
+				}
+			}
+
+			if (!layerFound) {
+				return false;
+			}
 		}
+
+		return true;
 	}
+
+	/* Setup: Logical Device + Queues */
 
 	void VRenderer::pickPhysicalDevice()
 	{
@@ -163,10 +187,30 @@ namespace SushiEngine {
 		}
 	}
 
+	bool VRenderer::isDeviceSuitable(VkPhysicalDevice device)
+	{
+		QueueFamilyIndices indices = findQueueFamilies(device);
+
+		bool extensionsSupported = checkDeviceExtensionSupport(device);
+
+		bool swapChainAdequate = false;
+		if (extensionsSupported) {
+			SwapChainSupportDetails swapChainSupport = querySwapChainSupport(device);
+			swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+		}
+
+		return indices.isComplete() && extensionsSupported && swapChainAdequate;
+	} // + swap chain
+
 	void VRenderer::createLogicalDevice()
 	{
 		QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
-		// Range[0.0 - 1.0], influences scheduling of command buffer execution
+		/*
+		Vulkan lets you assign priorities to queues to influence the scheduling of command buffer execution using
+		floating point numbers between 0.0 and 1.0. This is required even if there is only a single queue:
+		
+		https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Logical_device_and_queues
+		*/
 		float queuePriority = 1.0f;
 
 		std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
@@ -205,6 +249,15 @@ namespace SushiEngine {
 
 		vkGetDeviceQueue(device, indices.graphicsFamily, 0, &graphicsQueue);
 		vkGetDeviceQueue(device, indices.presentFamily, 0, &presentQueue);
+	}
+
+	/* Presentation: Window Surface + Swap Chain + Image Views  */
+
+	void VRenderer::createSurface()
+	{
+		if (glfwCreateWindowSurface(instance, _window, nullptr, surface.replace()) != VK_SUCCESS) {
+			throw std::runtime_error("failed to create window surface!");
+		}
 	}
 
 	void VRenderer::createSwapChain()
@@ -250,16 +303,18 @@ namespace SushiEngine {
 		createInfo.clipped = VK_TRUE;
 
 		if (vkCreateSwapchainKHR(device, &createInfo, nullptr, swapChain.replace()) != VK_SUCCESS) {
-			throw std::runtime_error("failed to create swap chain!");
+			// throw std::runtime_error("failed to create swap chain!");
 		}
 
 		// retrieve swap chain images
+		/*
 		vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
 		swapChainImages.resize(imageCount);
 		vkGetSwapchainImagesKHR(device, swapChain, &imageCount, swapChainImages.data());
 
 		swapChainImageFormat = surfaceFormat.format;
 		swapChainExtent = extent;
+		*/
 	}
 
 	void VRenderer::createImageViews()
@@ -289,11 +344,13 @@ namespace SushiEngine {
 		}
 	}
 
-	void VRenderer::createGraphicsPipeline()
+	/* Graphics Pipeline */
+
+	/* void VRenderer::createGraphicsPipeline()
 	{
 
 	}
-
+	*/
 	/*Helper Functions*/
 	QueueFamilyIndices VRenderer::findQueueFamilies(VkPhysicalDevice device)
 	{
@@ -325,21 +382,6 @@ namespace SushiEngine {
 		}
 
 		return indices;
-	}
-
-	bool VRenderer::isDeviceSuitable(VkPhysicalDevice device)
-	{
-		QueueFamilyIndices indices = findQueueFamilies(device);
-
-		bool extensionsSupported = checkDeviceExtensionSupport(device);
-
-		bool swapChainAdequate = false;
-		if (extensionsSupported) {
-			SwapChainSupportDetails swapChainSupport = querySwapChainSupport(device);
-			swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
-		}
-
-		return indices.isComplete() && extensionsSupported && swapChainAdequate;
 	}
 
 	bool VRenderer::checkDeviceExtensionSupport(VkPhysicalDevice device)
@@ -426,29 +468,4 @@ namespace SushiEngine {
 		}
 	}
 
-	bool VRenderer::checkValidationLayerSupport()
-	{
-		uint32_t layerCount;
-		vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
-
-		std::vector<VkLayerProperties> availableLayers(layerCount);
-		vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
-
-		for (const char* layerName : validationLayers) {
-			bool layerFound = false;
-
-			for (const auto& layerProperties : availableLayers) {
-				if (strcmp(layerName, layerProperties.layerName) == 0) {
-					layerFound = true;
-					break;
-				}
-			}
-
-			if (!layerFound) {
-				return false;
-			}
-		}
-
-		return true;
-	}
 }

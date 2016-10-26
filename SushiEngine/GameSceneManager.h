@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "InputManager.h"
 #include "Scene.h"
+#include "Timer.h"
 
 namespace SushiEngine 
 {
@@ -36,7 +37,7 @@ namespace SushiEngine
 
 		//Private methods
 		bool Initialize();
-		void Update();
+		void Update(float deltaTime);
 		void Render();
 	public:		
 		//Public interface
