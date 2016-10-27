@@ -19,7 +19,7 @@ namespace SushiEngine
 	}
 
 	//Updates the current scene and handles if the user has attempted to close the window.
-	void GameSceneManager::Update()
+	void GameSceneManager::Update(float deltaTime)
 	{
 		currentScene->Update();
 	}
@@ -68,12 +68,21 @@ namespace SushiEngine
 		currentScene = startingScene;
 		currentScene->Initialize();
 
+		Timer timer;
+		unsigned int fps = 60;
+		float spf = 1 / fps;
+		float delay = 0.0f;
+		timer.Start();
+
+
 		//The main loop of the whole program.
 		while (isRunning)
 		{
-			Update();
-			Render();
+			timer.UpdateFrameTicks();
+			double deltaTime = timer.GetDeltaTime();
+			Update(deltaTime);
 
+			Render();
 			//Gracefully shutdown scene and window
 			if (glfwWindowShouldClose(window->GetWindowHandle())) {
 				currentScene->Destroy();
