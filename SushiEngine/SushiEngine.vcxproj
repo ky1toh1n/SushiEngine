@@ -93,6 +93,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\gli;$(SolutionDir)Dependencies\assimp;$(SolutionDir)Dependencies;</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +157,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="VDeleter.cpp" />
+    <ClCompile Include="VInitializer.cpp" />
     <ClCompile Include="VRenderer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -166,6 +168,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="VDeleter.h" />
+    <ClInclude Include="VInitializer.h" />
     <ClInclude Include="VRenderer.h" />
     <ClInclude Include="VStructs.h" />
     <ClInclude Include="Window.h" />

@@ -1,8 +1,0 @@
-
-INFO: GameSceneManager() Created (gamescenemanager.cpp:10)
-INFO: GameSceneManager() Initialize (gamescenemanager.cpp:46)
-INFO: 	Window(char*,int,int) (window.cpp:7)
-INFO: 	Window->Initialize() (window.cpp:20)
-ERROR:  (vkCreateSwapchainKHR: internal drawable creation failedvrenderer.cpp:16)
-ERROR:  (vkCreateSwapchainKHR: returned VK_ERROR_VALIDATION_FAILED_EXT, indicating that API validation has detected an invalid use of the APIvrenderer.cpp:16)
-INFO: Vulkan Renderer Initialized. (vrenderer.cpp:65)

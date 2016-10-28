@@ -68,21 +68,36 @@ namespace SushiEngine
 		currentScene = startingScene;
 		currentScene->Initialize();
 
+		//Used to get Delta Time/Control Frame Rate [TODO: Make it work.]
 		Timer timer;
 		unsigned int fps = 60;
 		float spf = 1 / fps;
 		float delay = 0.0f;
 		timer.Start();
 
+		//Used for FPS debugging
+		double timeElapsed = 0;
+		int frames = 0;
 
 		//The main loop of the whole program.
 		while (isRunning)
 		{
 			timer.UpdateFrameTicks();
 			double deltaTime = timer.GetDeltaTime();
-			Update(deltaTime);
 
+
+			Update(deltaTime);
 			Render();
+
+			//Calculating FPS
+			timeElapsed += deltaTime;
+			frames++;
+			if (timeElapsed >= 1) {
+				std::cout << "\nfps: " << frames;
+				frames = 0;
+				timeElapsed = 0;
+			}
+
 			//Gracefully shutdown scene and window
 			if (glfwWindowShouldClose(window->GetWindowHandle())) {
 				currentScene->Destroy();

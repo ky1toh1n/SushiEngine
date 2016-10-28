@@ -1,3 +1,4 @@
+//TIMER - Keeps track of the time. 
 #ifndef TIMER_H
 #define TIMER_H
 

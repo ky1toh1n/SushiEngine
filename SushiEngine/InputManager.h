@@ -1,3 +1,4 @@
+//INPUT MANAGER - stores the current state of the keyboard and mouse. Uses GLFW callbacks.
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
