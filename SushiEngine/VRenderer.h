@@ -1,3 +1,5 @@
+//VRenderer - Responsible for rendering 3D scenes through Vulkan.
+//It uses helper classes in order to instantiate necessary Vulkan objects.
 #ifndef VRENDERER_H
 #define VRENDERER_H
 #include <chrono>
@@ -9,6 +11,7 @@
 #include <vector>
 #include <algorithm>
 #include "VInitializer.h"
+#include "VGraphicsPipeline.h"
 
 namespace SushiEngine {
 
@@ -44,11 +47,14 @@ namespace SushiEngine {
 		VkExtent2D swapChainExtent; // Swap Chain Extent
 		std::vector<VDeleter<VkImageView>> swapChainImageViews; // Swap Chain Image Views
 
+		//-----
+		VDeleter<VkRenderPass> * renderPass;
+		VDeleter<VkPipeline> * graphicsPipeline;
+
 		/* Core Creation Functions */
 		void Initialize();
 		void createSwapChain();
 		void createImageViews();
-		void createGraphicsPipeline();
 
 		/* Helper Functions */
 		VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);

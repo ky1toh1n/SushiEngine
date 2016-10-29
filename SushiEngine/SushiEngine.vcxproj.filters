@@ -28,6 +28,7 @@
     <ClCompile Include="VInitializer.cpp">
       <Filter>Vulkan</Filter>
     </ClCompile>
+    <ClCompile Include="VGraphicsPipeline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug.h">
@@ -60,6 +61,7 @@
     <ClInclude Include="VInitializer.h">
       <Filter>Vulkan</Filter>
     </ClInclude>
+    <ClInclude Include="VGraphicsPipeline.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />

@@ -26,7 +26,8 @@ namespace SushiEngine {
 		device = VInitializer::createLogicalDevice(physicalDevice, graphicsQueue, presentQueue, surface);
 		createSwapChain();
 		createImageViews();
-		createGraphicsPipeline();
+		renderPass = VGraphicsPipeline::createRenderPass(*device, swapChainImageFormat);
+		graphicsPipeline = VGraphicsPipeline::createGraphicsPipeline(*device, swapChainExtent, *renderPass);
 	}
 
 	/* Presentation: Window Surface + Swap Chain + Image Views  */
@@ -75,18 +76,18 @@ namespace SushiEngine {
 		createInfo.clipped = VK_TRUE;
 
 		if (vkCreateSwapchainKHR(*device, &createInfo, nullptr, swapChain->replace()) != VK_SUCCESS) {
-			// throw std::runtime_error("failed to create swap chain!");
+			 throw std::runtime_error("failed to create swap chain!");
 		}
 
 		// retrieve swap chain images
-		/*
-		vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
-		swapChainImages.resize(imageCount);
-		vkGetSwapchainImagesKHR(device, swapChain, &imageCount, swapChainImages.data());
+		
+		//vkGetSwapchainImagesKHR(*device, *swapChain, &imageCount, nullptr);
+		//swapChainImages.resize(imageCount);
+		//vkGetSwapchainImagesKHR(*device, *swapChain, &imageCount, swapChainImages.data());
 
 		swapChainImageFormat = surfaceFormat.format;
 		swapChainExtent = extent;
-		*/
+		
 	}
 
 	void VRenderer::createImageViews()
@@ -115,13 +116,6 @@ namespace SushiEngine {
 			}
 		}
 	}
-
-	/* Graphics Pipeline */
-	void VRenderer::createGraphicsPipeline()
-	{
-
-	}
-	
 
 	/*Helper Functions*/
 	VkSurfaceFormatKHR VRenderer::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)

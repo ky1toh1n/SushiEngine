@@ -17,8 +17,7 @@ namespace SushiEngine {
 	class VInitializer
 	{
 	public:
-		VInitializer();
-		virtual ~VInitializer() = 0;
+		VInitializer() = delete;
 
 		//Core creation functions
 		static VDeleter<VkInstance> * createInstance();

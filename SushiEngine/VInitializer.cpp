@@ -40,12 +40,6 @@ namespace SushiEngine {
 		}
 	}
 
-	VInitializer::VInitializer()
-	{
-		throw "This class is not meant to be instantiated.";
-	}
-
-
 	//------------------Creational Methods
 	//Create Vulkan Instance
 	VDeleter<VkInstance> * VInitializer::createInstance() {
