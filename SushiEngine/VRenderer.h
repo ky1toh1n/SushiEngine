@@ -51,10 +51,18 @@ namespace SushiEngine {
 		VDeleter<VkRenderPass> * renderPass;
 		VDeleter<VkPipeline> * graphicsPipeline;
 
+		//---
+		std::vector<VDeleter<VkFramebuffer>> swapChainFramebuffers;
+		VDeleter<VkCommandPool> * commandPool;
+		std::vector<VkCommandBuffer> commandBuffers;
+
 		/* Core Creation Functions */
 		void Initialize();
 		void createSwapChain();
 		void createImageViews();
+		void createFramebuffers();
+		void createCommandPool();
+		void createCommandBuffers();
 
 		/* Helper Functions */
 		VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
