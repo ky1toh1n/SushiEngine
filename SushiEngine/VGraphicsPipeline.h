@@ -1,5 +1,9 @@
 //V_GRAPHICS_PIPELINE - used to create Graphics Pipelines in Vulkan.
 //Currently, only vert and frag shaders are used.
+
+//Cat Note
+//Should change VkObjects to be members again but make other classes/objects hold them???
+//Fuck pointers!!!
 #ifndef V_GRAPHICS_PIPELINE_H
 #define V_GRAPHICS_PIPELINE_H
 
@@ -14,8 +18,8 @@ namespace SushiEngine {
 		VGraphicsPipeline() = delete;
 
 		//Creational methods
-		static VDeleter<VkPipeline> * createGraphicsPipeline(VDeleter<VkDevice> & device, VkExtent2D swapChainExtent, VDeleter<VkRenderPass> renderPass);
-		static VDeleter<VkRenderPass> * createRenderPass( VDeleter<VkDevice> & device, VkFormat swapChainImageFormat);
+		static VDeleter<VkPipeline> * createGraphicsPipeline(VDeleter<VkDevice> * device, VkExtent2D swapChainExtent, VkRenderPass * renderPass);
+		static VkRenderPass * createRenderPass( VDeleter<VkDevice> * device, VkFormat swapChainImageFormat);
 	private:
 		//Helper methods
 		static std::vector<char> readFile(const std::string& filename);

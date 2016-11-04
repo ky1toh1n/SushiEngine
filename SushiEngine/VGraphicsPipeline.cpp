@@ -2,18 +2,19 @@
 
 
 namespace SushiEngine {	
-	VDeleter<VkPipeline> * VGraphicsPipeline::createGraphicsPipeline(VDeleter<VkDevice> & device, VkExtent2D swapChainExtent, VDeleter<VkRenderPass> renderPass) {
+	VDeleter<VkPipeline> * VGraphicsPipeline::createGraphicsPipeline(VDeleter<VkDevice> * device, VkExtent2D swapChainExtent,
+		VkRenderPass * renderPass) {
 		//-----Start with the programmable pipeline-----
 		//---Read in shaders & create shader modules
 		auto vertShaderCode = readFile("../Assets/Shaders/vert.spv");
 		auto fragShaderCode = readFile("../Assets/Shaders/frag.spv");
 		
 		//The modules are only needed during the pipeline creation, so we allocate them on the stack.
-		VDeleter<VkShaderModule> vertShaderModule{ device, vkDestroyShaderModule };
-		VDeleter<VkShaderModule> fragShaderModule{device, vkDestroyShaderModule };
+		VDeleter<VkShaderModule> vertShaderModule{ *device, vkDestroyShaderModule };
+		VDeleter<VkShaderModule> fragShaderModule{ *device, vkDestroyShaderModule };
 
-		createShaderModule(vertShaderCode, vertShaderModule, device);
-		createShaderModule(fragShaderCode, fragShaderModule, device);
+		createShaderModule(vertShaderCode, vertShaderModule, *device);
+		createShaderModule(fragShaderCode, fragShaderModule, *device);
 
 		//Create vert shader struct
 		VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
@@ -130,7 +131,7 @@ namespace SushiEngine {
 		//Dynamic State
 
 		//Create pipeline layout
-		VDeleter<VkPipelineLayout> pipelineLayout{ device, vkDestroyPipelineLayout };
+		VDeleter<VkPipelineLayout> pipelineLayout{ *device, vkDestroyPipelineLayout };
 		//VDeleter<VkPipelineLayout> pipelineLayout = new VDeleter<VkPipelineLayout>(device, vkDestroyPipelineLayout);
 
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
@@ -141,7 +142,7 @@ namespace SushiEngine {
 		pipelineLayoutInfo.pPushConstantRanges = 0; // Optional
 
 		//Create the pipeline layout
-		if (vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr,
+		if (vkCreatePipelineLayout(*device, &pipelineLayoutInfo, nullptr,
 			pipelineLayout.replace()) != VK_SUCCESS) {
 			throw std::runtime_error("failed to create pipeline layout!");
 		}
@@ -168,7 +169,7 @@ namespace SushiEngine {
 		pipelineInfo.layout = pipelineLayout;
 
 		//Reference renderpass
-		pipelineInfo.renderPass = renderPass;
+		pipelineInfo.renderPass = *renderPass;
 		pipelineInfo.subpass = 0;
 
 		//Reference an existing pipeline (none for now)
@@ -176,8 +177,8 @@ namespace SushiEngine {
 		pipelineInfo.basePipelineIndex = -1; // Optional
 
 		//Create the graphics pipeline
-		VDeleter<VkPipeline> * graphicsPipeline = new VDeleter<VkPipeline>{ device, vkDestroyPipeline };
-		if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, graphicsPipeline->replace()) != VK_SUCCESS) {
+		VDeleter<VkPipeline> * graphicsPipeline = new VDeleter<VkPipeline>{ *device, vkDestroyPipeline };
+		if (vkCreateGraphicsPipelines(*device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, graphicsPipeline->replace()) != VK_SUCCESS) {
 			throw std::runtime_error("failed to create graphics pipeline!");
 		}
 
@@ -217,7 +218,42 @@ namespace SushiEngine {
 	}
 
 	//Creates a Render Pass
-	VDeleter<VkRenderPass> * VGraphicsPipeline::createRenderPass(VDeleter<VkDevice> & device, VkFormat swapChainImageFormat) {
+	 VkRenderPass * VGraphicsPipeline::createRenderPass(VDeleter<VkDevice> * device, VkFormat swapChainImageFormat) {
+		 VkRenderPass * renderPass;
+
+		VkAttachmentDescription colorAttachment = {};
+		colorAttachment.format = swapChainImageFormat;
+		colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+		colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+		colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+		colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+		colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+
+		VkAttachmentReference colorAttachmentRef = {};
+		colorAttachmentRef.attachment = 0;
+		colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+		VkSubpassDescription subPass = {};
+		subPass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+		subPass.colorAttachmentCount = 1;
+		subPass.pColorAttachments = &colorAttachmentRef;
+
+		VkRenderPassCreateInfo renderPassInfo = {};
+		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+		renderPassInfo.attachmentCount = 1;
+		renderPassInfo.pAttachments = &colorAttachment;
+		renderPassInfo.subpassCount = 1;
+		renderPassInfo.pSubpasses = &subPass;
+
+
+		if (vkCreateRenderPass(*device, &renderPassInfo, nullptr, renderPass) != VK_SUCCESS) {
+			throw std::runtime_error("failed to create render pass!");
+		}
+
+		return renderPass;
+		/*
 		//Single color buffer attachment
 		VkAttachmentDescription colorAttachment = {};
 		colorAttachment.format = swapChainImageFormat;
@@ -240,7 +276,7 @@ namespace SushiEngine {
 		subPass.pColorAttachments = &colorAttachmentRef;
 
 		//Put attachments together to create a Render Pass.
-		VDeleter<VkRenderPass> * renderPass = new VDeleter<VkRenderPass>{ device, vkDestroyRenderPass };
+		VDeleter<VkRenderPass> * renderPass = new VDeleter<VkRenderPass>{ *device, vkDestroyRenderPass };
 		VkRenderPassCreateInfo renderPassInfo = {};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
 		renderPassInfo.attachmentCount = 1;
@@ -248,10 +284,11 @@ namespace SushiEngine {
 		renderPassInfo.subpassCount = 1;
 		renderPassInfo.pSubpasses = &subPass;
 
-		if (vkCreateRenderPass(device, &renderPassInfo, nullptr, renderPass->replace()) != VK_SUCCESS) {
+		if (vkCreateRenderPass(*device, &renderPassInfo, nullptr, renderPass->replace()) != VK_SUCCESS) {
 			throw std::runtime_error("failed to create render pass!");
 		}
 
 		return renderPass;
+		*/
 	}
 }
