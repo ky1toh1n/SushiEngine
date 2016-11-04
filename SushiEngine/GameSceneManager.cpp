@@ -7,12 +7,12 @@ namespace SushiEngine
 
 	//Creates the GameSceneManager.
 	GameSceneManager::GameSceneManager() {
-		Debug::Log(EMessageType::S_INFO, "GameSceneManager() Created", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "GameSceneManager()", __FILENAME__, __LINE__);
 	}
 
 	//Destroys the GameSceneManager.
 	GameSceneManager::~GameSceneManager() {
-		Debug::Log(EMessageType::S_INFO, "GameSceneManager() Destroyed", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "~GameSceneManager()", __FILENAME__, __LINE__);
 
 		delete(window);
 		delete(renderer);
@@ -30,7 +30,7 @@ namespace SushiEngine
 		currentScene->Render();
 	}
 
-	//Returns the current instance of the GameSceneManager.
+	//Returns the current lkan Renderer Initialized.instance of the GameSceneManager.
 	GameSceneManager* GameSceneManager::GetInstance() {
 		if (gameInstance == nullptr) {
 			gameInstance.reset(new GameSceneManager());
@@ -38,6 +38,7 @@ namespace SushiEngine
 		return gameInstance.get();
 	}
 
+	//Forward declaration for window callback
 	static void CloseWindowCallback(GLFWwindow* glfwWindow);
 
 	//Initialzes all the components necessary for a game scene to function properly.
@@ -59,6 +60,7 @@ namespace SushiEngine
 		glfwSetMouseButtonCallback(window->GetWindowHandle(), InputManager::ClickCallback);
 		
 		return true;
+
 	}
 	
 	//Initializes and runs the game. Contains the main loop.
@@ -84,7 +86,6 @@ namespace SushiEngine
 		{
 			timer.UpdateFrameTicks();
 			double deltaTime = timer.GetDeltaTime();
-
 
 			Update(deltaTime);
 			Render();

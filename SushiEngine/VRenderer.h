@@ -5,9 +5,11 @@
 #include "vulkan/vulkan.h"
 #include "Debug.h"
 #include "GLFW\glfw3.h"
+#include "VInitializer.h"
+
+//Use this with all of Vulkan's creational methods that return a VkResult
 
 namespace SushiEngine {
-
 	class GameSceneManager;
 
 	// Vulkan Renderer Class
@@ -24,14 +26,7 @@ namespace SushiEngine {
 		int* windowHeight;
 
 		/*Vulkan objects*/
-		VkInstance instance;
-		VkPhysicalDevice physicalDevice;
-		VkDevice device;
-
-		//Member function
-		void Initialize();
-		void SelectPhysicalDevice();
-		void CreateLogicalDevice();
+		VInitializer initializer;
 	};
 }
 #endif
