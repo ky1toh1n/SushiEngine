@@ -156,6 +156,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="VCommander.cpp" />
     <ClCompile Include="VInitializer.cpp" />
     <ClCompile Include="VRenderer.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="VCommander.h" />
     <ClInclude Include="VHelper.h" />
     <ClInclude Include="VInitializer.h" />
     <ClInclude Include="VRenderer.h" />

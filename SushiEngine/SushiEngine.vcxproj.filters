@@ -22,8 +22,11 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VCommander.cpp">
+      <Filter>Vulkan</Filter>
+    </ClCompile>
     <ClCompile Include="VInitializer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Vulkan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,9 @@
       <Filter>Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="VInitializer.h">
+      <Filter>Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VCommander.h">
       <Filter>Vulkan</Filter>
     </ClInclude>
   </ItemGroup>

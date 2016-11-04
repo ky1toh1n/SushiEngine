@@ -1,6 +1,5 @@
 #include "VInitializer.h"
 
-
 namespace SushiEngine {
 	VInitializer::VInitializer()
 	{
@@ -10,12 +9,15 @@ namespace SushiEngine {
 		CreateLogicalDevice();
 	}
 
-
 	VInitializer::~VInitializer()
 	{
 		Debug::Log(EMessageType::S_INFO, "\t\t~VInitializer() ", __FILENAME__, __LINE__);
-		vkDestroyInstance(instance, NULL);
+		//Destroy in reverse order of instantiation
+		//Queues are destroyed when logical devices are destroyed
+		vkDestroyDevice(device, NULL);
 		//Physical Devices are implicitly destroyed by vkDestroyInstance.
+		vkDestroyInstance(instance, NULL);
+		
 	}
 
 	void VInitializer::CreateVulkanInstance() {
@@ -77,10 +79,12 @@ namespace SushiEngine {
 			vkGetPhysicalDeviceQueueFamilyProperties(devices[i], &propertyCount, queueProperties);
 
 			//Check the properties of each queue family
-			for (int j = 0; j < propertyCount; j++)
+			for (int j = propertyCount - 1; j >= 0; j--)
 			{
 				//TODO: examine the properties to ensure device supports the operations we are interested in.
-				//queueProperties[j].queueCount;
+				//Let's save the queue family index & its count.
+				queueFamilyIndex = 0;
+				queueCount = queueProperties[j].queueCount;
 			}
 
 			delete[] queueProperties;
@@ -94,23 +98,43 @@ namespace SushiEngine {
 		delete[] devices;
 	}
 
+	void VInitializer::getQueue(VkQueue * queueHandle, uint32_t queueIndex) {
+		
+		if (queueIndex >= queueCount) {
+			Debug::Log(EMessageType::S_INFO, "\t\tVInitializer() ", __FILENAME__, __LINE__);
+			throw "This queue index: " + std::to_string(queueIndex) + " does not exist on this queue family.";
+		}
+
+		vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, queueHandle);
+	}
+
 	void VInitializer::CreateLogicalDevice() {
-		///
+		//TODO: Decide better on how many queues and queue families to use.
+		//It's a problem if we work on a machine with only 1 queue... do we want to support it?
+		//For now, let's go with one family and its queues (assuming 16 for NVidia)
+
+		///Assign queue priorities
+		float * pQueuePriorities = new float[queueCount];
+		for (int i = 0; i < queueCount; i++) {
+			pQueuePriorities[i] = 1.0f;
+		}
+
+		///Control creation of queues within a specified queue family
 		VkDeviceQueueCreateInfo queueInfo;
 		queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
 		queueInfo.pNext = NULL;
 		queueInfo.flags = 0; //reserved for future use
-		queueInfo.queueFamilyIndex;
-		queueInfo.pQueuePriorities;
-		queueInfo.queueCount;
+		queueInfo.queueFamilyIndex = queueFamilyIndex;
+		queueInfo.pQueuePriorities = pQueuePriorities;
+		queueInfo.queueCount = queueCount;
 
 		///Control the creation of the logical device
 		VkDeviceCreateInfo deviceInfo;
 		deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 		deviceInfo.pNext = NULL;
 		deviceInfo.flags = 0; //reserved for future use
-		deviceInfo.queueCreateInfoCount;
-		deviceInfo.pQueueCreateInfos;
+		deviceInfo.queueCreateInfoCount = 1;
+		deviceInfo.pQueueCreateInfos = &queueInfo;
 		deviceInfo.enabledExtensionCount = 0;
 		deviceInfo.ppEnabledExtensionNames = NULL;
 		deviceInfo.pEnabledFeatures = NULL;

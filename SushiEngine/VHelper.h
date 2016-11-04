@@ -1,7 +1,9 @@
+//VHELPER - Contains helper functions and macros for Vulkan magic.
 #ifndef V_HELPER_H
 #define V_HELPER_H
 #include "Debug.h"
 
+//Use this with all of Vulkan's creational methods that return a VkResult
 #define HANDLE_VK_RESULT(vkCreateMethod) \
 {	\
 	VkResult result = vkCreateMethod;	\
