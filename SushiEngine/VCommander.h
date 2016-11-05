@@ -11,7 +11,7 @@ namespace SushiEngine {
 	class VCommander
 	{
 	public:
-		VCommander(uint32_t queueFamilyIndex, VkDevice);
+		VCommander(uint32_t queueFamilyIndex, uint32_t queueCount, VkDevice);
 		~VCommander();
 
 		//
@@ -19,18 +19,25 @@ namespace SushiEngine {
 
 		//Vulkan objects
 		VkCommandPool commandPool;
-		VkCommandBuffer commandBuffers;
+		VkCommandBuffer * commandBuffers;
+		VkSwapchainKHR swapchain;
 
 	private:
 		//Private data
-		int queueFamilyIndex;
+		uint32_t queueFamilyIndex;
+		uint32_t queueCount;
 		VkDevice device;
 
 		//Creational methods
+		void createSwapchain();
 		void createCommandPool();
 		void createCommandBuffers();
 		void recordCommandBuffers();
 		void submitCommandBuffers();
+
+		//Helper methods
+		void getQueue(VkQueue* queueHandle, uint32_t queueIndex);
+
 	};
 }
 #endif

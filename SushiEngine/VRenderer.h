@@ -2,6 +2,8 @@
 //It uses helper classes in order to instantiate necessary Vulkan objects.
 #ifndef VRENDERER_H
 #define VRENDERER_H
+
+#define VK_USE_PLATFORM_WIN32_KHR
 #include "vulkan/vulkan.h"
 #include "GLFW\glfw3.h"
 #include "Debug.h"

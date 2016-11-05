@@ -10,6 +10,7 @@
 #include "vulkan\vulkan.h"
 #include "VHelper.h"
 #include "Debug.h"
+#include "GLFW\glfw3.h"
 #include <string>
 #include <vector>
 
@@ -29,25 +30,29 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugReportCallback(
 	void*                       pUserData);
 
 namespace SushiEngine {
-	//Not cross-platform friendly; use glfwGetRequiredInstanceExtensions instead
-	const std::vector<const char*> desiredExtensions = {
-		"VK_KHR_surface",
-		"VK_KHR_win32_surface",
+	//Not robust; use glfwGetRequiredInstanceExtensions instead
+	const std::vector<const char*> instanceExtensions = {
+		u8"VK_KHR_surface",
+		u8"VK_KHR_win32_surface",
 #ifdef ENABLE_DEBUG_CALLBACK
-		"VK_EXT_debug_report"
+		u8"VK_EXT_debug_report",
 #endif
 	};
 
-	const std::vector<const char*> desiredValidationLayers = {
+	const std::vector<const char *> deviceExtensions = {
+		u8"VK_KHR_swapchain",
+	};
+
+	const std::vector<const char*> validationLayers = {
 		//"VK_LAYER_LUNARG_api_dump"
-		"VK_LAYER_LUNARG_standard_validation"
+		u8"VK_LAYER_LUNARG_standard_validation",
 	};
 
 	class VRenderer;
 	class VInitializer
 	{
 	public:
-		VInitializer();
+		VInitializer(GLFWwindow*);
 		~VInitializer();
 
 		//Vulkan Objects
@@ -55,25 +60,25 @@ namespace SushiEngine {
 		VkPhysicalDevice physicalDevice;
 		VkDevice device;
 		VkDebugReportCallbackEXT callback;
+		VkSurfaceKHR surface;
 
 		//Selected queue family & accessor
 		uint32_t queueFamilyIndex;
 		uint32_t queueCount;
-		void getQueue(VkQueue* queueHandle, uint32_t queueIndex);
-
-	private:
-		//Enabled extensions & layers
-		std::vector<const char*> extensions;
-		std::vector<const char*> validationLayers;
+	private: 
+		//GLFW window
+		GLFWwindow* window;
 
 		//Creational methods
 		void CreateVulkanInstance();
 		void SelectPhysicalDevice();
 		void CreateLogicalDevice();
 		void CreateDebugCallback();
+		void CreateSurface();
 
 		//Helper methods
-		void SelectExtensions();
+		void SelectInstanceExtensions();
+		void SelectDeviceExtensions();
 		void SelectLayers();
 	};
 }

@@ -11,6 +11,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugReportCallback(
 	const char*                 pMessage,
 	void*                       pUserData)
 {
+	//TODO use the parameters to make better messages, such as which flag triggered it
 	std::cerr << pMessage << std::endl;
 	return VK_FALSE;
 }
@@ -18,10 +19,10 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugReportCallback(
 namespace SushiEngine {
 	
 
-	VInitializer::VInitializer()
+	VInitializer::VInitializer(GLFWwindow* window) : window(window)
 	{
 		Debug::Log(EMessageType::S_INFO, "\t\tVInitializer() ", __FILENAME__, __LINE__);
-		SelectExtensions();
+		SelectInstanceExtensions();
 #ifdef ENABLE_VALIDATION_LAYERS
 		SelectLayers();
 #endif
@@ -30,6 +31,8 @@ namespace SushiEngine {
 		CreateDebugCallback();
 #endif
 		SelectPhysicalDevice();
+		CreateSurface();
+		SelectDeviceExtensions();
 		CreateLogicalDevice();
 	}
 
@@ -37,7 +40,8 @@ namespace SushiEngine {
 	{
 		Debug::Log(EMessageType::S_INFO, "\t\t~VInitializer() ", __FILENAME__, __LINE__);
 		//Queues are destroyed when logical devices are destroyed
-		vkDestroyDevice(device, NULL);
+		vkDestroyDevice(device, nullptr);
+		vkDestroySurfaceKHR(instance, surface, nullptr);
 #ifdef ENABLE_DEBUG_CALLBACK
 		PFN_vkDestroyDebugReportCallbackEXT vkDestroyDebugReportCallbackEXT =
 			reinterpret_cast<PFN_vkDestroyDebugReportCallbackEXT>
@@ -45,7 +49,7 @@ namespace SushiEngine {
 		vkDestroyDebugReportCallbackEXT(instance, callback, nullptr);
 #endif
 		//Physical Devices are implicitly destroyed by vkDestroyInstance.
-		vkDestroyInstance(instance, NULL);
+		vkDestroyInstance(instance, nullptr);
 	}
 
 	void VInitializer::CreateDebugCallback() {
@@ -58,7 +62,7 @@ namespace SushiEngine {
 		createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT;
 		createInfo.pNext = nullptr;
 		createInfo.flags = 
-			VK_DEBUG_REPORT_INFORMATION_BIT_EXT |
+			/*VK_DEBUG_REPORT_INFORMATION_BIT_EXT |*/
 			VK_DEBUG_REPORT_WARNING_BIT_EXT |
 			VK_DEBUG_REPORT_ERROR_BIT_EXT |
 			VK_DEBUG_REPORT_WARNING_BIT_EXT |
@@ -72,40 +76,85 @@ namespace SushiEngine {
 		HANDLE_VK_RESULT(vkCreateDebugReportCallbackEXT(instance, &createInfo, nullptr, &callback));
 	}
 
-	void VInitializer::SelectExtensions()
-	{
-		//TODO: Use V-Tutorial's way of using for arrays and bools.
-		//There's no need to create an extra Extension/Layer member either!
-		//Make the constants static too.
-
+	void VInitializer::SelectInstanceExtensions()
+	{		
 		///Query for available extensions
 		uint32_t propertyCount;
 		VkExtensionProperties* properties;
-		vkEnumerateInstanceExtensionProperties(NULL, &propertyCount, NULL);
+		vkEnumerateInstanceExtensionProperties(nullptr, &propertyCount, nullptr);
 		properties = new VkExtensionProperties[propertyCount];
-		vkEnumerateInstanceExtensionProperties(NULL, &propertyCount, properties);
+		vkEnumerateInstanceExtensionProperties(nullptr, &propertyCount, properties);
 
-		Debug::Print("---Available Extensions");
 		///See if desired extensions are within the available extensions
-		for (int i = 0; i < propertyCount; i++) {
-			std::string currentExtension = std::string(properties[i].extensionName);
+		Debug::Print("---Desired Instance Extensions");
+		for (int i = 0; i < instanceExtensions.size(); i++) {
+			std::string currentExtension = std::string(instanceExtensions[i]);
 			Debug::Print(currentExtension);
+			bool extensionFound = false;
 
-			//Check this extension against all the desired extensions
-			for (int j = 0; j < desiredExtensions.size(); j++)
+			//Check this extension against all the available extensions
+			for (int j = 0; j < propertyCount; j++)
 			{
-				//Debug::Print("\t" + std::string(desiredExtensions[j]));
-				if (currentExtension.compare(desiredExtensions[j]) == 0) {
-					extensions.push_back(desiredExtensions[j]);
+				if (currentExtension.compare(properties[j].extensionName) == 0) {
+					extensionFound = true;
+					break;
 				}//if
 			}//for
+
+			//Failure!
+			if (!extensionFound) {
+				Debug::Log(EMessageType::S_ERROR, "\t\tVInitializer/SelectInstanceExtensions(): Could not get all required extensions.", __FILENAME__, __LINE__);
+				throw "Failed to find all requested instance extensions.";
+			}
+		}//for
+	
+		///Glfw required extensions
+		/*unsigned int glfwExtensionCount = 0;
+		const char** glfwExtensions;
+		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+		for (unsigned int i = 0; i < glfwExtensionCount; i++) {
+			std::cout << glfwExtensions[i] << std::endl;
+		}*/
+	}
+
+	void VInitializer::SelectDeviceExtensions()
+	{
+		///Query for available extensions
+		uint32_t propertyCount;
+		VkExtensionProperties* properties;
+		vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &propertyCount, nullptr);
+		properties = new VkExtensionProperties[propertyCount];
+		vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &propertyCount, properties);
+
+		/* Check for available device extensions
+		for (int a = 0; a < propertyCount; a++) {
+			std::cout << properties[a].extensionName << std::endl;
+		}*/
+
+		///See if desired extensions are within the available extensions
+		Debug::Print("---Desired Device Extensions");
+		for (int i = 0; i < deviceExtensions.size(); i++) {
+			std::string currentExtension = std::string(deviceExtensions[i]);
+			Debug::Print(currentExtension);
+			bool extensionFound = false;
+
+			//Check this extension against all the available extensions
+			for (int j = 0; j < propertyCount; j++)
+			{
+				if (currentExtension.compare(properties[j].extensionName) == 0) {
+					extensionFound = true;
+					break;
+				}//if
+			}//for
+
+			 //Failure!
+			if (!extensionFound) {
+				Debug::Log(EMessageType::S_ERROR, "\t\tVInitializer/SelectDeviceExtensions(): Could not get all required extensions.", __FILENAME__, __LINE__);
+				throw "Failed to find all requested instance extensions.";
+			}
 		}//for
 
-		///If we couldn't find all of the extensions, complain
-		if (extensions.size() != desiredExtensions.size()) {
-			Debug::Log(EMessageType::S_FATAL_ERROR, "\t\tVInitializer()/SelectExtensions ", __FILENAME__, __LINE__);
-			throw "Could not find all the desired extensions!";
-		}
 	}
 
 	void VInitializer::SelectLayers()
@@ -113,32 +162,32 @@ namespace SushiEngine {
 		///Query for available layers
 		uint32_t propertyCount;
 		VkLayerProperties* properties;
-		vkEnumerateInstanceLayerProperties(&propertyCount, NULL);
+		vkEnumerateInstanceLayerProperties(&propertyCount, nullptr);
 		properties = new VkLayerProperties[propertyCount];
 		vkEnumerateInstanceLayerProperties(&propertyCount, properties);
 
-		Debug::Print("---Available Layers");
-		///See if desired layers are within the available layers
-		for (int i = 0; i < propertyCount; i++) {
-			std::string currentLayer = std::string(properties[i].layerName);
+		///See if desired layers are within the available layers 
+		Debug::Print("---Desired Layers");
+		for (int i = 0; i <  validationLayers.size(); i++) {
+			std::string currentLayer = std::string(validationLayers[i]);
 			Debug::Print(currentLayer);
+			bool layerFound = false;
 
-			//Check this layer against all the desired layers
-			for (int j = 0; j < desiredValidationLayers.size(); j++)
+			//Check this layer against all the avilable layers
+			for (int j = 0; j < propertyCount; j++)
 			{
-				//Debug::Print("\t" + std::string(desiredValidationLayers[j]));
-				if (currentLayer.compare(desiredValidationLayers[j]) == 0) {
-					validationLayers.push_back(desiredValidationLayers[j]);
+				if (currentLayer.compare(properties[j].layerName) == 0) {
+					layerFound = true;
+					break;
 				}//if
 			}//for
-		}//for
 
-		 ///If we couldn't find all of the layers, complain
-		if (validationLayers.size() != desiredValidationLayers.size()) {
-			Debug::Log(EMessageType::S_FATAL_ERROR, "\t\tVInitializer()/SelectLayers ", __FILENAME__, __LINE__);
-			throw "Could not find all the desired layers!";
-		}
-
+			 //Failure!
+			if (!layerFound) {
+				Debug::Log(EMessageType::S_ERROR, "\t\tVInitializer/SelectLayers(): Could not get all required validation layers.", __FILENAME__, __LINE__);
+				throw "Failed to find all requested validation layers.";
+			}
+		}//fo
 	}
 
 	void VInitializer::CreateVulkanInstance() {
@@ -161,10 +210,10 @@ namespace SushiEngine {
 		createInfo.pApplicationInfo = &appInfo;
 		createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
 		createInfo.ppEnabledLayerNames = createInfo.enabledLayerCount > 0
-			? &validationLayers[0] : NULL;
-		createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
+			? &validationLayers[0] : nullptr;
+		createInfo.enabledExtensionCount = static_cast<uint32_t>(instanceExtensions.size());
 		createInfo.ppEnabledExtensionNames = createInfo.enabledExtensionCount > 0
-			? extensions.data() : NULL;;
+			? instanceExtensions.data() : nullptr;
 
 		///---Create the VkInstance!!!
 		HANDLE_VK_RESULT(vkCreateInstance(&createInfo, nullptr, &instance));
@@ -176,7 +225,7 @@ namespace SushiEngine {
 		VkPhysicalDevice* devices;
 
 		//Query for device count
-		HANDLE_VK_RESULT(vkEnumeratePhysicalDevices(instance, &deviceCount, NULL));
+		HANDLE_VK_RESULT(vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr));
 
 		//Create array to hold physical devices, and query for devices
 		devices = new VkPhysicalDevice[deviceCount];
@@ -203,10 +252,11 @@ namespace SushiEngine {
 
 			//Check the properties of each queue family
 			for (int j = propertyCount - 1; j >= 0; j--)
+			//for (int j = 0; j < propertyCount; j++)
 			{
 				//TODO: examine the properties to ensure device supports the operations we are interested in.
 				///Save the queue family index & its count.
-				queueFamilyIndex = 0;
+				queueFamilyIndex = j;
 				queueCount = queueProperties[j].queueCount;
 			}
 
@@ -219,16 +269,6 @@ namespace SushiEngine {
 
 		//Cleanup
 		delete[] devices;
-	}
-
-	void VInitializer::getQueue(VkQueue * queueHandle, uint32_t queueIndex) {
-
-		if (queueIndex >= queueCount) {
-			Debug::Log(EMessageType::S_FATAL_ERROR, "\t\tVInitializer()/getQueue ", __FILENAME__, __LINE__);
-			throw "This queue index: " + std::to_string(queueIndex) + " does not exist on this queue family.";
-		}
-
-		vkGetDeviceQueue(device, queueFamilyIndex, queueIndex, queueHandle);
 	}
 
 	void VInitializer::CreateLogicalDevice() {
@@ -251,17 +291,26 @@ namespace SushiEngine {
 		queueInfo.pQueuePriorities = pQueuePriorities;
 		queueInfo.queueCount = queueCount;
 
+		///Logical device features
+		VkPhysicalDeviceFeatures deviceFeatures = {};
+
 		///Control the creation of the logical device
 		VkDeviceCreateInfo deviceInfo;
 		deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 		deviceInfo.pNext = nullptr;
 		deviceInfo.flags = 0; //reserved for future use
-		deviceInfo.queueCreateInfoCount = 1;
+		deviceInfo.queueCreateInfoCount = static_cast<uint32_t>(1);
 		deviceInfo.pQueueCreateInfos = &queueInfo;
-		deviceInfo.enabledExtensionCount = 0;
-		deviceInfo.ppEnabledExtensionNames = NULL;
-		deviceInfo.pEnabledFeatures = NULL;
+		deviceInfo.enabledExtensionCount = static_cast<uint32_t>(deviceExtensions.size());
+		deviceInfo.ppEnabledExtensionNames = deviceExtensions.data();
+		deviceInfo.pEnabledFeatures = &deviceFeatures;
+		deviceInfo.enabledLayerCount = validationLayers.size();
+		deviceInfo.ppEnabledLayerNames = validationLayers.data();
 
-		HANDLE_VK_RESULT(vkCreateDevice(physicalDevice, &deviceInfo, NULL, &device));
+		HANDLE_VK_RESULT(vkCreateDevice(physicalDevice, &deviceInfo, nullptr, &device));
+	}
+
+	void VInitializer::CreateSurface() {
+		HANDLE_VK_RESULT(glfwCreateWindowSurface(instance, window, nullptr, &surface));
 	}
 }
