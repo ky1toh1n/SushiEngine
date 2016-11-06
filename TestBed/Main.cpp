@@ -9,7 +9,7 @@ int main(int count, char** args) {
 	SushiEngine::GameSceneManager* game = SushiEngine::GameSceneManager::GetInstance();
 
 	game->Run(new TestScene());
-	
+
 	getchar();
 
 	return 0;

@@ -6,12 +6,13 @@
 
 #include "vulkan\vulkan.h"
 #include "VHelper.h"
+#include "VInitializer.h"
 
 namespace SushiEngine {
 	class VCommander
 	{
 	public:
-		VCommander(uint32_t queueFamilyIndex, uint32_t queueCount, VkDevice);
+		VCommander(VInitializer * initializer);
 		~VCommander();
 
 		//
@@ -24,11 +25,12 @@ namespace SushiEngine {
 
 	private:
 		//Private data
-		uint32_t queueFamilyIndex;
-		uint32_t queueCount;
-		VkDevice device;
+		VInitializer * initializer;
+		VkSemaphore imageAvailableSemaphore;
+		VkSemaphore renderingFinishedSemaphore;
 
-		//Creational methods
+		//Core methods
+		void createSemaphores();
 		void createSwapchain();
 		void createCommandPool();
 		void createCommandBuffers();
@@ -37,7 +39,11 @@ namespace SushiEngine {
 
 		//Helper methods
 		void getQueue(VkQueue* queueHandle, uint32_t queueIndex);
-
+		VkSurfaceFormatKHR getSurfaceFormat();
+		VkExtent2D getSwapchainExtent(VkSurfaceCapabilitiesKHR);
+		VkImageUsageFlags getImageUsageFlags(VkSurfaceCapabilitiesKHR);
+		VkSurfaceTransformFlagBitsKHR getPretransformations(VkSurfaceCapabilitiesKHR);
+		VkPresentModeKHR getPresentMode(VkSurfaceCapabilitiesKHR);
 	};
 }
 #endif

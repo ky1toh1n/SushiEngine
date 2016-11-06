@@ -2,8 +2,12 @@
 //It creates the Vulkan objects that are made only once per program lifetime.
 //This includes VkInstance, VkPhysicalDevice, VkDevice
 
+
+//PROPOSAL: Change Initializer -> Context as a more accurate name?
 //TODO: Right now, Queue family selection is hard coded.
 //We need to learn more about handling different GPUs and how we want to use the queues.
+//We also need to select a queue family for graphics & for presenting, and querying if a queue family can present to the current surface.
+
 #ifndef V_INITIALIZER_H
 #define V_INITIALIZER_H
 

@@ -8,8 +8,7 @@ namespace SushiEngine {
 	{
 		Debug::Log(EMessageType::S_INFO, "\tVRenderer", __FILENAME__, __LINE__);
 		initializer = new VInitializer(window);
-		commander = new VCommander(initializer->queueFamilyIndex,
-			initializer->queueCount, initializer->device);
+		commander = new VCommander(initializer);
 	}
 
 	VRenderer::~VRenderer()
