@@ -13,21 +13,14 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VRenderer.cpp">
-      <Filter>Vulkan</Filter>
-    </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VCommander.cpp">
-      <Filter>Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VInitializer.cpp">
-      <Filter>Vulkan</Filter>
-    </ClCompile>
+    <ClCompile Include="AbstractRenderer.cpp" />
+    <ClCompile Include="OpenGLRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug.h">
@@ -42,24 +35,14 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VRenderer.h">
-      <Filter>Vulkan</Filter>
-    </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VHelper.h">
-      <Filter>Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VInitializer.h">
-      <Filter>Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VCommander.h">
-      <Filter>Vulkan</Filter>
-    </ClInclude>
+    <ClInclude Include="AbstractRenderer.h" />
+    <ClInclude Include="OpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />
@@ -70,9 +53,6 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{e2afc0c1-5e98-41b4-923e-1aab8f7cf3c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vulkan">
-      <UniqueIdentifier>{b59f18bb-67db-42e2-bca8-24c21314ca97}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

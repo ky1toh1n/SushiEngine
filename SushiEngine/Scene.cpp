@@ -10,8 +10,9 @@ namespace SushiEngine {
 	Scene::~Scene() {};
 
 	//Initializes scene by getting window pointer
-	void Scene::Initialize() {
-		_window = GameSceneManager::GetInstance()->getWindowInstance();
+	void Scene::Initialize(AbstractRenderer* pRenderer) {
+		window = GameSceneManager::GetInstance()->getWindowInstance();
+		renderer = pRenderer;
 	};
 
 	//Polls GLFW Events
@@ -23,6 +24,6 @@ namespace SushiEngine {
 	//Swaps GLFW Buffers
 	void Scene::Render()
 	{
-		glfwSwapBuffers(_window->GetWindowHandle());
+		renderer->render();
 	}
 }

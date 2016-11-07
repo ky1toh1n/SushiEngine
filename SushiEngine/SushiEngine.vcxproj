@@ -99,7 +99,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>vulkan\vulkan-1.lib;assimp\assimp.lib;glfw\glfw3.lib;opengl32.lib;gdi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>assimp\assimp.lib;glfw\glfw3.lib;opengl32.lib;gdi32.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\libs;</AdditionalLibraryDirectories>
@@ -151,26 +151,23 @@
     <Text Include="EngineReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractRenderer.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="VCommander.cpp" />
-    <ClCompile Include="VInitializer.cpp" />
-    <ClCompile Include="VRenderer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractRenderer.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="VCommander.h" />
-    <ClInclude Include="VHelper.h" />
-    <ClInclude Include="VInitializer.h" />
-    <ClInclude Include="VRenderer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

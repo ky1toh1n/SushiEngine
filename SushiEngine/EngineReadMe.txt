@@ -26,5 +26,5 @@ Additional Library Directories:
 $(SolutionDir)Dependencies\libs;
 
 Additional Dependencies:
-vulkan\vulkan-1.lib;assimp\assimp.lib;glfw\glfw3.lib;
+assimp\assimp.lib;glfw\glfw3.lib;
 

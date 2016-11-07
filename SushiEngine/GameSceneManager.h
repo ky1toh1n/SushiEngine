@@ -3,12 +3,13 @@
 #define GAME_H
 
 #include <memory>
-#include "VRenderer.h"
 #include "Debug.h"
 #include "Window.h"
 #include "InputManager.h"
 #include "Scene.h"
 #include "Timer.h"
+#include "AbstractRenderer.h"
+#include "OpenGLRenderer.h"
 
 namespace SushiEngine 
 {
@@ -33,7 +34,7 @@ namespace SushiEngine
 		bool isRunning;
 		Scene *currentScene;
 		Window* window;
-		VRenderer* renderer;
+		AbstractRenderer* renderer;
 
 		//Private methods
 		bool Initialize();

@@ -48,7 +48,7 @@ namespace SushiEngine
 		
 		//Instantiate main components - order is important; a renderer is dependent on a window
 		window = new Window("Hau5tastic", 300, 300);
-		renderer = new VRenderer(window->GetWindowHandle());
+		renderer = new OpenGLRenderer(window);
 
 		//initialize glfw callbacks
 		glfwSetWindowUserPointer(window->GetWindowHandle(), this);
@@ -68,7 +68,7 @@ namespace SushiEngine
 	{
 		isRunning = Initialize();
 		currentScene = startingScene;
-		currentScene->Initialize();
+		currentScene->Initialize(renderer);
 
 		//Used to get Delta Time/Control Frame Rate [TODO: Make it work.]
 		Timer timer;
