@@ -7,19 +7,19 @@ namespace SushiEngine
 
 	//Creates the GameSceneManager.
 	GameSceneManager::GameSceneManager() {
-		Debug::Log(EMessageType::S_INFO, "GameSceneManager() Created", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "GameSceneManager()", __FILENAME__, __LINE__);
 	}
 
 	//Destroys the GameSceneManager.
 	GameSceneManager::~GameSceneManager() {
-		Debug::Log(EMessageType::S_INFO, "GameSceneManager() Destroyed", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "~GameSceneManager()", __FILENAME__, __LINE__);
 
 		delete(window);
 		delete(renderer);
 	}
 
 	//Updates the current scene and handles if the user has attempted to close the window.
-	void GameSceneManager::Update()
+	void GameSceneManager::Update(float deltaTime)
 	{
 		currentScene->Update();
 	}
@@ -30,7 +30,7 @@ namespace SushiEngine
 		currentScene->Render();
 	}
 
-	//Returns the current instance of the GameSceneManager.
+	//Returns the current lkan Renderer Initialized.instance of the GameSceneManager.
 	GameSceneManager* GameSceneManager::GetInstance() {
 		if (gameInstance == nullptr) {
 			gameInstance.reset(new GameSceneManager());
@@ -38,6 +38,7 @@ namespace SushiEngine
 		return gameInstance.get();
 	}
 
+	//Forward declaration for window callback
 	static void CloseWindowCallback(GLFWwindow* glfwWindow);
 
 	//Initialzes all the components necessary for a game scene to function properly.
@@ -47,7 +48,7 @@ namespace SushiEngine
 		
 		//Instantiate main components - order is important; a renderer is dependent on a window
 		window = new Window("Hau5tastic", 300, 300);
-		renderer = new VRenderer(window->GetWindowHandle());
+		renderer = new OpenGLRenderer(window);
 
 		//initialize glfw callbacks
 		glfwSetWindowUserPointer(window->GetWindowHandle(), this);
@@ -59,6 +60,7 @@ namespace SushiEngine
 		glfwSetMouseButtonCallback(window->GetWindowHandle(), InputManager::ClickCallback);
 		
 		return true;
+
 	}
 	
 	//Initializes and runs the game. Contains the main loop.
@@ -66,13 +68,36 @@ namespace SushiEngine
 	{
 		isRunning = Initialize();
 		currentScene = startingScene;
-		currentScene->Initialize();
+		currentScene->Initialize(renderer);
+
+		//Used to get Delta Time/Control Frame Rate [TODO: Make it work.]
+		Timer timer;
+		unsigned int fps = 60;
+		float spf = 1 / fps;
+		float delay = 0.0f;
+		timer.Start();
+
+		//Used for FPS debugging
+		double timeElapsed = 0;
+		int frames = 0;
 
 		//The main loop of the whole program.
 		while (isRunning)
 		{
-			Update();
+			timer.UpdateFrameTicks();
+			double deltaTime = timer.GetDeltaTime();
+
+			Update(deltaTime);
 			Render();
+
+			//Calculating FPS
+			timeElapsed += deltaTime;
+			frames++;
+			if (timeElapsed >= 1) {
+				std::cout << "\nfps: " << frames;
+				frames = 0;
+				timeElapsed = 0;
+			}
 
 			//Gracefully shutdown scene and window
 			if (glfwWindowShouldClose(window->GetWindowHandle())) {

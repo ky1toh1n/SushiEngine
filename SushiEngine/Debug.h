@@ -1,3 +1,4 @@
+//DEBUG - Able to log messaes to a file or a console. It also controls Vulkan Validation Layers.
 #ifndef DEBUG_H
 #define DEBUG_H
 
@@ -12,18 +13,6 @@
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 namespace SushiEngine {
-
-#ifdef NDEBUG
-	const bool enableValidationLayers = false;
-#else
-	const bool enableValidationLayers = true;
-#endif
-
-	const std::vector<const char*> validationLayers = {
-		"VK_LAYER_LUNARG_standard_validation"
-	};
-
-
 	enum class EMessageType : unsigned char {
 		S_INFO = 0,
 		S_WARNING,

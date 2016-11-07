@@ -46,7 +46,7 @@ namespace SushiEngine
 
 	//Terminates the GLFW Window.
 	void Window::Destroy() {
-		Debug::Log(EMessageType::S_INFO, "	Window->Destroy()", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "\tWindow->Destroy()", __FILENAME__, __LINE__);
 		/*
 		When a window is no longer needed, destroy it with glfwDestroyWindow.
 

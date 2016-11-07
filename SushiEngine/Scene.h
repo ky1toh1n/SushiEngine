@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "GameSceneManager.h"
+#include "AbstractRenderer.h"
 
 namespace SushiEngine {
 	class Scene
@@ -20,14 +21,15 @@ namespace SushiEngine {
 		Scene& operator = (Scene&&) = delete;
 
 		//Main methods of a scene
-		virtual void Initialize();
+		virtual void Initialize(AbstractRenderer*);
 		virtual void Update();
 		virtual void Render();
 		virtual void Destroy() = 0;
 
 	protected:
 		//
-		Window * _window;
+		Window * window;
+		AbstractRenderer * renderer;
 	};
 }
 #endif

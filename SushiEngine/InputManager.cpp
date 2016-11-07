@@ -23,22 +23,22 @@ namespace SushiEngine {
 	}
 
 	void InputManager::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) {
+		//Update state
 		GetInstance()->keyData[key] = action;
-		//
-		//if (key == GLFW_KEY_W && action == GLFW_PRESS) {
-		//	Debug::Print("Pressed W");
-		//}
-		if (key == GLFW_KEY_W && action == GLFW_PRESS) {
-			Debug::Print("pressed key W");
-		} else if (key == GLFW_KEY_W && action == GLFW_RELEASE) {
-			Debug::Print("released key W");
-		} else if (key == GLFW_KEY_W && action == GLFW_REPEAT) {
-			Debug::Print("repeated key W");
+
+		//Print to console
+		if (action == GLFW_PRESS) {
+			std::cout << "Keypressed: " << char(key) << std::endl;
+		}
+		else if (action == GLFW_RELEASE) {
+			std::cout << "Released: " << char(key) << std::endl;
+		}
+		else if (action == GLFW_REPEAT) {
+			std::cout << "Repeated: " << char(key) << std::endl;
 		}
 	}
 
 	void InputManager::ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods) {
-		//
-		Debug::Print("click!");
+		std::cout << "Click: " << std::endl;
 	}
 }

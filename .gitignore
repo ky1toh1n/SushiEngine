@@ -250,3 +250,7 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Logs
+TestBed/GameLog.txt
+TestBed/.GameLog.txt.swp
