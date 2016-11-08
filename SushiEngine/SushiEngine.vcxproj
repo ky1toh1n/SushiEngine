@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\gli;$(SolutionDir)Dependencies\assimp;$(SolutionDir)Dependencies;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\gli;$(SolutionDir)Dependencies\assimp;$(SolutionDir)Dependencies</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -102,7 +102,7 @@
       <AdditionalDependencies>assimp\assimp.lib;glfw\glfw3.lib;opengl32.lib;gdi32.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\libs;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\include;$(SolutionDir)Dependencies\libs</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,7 +157,9 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="LoadShaders.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="VertexShaderCodeRaw.h" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +169,13 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="LoadShaders.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FramentShader.frag" />
+    <None Include="VertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

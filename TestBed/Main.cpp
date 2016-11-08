@@ -1,7 +1,6 @@
 #include "GameSceneManager.h"
 #include "TestScene.h"
 
-
 const int TESTBED_VERSION_NUMBER = 0b00000111;
 
 int main(int count, char** args) {

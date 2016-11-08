@@ -21,7 +21,7 @@ namespace SushiEngine
 		isInitialized = false;
 
 		if (!glfwInit()) {
-			Debug::Log(EMessageType::S_FATAL_ERROR, "GLFW cannot be initialized!", __FILENAME__, __LINE__);
+			Debug::Log(EMessageType::S_FATAL_ERROR, "\tGLFW cannot be initialized!", __FILENAME__, __LINE__);
 			return false;
 		}
 
@@ -34,11 +34,13 @@ namespace SushiEngine
 		// glfwWindow = glfwCreateWindow(640, 480, "My Title", glfwGetPrimaryMonitor(), NULL); // Reserved for multiple viewports or fullscreen handling
 		glfwWindow = glfwCreateWindow(width, height, title, nullptr, nullptr);
 		if (!glfwWindow) {
-			Debug::Log(EMessageType::S_FATAL_ERROR, "Unable to Create GLFW Window!", __FILENAME__, __LINE__);
+			Debug::Log(EMessageType::S_FATAL_ERROR, "\tWindow or OpenGL context creation failed", __FILENAME__, __LINE__);
 			return false;
 		}
 
-		//glfwMakeContextCurrent(glfwWindow); Context not needed when involving vulkan i think
+		glfwMakeContextCurrent(glfwWindow);
+		// indicate how many frames to wait until swapping the buffers, commonly known as vsync
+		glfwSwapInterval(1);
 
 		isInitialized = true;
 		return true;

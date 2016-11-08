@@ -1,48 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="AbstractRenderer.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLRenderer.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="Debug.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Framework</Filter>
     </ClCompile>
     <ClCompile Include="GameSceneManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Framework</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Framework</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Framework</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractRenderer.cpp" />
-    <ClCompile Include="OpenGLRenderer.cpp" />
+    <ClCompile Include="LoadShaders.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShaderCodeRaw.h">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="OpenGLRenderer.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractRenderer.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="Debug.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="GameSceneManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractRenderer.h" />
-    <ClInclude Include="OpenGLRenderer.h" />
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadShaders.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />
@@ -54,5 +71,25 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{e2afc0c1-5e98-41b4-923e-1aab8f7cf3c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\OpenGL">
+      <UniqueIdentifier>{567b1231-2d93-4b91-b2f8-0a217fcaa7d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OpenGL">
+      <UniqueIdentifier>{b3c86400-0aaf-4e74-9ef6-d2b360cda394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Framework">
+      <UniqueIdentifier>{f19a9078-5cdb-4ae8-bd44-b940078dc826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Framework">
+      <UniqueIdentifier>{721771c9-5ce2-4a6a-9628-33011a43d5f5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VertexShader.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="FramentShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

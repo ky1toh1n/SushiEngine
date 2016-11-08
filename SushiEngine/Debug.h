@@ -1,4 +1,4 @@
-//DEBUG - Able to log messaes to a file or a console. It also controls Vulkan Validation Layers.
+// DEBUG - Able to log messaes to a file or a console.
 #ifndef DEBUG_H
 #define DEBUG_H
 
@@ -20,7 +20,7 @@ namespace SushiEngine {
 		S_FATAL_ERROR
 	};
 
-	class Debug {
+	static class Debug {
 	public:
 
 		// Disable automatic constructor from being created

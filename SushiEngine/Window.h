@@ -19,7 +19,7 @@ namespace SushiEngine {
 		bool isInitialized;
 
 		//Private functions
-		bool Initialize(const char* title = "Vulkan Application", const int width = 640, const int height = 480);
+		bool Initialize(const char* title = "No Data", const int width = 640, const int height = 480);
 		void Destroy();
 	public:
 		/// C11 precautions delete these non-needed default constructors and operators
