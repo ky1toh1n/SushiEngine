@@ -94,7 +94,7 @@ namespace SushiEngine
 			timeElapsed += deltaTime;
 			frames++;
 			if (timeElapsed >= 1) {
-				std::cout << "\nfps: " << frames;
+				// std::cout << "\nfps: " << frames;
 				frames = 0;
 				timeElapsed = 0;
 			}
