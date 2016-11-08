@@ -14,7 +14,9 @@ namespace SushiEngine {
 
 	void OpenGLRenderer::init() {
 
-		/* Testing Manual Loading of Shaders
+		glewInit();
+
+		// Testing Manual Loading of Shaders
 		GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 		GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -33,7 +35,7 @@ namespace SushiEngine {
 
 		glLinkProgram(program);
 		glUseProgram(program);	//My Pipeline is set up
-		*/
+		
 
 		/* Ali's Way
 
@@ -48,7 +50,7 @@ namespace SushiEngine {
 
 		*/
 
-		/*
+		
 		const GLuint numVerts = 16;
 		GLfloat cubeVerts[numVerts][3] = {
 			{ -0.05, +0.05, -0.05 }, // B
@@ -113,13 +115,13 @@ namespace SushiEngine {
 		location = glGetUniformLocation(program, "model_matrix");
 		location2 = glGetUniformLocation(program, "camera_matrix");
 		location3 = glGetUniformLocation(program, "projection_matrix");
-		*/
+		
 	}
 
 
 	void OpenGLRenderer::render()
 	{
-		/*
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		// Switch buffer binding point
@@ -144,7 +146,7 @@ namespace SushiEngine {
 		glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
 
 		glDrawArrays(GL_QUADS, 0, 16);
-		*/
+		
 
 		glfwSwapBuffers(window->GetWindowHandle());
 		

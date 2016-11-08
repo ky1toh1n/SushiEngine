@@ -10,7 +10,7 @@
 // #include "vgl.h" // uses free glut -.-'
 // #include "VertexShaderCodeRaw.h"
 // #include "LoadShaders.cpp"
-//#include <GL/glew.h>
+#include <GL/glew.h>
 //#include <GL/gl.h>
 
 #include "glm\glm.hpp"
@@ -27,7 +27,7 @@ namespace SushiEngine {
 		virtual void init();
 		virtual void render();
 
-		/* Manual Load Test
+		// Manual Load Test
 		char* vertexShaderCode =
 			"#version 430 core"
 			"layout(location = 0) in vec4 vPosition;"
@@ -61,13 +61,13 @@ namespace SushiEngine {
 			"{"
 			"fColor = myColor;"
 			"}";
-		*/
+		
 
-		//GLuint buffers[2];
-		//GLuint location;
-		//GLuint location2;
-		//GLuint location3;
-		//GLuint program;
+		GLuint buffers[2];
+		GLuint location;
+		GLuint location2;
+		GLuint location3;
+		GLuint program;
 	};
 }
 #endif
