@@ -9,7 +9,7 @@
 
 // #include "vgl.h" // uses free glut -.-'
 // #include "VertexShaderCodeRaw.h"
-#include "LoadShaders.cpp"
+// #include "LoadShaders.cpp"
 //#include <GL/glew.h>
 //#include <GL/gl.h>
 
