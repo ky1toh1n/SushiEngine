@@ -31,6 +31,7 @@
     <ClCompile Include="VertexShaderCodeRaw.h">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLRenderer.h">
@@ -60,6 +61,7 @@
     <ClInclude Include="LoadShaders.h">
       <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />

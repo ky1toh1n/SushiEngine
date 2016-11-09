@@ -6,6 +6,7 @@
 #define ABSTRACT_RENDERER_H
 
 #include "Window.h"
+#include "Camera.h"
 
 namespace SushiEngine {
 	class AbstractRenderer
@@ -15,9 +16,10 @@ namespace SushiEngine {
 		virtual ~AbstractRenderer() = 0;
 
 		virtual void render() = 0;
-
+		void setCamera(Camera*);
 	protected:
 		Window* window;
+		Camera* camera;
 	};
 }
 #endif

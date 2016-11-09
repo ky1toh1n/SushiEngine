@@ -24,12 +24,19 @@ namespace SushiEngine {
 		~InputManager();
 
 		int keyData[GLFW_KEY_LAST];	
+		double mouseX=-1;
+		double mouseY=-1;
 	public:
+		//
+		bool isKeyDown(int key);
+		void getMousePosition(double*, double*);
+
 		//Public methods
 		static InputManager* GetInstance();
 		//Callbacks
 		static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
 		static void ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods);
+		static void MouseMoveCallback(GLFWwindow *, double, double);
 	};
 }
 #endif INPUT_MANAGER_H

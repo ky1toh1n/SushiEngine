@@ -11,4 +11,8 @@ namespace SushiEngine {
 	AbstractRenderer::~AbstractRenderer()
 	{
 	}
+
+	void AbstractRenderer::setCamera(Camera* pCamera) {
+		camera = pCamera;
+	}
 }

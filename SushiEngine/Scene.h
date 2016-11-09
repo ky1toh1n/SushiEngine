@@ -5,6 +5,8 @@
 #include "Window.h"
 #include "GameSceneManager.h"
 #include "AbstractRenderer.h"
+#include "Camera.h"
+#include "InputManager.h"
 
 namespace SushiEngine {
 	class Scene
@@ -30,6 +32,7 @@ namespace SushiEngine {
 		//
 		Window * window;
 		AbstractRenderer * renderer;
+		Camera * mainCamera;
 	};
 }
 #endif

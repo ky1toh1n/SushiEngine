@@ -43,6 +43,7 @@ namespace SushiEngine
 		glfwSwapInterval(1);
 
 		isInitialized = true;
+		
 		return true;
 	}
 
@@ -73,6 +74,10 @@ namespace SushiEngine
 		glfwSetWindowSize(glfwWindow, width, height);
 		// glfwSetWindowAspectRatio(glfwWindow, width, height);
 		// glfwSetWindowSizeLimits(glfwWindow, width, height, GLFW_DONT_CARE, GLFW_DONT_CARE);
+	}
+
+	void Window::GetSize(int*width, int*height) {
+		glfwGetWindowSize(glfwWindow, width, height);
 	}
 
 	//TODO: [MISSING IMPLEMENTATION]
