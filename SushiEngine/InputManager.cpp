@@ -41,4 +41,22 @@ namespace SushiEngine {
 	void InputManager::ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods) {
 		std::cout << "Click: " << std::endl;
 	}
+
+
+	void InputManager::MouseMoveCallback(GLFWwindow * glfwWindow, double x, double y)
+	{
+		InputManager * input = InputManager::GetInstance();
+		input->mouseX = x;
+		input->mouseY = y;
+	}
+	
+	bool InputManager::isKeyDown(int key) {
+		return keyData[key] == GLFW_PRESS || keyData[key] == GLFW_REPEAT;
+	}
+
+
+	void InputManager::getMousePosition(double* xRef, double* yRef) {
+		*xRef = mouseX;
+		*yRef = mouseY;
+	}
 }

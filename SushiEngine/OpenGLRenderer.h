@@ -29,7 +29,8 @@ namespace SushiEngine {
 
 		// Manual Load Test
 		char* vertexShaderCode =
-			"#version 430 core"
+			"#version 430\r\n"
+			""
 			"layout(location = 0) in vec4 vPosition;"
 			"layout(location = 1) in vec4 vertexColor;"
 			""
@@ -38,28 +39,22 @@ namespace SushiEngine {
 			"uniform mat4 projection_matrix;"
 			""
 			"out vec4 myColor;"
-			"out vec2 texCoord;"
 			""
 			"void main()"
 			"{"
-			"	myColor = vertexColor;"
-			"	gl_Position = projection_matrix * camera_matrix * model_matrix * vPosition;"
-			"	texCoord = vTexCoord;"
+			"    myColor = vertexColor;"
+			"    gl_Position = projection_matrix * camera_matrix * model_matrix * vPosition;"
 			"}";
 
 		char* fragmentShaderCode =
-			"#version 430 core"
+			"#version 430\r\n"
 			""
 			"in vec4 myColor;"
-			"in vec2 texCoord;"
-			""
 			"out vec4 fColor;"
-			""
-			"uniform sampler2D texture;"
 			""
 			"void main()"
 			"{"
-			"fColor = myColor;"
+			"    fColor = myColor;"
 			"}";
 		
 

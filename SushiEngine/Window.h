@@ -32,6 +32,7 @@ namespace SushiEngine {
 		GLFWwindow* GetWindowHandle();
 		void SetTitle(const char* title);
 		void SetSize(const int width, const int height);
+		void GetSize(int *, int*);
 		void Clear();
 	};
 }

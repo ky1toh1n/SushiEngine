@@ -38,8 +38,9 @@ namespace SushiEngine
 		return gameInstance.get();
 	}
 
-	//Forward declaration for window callback
+	//Forward declaration for window callbacks
 	static void CloseWindowCallback(GLFWwindow* glfwWindow);
+	static void ResizeWindowCallback(GLFWwindow* window, int width, int height);
 
 	//Initialzes all the components necessary for a game scene to function properly.
 	bool GameSceneManager::Initialize()
@@ -53,12 +54,13 @@ namespace SushiEngine
 		//initialize glfw callbacks
 		glfwSetWindowUserPointer(window->GetWindowHandle(), this);
 		glfwSetWindowCloseCallback(window->GetWindowHandle(), CloseWindowCallback);
+		glfwSetWindowSizeCallback(window->GetWindowHandle(), ResizeWindowCallback);
 
 		// Key and Character are both for Keyboard Event Polling, see documentation for the difference between the two.
 		glfwSetKeyCallback(window->GetWindowHandle(), InputManager::KeyCallback);
 		// glfwSetCharCallback(glfwWindow, character_callback);
 		glfwSetMouseButtonCallback(window->GetWindowHandle(), InputManager::ClickCallback);
-		
+		glfwSetCursorPosCallback(window->GetWindowHandle(), InputManager::MouseMoveCallback);
 		return true;
 
 	}
@@ -116,5 +118,9 @@ namespace SushiEngine
 	// ---- Callback Functions ---
 	static void CloseWindowCallback(GLFWwindow* glfwWindow) {
 		glfwSetWindowShouldClose(glfwWindow, GLFW_TRUE);
+	}
+
+	static void ResizeWindowCallback(GLFWwindow* window, int width, int height) {
+		glViewport(0,0, width, height);
 	}
 }
