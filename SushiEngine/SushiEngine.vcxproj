@@ -99,7 +99,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp\assimp.lib;glfw\glfw3.lib;opengl32.lib;glew\glew32.lib;opengl32.lib;gdi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>assimp\assimp.lib;glfw\glfw3.lib;opengl32.lib;glew\glew32.lib;devil\DevIL.lib;devil\ILU.lib;devil\ILUT.lib;opengl32.lib;gdi32.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\libs</AdditionalLibraryDirectories>
@@ -141,7 +141,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>assimp\assimp.lib;glfw\glfw3.lib;opengl32.lib;glew\glew32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>assimp\assimp.lib;glfw\glfw3.lib;opengl32.lib;glew\glew32.lib;devil\DevIL.lib;devil\ILU.lib;devil\ILUT.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\libs</AdditionalLibraryDirectories>
@@ -156,6 +156,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="SuTexture.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="LoadShaders.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="SuTexture.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="LoadShaders.h" />

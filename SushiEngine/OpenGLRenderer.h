@@ -6,6 +6,8 @@
 #include <iostream>
 #include "AbstractRenderer.h"
 #include "Window.h"
+#include "SuTexture.h"
+#include "IL\il.h"
 
 // #include "vgl.h" // uses free glut -.-'
 // #include "VertexShaderCodeRaw.h"
@@ -33,36 +35,49 @@ namespace SushiEngine {
 			""
 			"layout(location = 0) in vec4 vPosition;"
 			"layout(location = 1) in vec4 vertexColor;"
+			"layout(location = 2) in vec2 vTexCoord;"
 			""
 			"uniform mat4 model_matrix;"
 			"uniform mat4 camera_matrix;"
 			"uniform mat4 projection_matrix;"
 			""
 			"out vec4 myColor;"
+			"out vec2 texCoord;"
 			""
 			"void main()"
 			"{"
 			"    myColor = vertexColor;"
 			"    gl_Position = projection_matrix * camera_matrix * model_matrix * vPosition;"
+			"	 texCoord = vTexCoord;"
 			"}";
 
 		char* fragmentShaderCode =
 			"#version 430\r\n"
 			""
 			"in vec4 myColor;"
+			"in vec2 texCoord;"
 			"out vec4 fColor;"
+			""
+			"uniform sampler2D texture;"
 			""
 			"void main()"
 			"{"
-			"    fColor = myColor;"
+			"	 fColor = texture2D(texture, texCoord);"
 			"}";
 		
 
-		GLuint buffers[2];
+		GLuint buffers[3];
 		GLuint location;
 		GLuint location2;
 		GLuint location3;
 		GLuint program;
+		GLuint texture[1];
+
+		GLuint mTextureID;
+		GLfloat rotation = 0;
+
+		GLuint vertexShaderID;
+		GLuint fragmentShaderID;
 	};
 }
 #endif
