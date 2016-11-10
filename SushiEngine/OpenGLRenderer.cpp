@@ -20,9 +20,6 @@ namespace SushiEngine {
 
 		glewInit();
 
-		//Set view port size
-		glViewport(0, 0, 400, 600);
-
 		// Testing Manual Loading of Shaders
 		vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 		fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
