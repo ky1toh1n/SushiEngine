@@ -156,6 +156,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="SuMesh.cpp" />
     <ClCompile Include="SuTexture.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="SuMesh.h" />
     <ClInclude Include="SuTexture.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />
