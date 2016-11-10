@@ -11,7 +11,7 @@ namespace SushiEngine
 	//Handles termination of the GLFW library.
 	Window::~Window() {
 		Debug::Log(EMessageType::S_INFO, "\t~Window()", __FILENAME__, __LINE__);
-		glfwTerminate();
+		//glfwTerminate();
 	}
 
 	//Attempts to create a GLFW window and set its title and screen dimensions.
