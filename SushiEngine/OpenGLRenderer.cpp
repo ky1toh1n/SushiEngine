@@ -10,24 +10,22 @@ namespace SushiEngine {
 
 	OpenGLRenderer::~OpenGLRenderer()
 	{
-		glDetachShader(program, vertexShaderID);
+		/*glDetachShader(program, vertexShaderID);
 		glDetachShader(program, fragmentShaderID);
 		glDeleteShader(vertexShaderID);
-		glDeleteShader(fragmentShaderID);
+		glDeleteShader(fragmentShaderID);*/
 	}
 
 	void OpenGLRenderer::init() {
 
 		glewInit();
 
-		///Set view port size
-		//glViewport(0, 0, 400, 600);
+		//Set view port size
+		glViewport(0, 0, 400, 600);
 
 		// Testing Manual Loading of Shaders
 		vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 		fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-
-
 
 		char* adapter[1];
 		adapter[0] = vertexShaderCode;
@@ -46,18 +44,18 @@ namespace SushiEngine {
 		glUseProgram(program);	//My Pipeline is set up
 		
 
-		/* Ali's Way
+		///* Ali's Way
 
-		ShaderInfo shaders[] = {
-			{ GL_VERTEX_SHADER, "triangles.vert" },
-			{ GL_FRAGMENT_SHADER, "triangles.frag" },
-			{ GL_NONE, NULL }
-		};
+		//ShaderInfo shaders[] = {
+		//	{ GL_VERTEX_SHADER, "triangles.vert" },
+		//	{ GL_FRAGMENT_SHADER, "triangles.frag" },
+		//	{ GL_NONE, NULL }
+		//};
 
-		program = LoadShaders(shaders);
-		glUseProgram(program);	//My Pipeline is set up
+		//program = LoadShaders(shaders);
+		//glUseProgram(program);	//My Pipeline is set up
 
-		*/
+		//*/
 
 		
 		const GLuint numVerts = 16;
@@ -136,7 +134,8 @@ namespace SushiEngine {
 		};
 
 
-		glGenTextures(100, texture);
+		glGenTextures(1, texture);
+
 		//glBindTexture(GL_TEXTURE_2D, texture[1]);
 		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, textureData);
 		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

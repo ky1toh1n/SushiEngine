@@ -27,8 +27,6 @@ namespace SushiEngine {
 		
 		/*Handle Camera Controls.*/
 		///TODO: Add Delta Time/Chrono PLEASE :"(
-
-
 		InputManager * input = InputManager::GetInstance();
 		
 		//Translation
