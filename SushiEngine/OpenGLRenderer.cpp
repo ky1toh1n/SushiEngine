@@ -10,10 +10,10 @@ namespace SushiEngine {
 
 	OpenGLRenderer::~OpenGLRenderer()
 	{
-		/*glDetachShader(program, vertexShaderID);
+		glDetachShader(program, vertexShaderID);
 		glDetachShader(program, fragmentShaderID);
 		glDeleteShader(vertexShaderID);
-		glDeleteShader(fragmentShaderID);*/
+		glDeleteShader(fragmentShaderID);
 	}
 
 	void OpenGLRenderer::init() {
@@ -167,14 +167,12 @@ namespace SushiEngine {
 		//Image loaded successfully
 		if (success == IL_TRUE)
 		{
-			printf("Success1??");
 			//Convert image to RGBA
 			success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 
 
 			if (success == IL_TRUE)
 			{
-				printf("Success2??");
 				//Create texture from file pixels
 				//Bind texture ID
 				glBindTexture(GL_TEXTURE_2D, texture[1]);
