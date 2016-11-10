@@ -254,3 +254,9 @@ paket-files/
 # Logs
 TestBed/GameLog.txt
 TestBed/.GameLog.txt.swp
+
+# Ignoring .dlls on root
+!DevIL.dll
+!glew32.dll
+!ILU.dll
+!ILUT.dll
