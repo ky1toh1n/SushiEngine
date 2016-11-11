@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\gli;$(SolutionDir)Dependencies\assimp;$(SolutionDir)Dependencies</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\gli;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\assimp</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -156,6 +156,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="SuMesh.cpp" />
     <ClCompile Include="SuTexture.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="SuMesh.h" />
     <ClInclude Include="SuTexture.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />

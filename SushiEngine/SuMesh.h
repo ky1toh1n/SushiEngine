@@ -1,12 +1,24 @@
-#ifndef SU_MESH
-#define SU_MESH
+#ifndef  SU_MESH_H
+#define SU_MESH_H
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
+#include <fstream>
+#include <string>
+#include "Debug.h"
 
-class SuMesh
+namespace SushiEngine
 {
-public:
-	SuMesh();
-	~SuMesh();
-};
+	class SuMesh
+	{
 
-#endif
+	public:
+		SuMesh(const std::string filename);
+		bool ImportModel(const std::string filename);
+		~SuMesh();
 
+		const aiScene* scene;
+		Assimp::Importer importer;
+	};
+}
+#endif // ! SU_MESH_H
