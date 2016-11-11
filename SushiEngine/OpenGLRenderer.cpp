@@ -127,7 +127,7 @@ namespace SushiEngine {
 		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 
-		// ----------------------------------------- TEXTURE TESTS -----------------------------------------------------
+		/* ----------------------------------------- TEXTURE TESTS -----------------------------------------------------
 
 		ilInit();
 
@@ -178,7 +178,7 @@ namespace SushiEngine {
 			printf("Unable to load %s\n", path.c_str());
 		}
 
-		// -----------------------------------------TEXTURE TESTS END ------------------------------------------------------
+		// -----------------------------------------TEXTURE TESTS END ------------------------------------------------------*/
 		// -----------------------------------------SUMESH TESTS --------------------------------------------------------
 		
 		mesh = new SuMesh2();
@@ -187,8 +187,31 @@ namespace SushiEngine {
 
 		// -----------------------------------------SUMESH TESTS END-----------------------------------------------------
 		// ---------------------------------------- SUTEXTURE TESTS -----------------------------------------------------
+
+		ilInit();
+
+		GLint width, height;
+		std::string path = "wall.png";
+
+		//Generate and set current image ID
+		ILuint imgID = 0;
+		ilGenImages(1, &imgID);
+		ilBindImage(imgID);
+
+		//Load image
+		ILboolean success = ilLoadImage(path.c_str());
+		if (success) printf("DevIL Load Image -- OK\n");
+
+		tex = new SuTexture();
+		bool texTest = tex->LoadTexture((GLuint*)ilGetData(), textureCoordinates[0], (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
+		std::cout << (GLuint)ilGetInteger(IL_IMAGE_WIDTH) << "x" << (GLuint)ilGetInteger(IL_IMAGE_HEIGHT)<<std::endl;
+		if (meshTest) printf("Texture Test Load -- OK\n");
+
+		ilDeleteImages(1, &imgID);
+
 		// ---------------------------------------- SUTEXTURE TESTS END--------------------------------------------------
 		// ---------------------------------------- SUGAMEOBJECT TESTS --------------------------------------------------
+
 		// ---------------------------------------- SUGAMEOBJECT END ----------------------------------------------------
 
 
@@ -196,12 +219,15 @@ namespace SushiEngine {
 		location2 = glGetUniformLocation(program, "camera_matrix");
 		location3 = glGetUniformLocation(program, "projection_matrix");
 
-
+		/*
 		glBindBuffer(GL_ARRAY_BUFFER, buffers[2]);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(textureCoordinates), textureCoordinates, GL_STATIC_DRAW);
-		//glBindAttribLocation(program, 2, "vTexCoord");
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(2);
+		*/
+
+		mesh->Use();
+		tex->Use();
 		
 	}
 
@@ -211,7 +237,7 @@ namespace SushiEngine {
 		rotation += 0.005f;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		mesh->Render();
+
 
 		glm::mat4 model_view = glm::translate(glm::mat4(1.0), glm::vec3(0, 0, 0));
 		model_view = glm::rotate(model_view, rotation, glm::vec3(0.0f, 1.0f, 1.0f));

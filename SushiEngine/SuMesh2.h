@@ -17,6 +17,11 @@ namespace SushiEngine {
 		SuMesh2();
 		~SuMesh2();
 
+		SuMesh2(const SuMesh2&) = delete;
+		SuMesh2(SuMesh2&&) = delete;
+		SuMesh2& operator = (const SuMesh2&) = delete;
+		SuMesh2& operator = (SuMesh2&&) = delete;
+
 		// @params: The vertex data to be used
 		// @params: The default color of the vertex points, which may or may not be used by the shaders
 		// @params: The number of vertices in the vertexData which will be used for rendering
@@ -28,7 +33,7 @@ namespace SushiEngine {
 		// TODO: Decide whether to keep a render implementation here for a SuGameObject to use for rendering, such that GameObject->Render()----> Mesh->Render()
 		//											OR
 		// Have the game object retrieve the value from the mesh and then draw that in its own class
-		void Render();
+		void Use();
 
 	private:
 		GLuint vertexBuffer[2]; // A size of 2 so that we can keep track of a default color value too

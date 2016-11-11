@@ -19,6 +19,7 @@
 #include "glm\gtc\matrix_transform.hpp"
 
 #include "SuMesh2.h"
+#include "SuTexture.h"
 
 namespace SushiEngine {
 
@@ -82,6 +83,7 @@ namespace SushiEngine {
 		GLuint fragmentShaderID;
 
 		SuMesh2* mesh;
+		SuTexture* tex;
 	};
 }
 #endif

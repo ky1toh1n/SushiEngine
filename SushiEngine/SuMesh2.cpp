@@ -39,7 +39,7 @@ namespace SushiEngine {
 		return vertexBuffer ? true : false;
 	}
 
-	void SuMesh2::Render() {
+	void SuMesh2::Use() {
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[0]); // Switch buffer binding point
 		glEnableVertexAttribArray(0); // Set pointer '0' to start of buffer attrib
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // Describe how data is read
