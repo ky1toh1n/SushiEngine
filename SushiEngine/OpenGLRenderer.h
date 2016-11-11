@@ -18,6 +18,8 @@
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 
+#include "SuMesh2.h"
+
 namespace SushiEngine {
 
 	class OpenGLRenderer : public AbstractRenderer
@@ -78,6 +80,8 @@ namespace SushiEngine {
 
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;
+
+		SuMesh2* mesh;
 	};
 }
 #endif

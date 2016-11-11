@@ -40,23 +40,8 @@ namespace SushiEngine {
 		glLinkProgram(program);
 		glUseProgram(program);	//My Pipeline is set up
 		
-
-		///* Ali's Way
-
-		//ShaderInfo shaders[] = {
-		//	{ GL_VERTEX_SHADER, "triangles.vert" },
-		//	{ GL_FRAGMENT_SHADER, "triangles.frag" },
-		//	{ GL_NONE, NULL }
-		//};
-
-		//program = LoadShaders(shaders);
-		//glUseProgram(program);	//My Pipeline is set up
-
-		//*/
-
-		
 		const GLuint numVerts = 16;
-		GLfloat cubeVerts[numVerts][3] = {
+		const GLfloat cubeVerts[numVerts][3] = {
 			{ -0.5, +0.5, -0.5 }, // B
 			{ +0.5, +0.5, -0.5 },
 			{ +0.5, -0.5, -0.5 },
@@ -78,7 +63,7 @@ namespace SushiEngine {
 			{ -0.5, -0.5, +0.5 },
 		};
 
-		GLfloat cubeVertsColor[numVerts][3] = {
+		const GLfloat cubeVertsColor[numVerts][3] = {
 			{ 0,1,0 },
 			{ 0,1,0 },
 			{ 0,1,0 },
@@ -100,7 +85,6 @@ namespace SushiEngine {
 			{ 0,0.7,1 }
 		};
 
-		// Creatint texture
 		GLfloat textureData[] = {
 			1.0f, 0.0f, 0.0f,
 			1.0f, 1.0f, 1.0f,
@@ -130,6 +114,8 @@ namespace SushiEngine {
 			0.0f, 0.0f
 		};
 
+		// Enable Depth Culling
+		glEnable(GL_DEPTH_TEST);
 
 		glGenTextures(1, texture);
 
@@ -146,11 +132,6 @@ namespace SushiEngine {
 		ilInit();
 
 		GLint width, height;
-		// unsigned char* image = SOIL_load_image("apple.png", &width, &height, 0, SOIL_LOAD_RGB);
-
-		// SuTexture* wall = new SuTexture();
-		// wall->loadTextureFromFile("wall.png");
-
 		std::string path = "wall.png";
 
 		//Texture loading success
@@ -197,18 +178,19 @@ namespace SushiEngine {
 			printf("Unable to load %s\n", path.c_str());
 		}
 
-		// ----------------------------------------- TEXTURE TESTS -----------------------------------------------------
+		// -----------------------------------------TEXTURE TESTS END ------------------------------------------------------
+		// -----------------------------------------SUMESH TESTS --------------------------------------------------------
+		
+		mesh = new SuMesh2();
+		bool meshTest = mesh->LoadMesh(cubeVerts[0], cubeVertsColor[0], numVerts);
+		if (meshTest) printf("Mesh Test Load -- OK\n");
 
-		// Enable Depth Culling
-		glEnable(GL_DEPTH_TEST);
+		// -----------------------------------------SUMESH TESTS END-----------------------------------------------------
+		// ---------------------------------------- SUTEXTURE TESTS -----------------------------------------------------
+		// ---------------------------------------- SUTEXTURE TESTS END--------------------------------------------------
+		// ---------------------------------------- SUGAMEOBJECT TESTS --------------------------------------------------
+		// ---------------------------------------- SUGAMEOBJECT END ----------------------------------------------------
 
-		// Generate Ball Buffers and Send Data to GPU
-		glGenBuffers(2, buffers);
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVerts), cubeVerts, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertsColor), cubeVertsColor, GL_STATIC_DRAW);
 
 		location = glGetUniformLocation(program, "model_matrix");
 		location2 = glGetUniformLocation(program, "camera_matrix");
@@ -217,7 +199,7 @@ namespace SushiEngine {
 
 		glBindBuffer(GL_ARRAY_BUFFER, buffers[2]);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(textureCoordinates), textureCoordinates, GL_STATIC_DRAW);
-		glBindAttribLocation(program, 2, "vTexCoord");
+		//glBindAttribLocation(program, 2, "vTexCoord");
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(2);
 		
@@ -228,17 +210,8 @@ namespace SushiEngine {
 	{
 		rotation += 0.005f;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-		// Switch buffer binding point
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-		// Set pointer to start of buffer attrib
-		glEnableVertexAttribArray(0);
-		// Describe how data is read
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		mesh->Render();
 
 		glm::mat4 model_view = glm::translate(glm::mat4(1.0), glm::vec3(0, 0, 0));
 		model_view = glm::rotate(model_view, rotation, glm::vec3(0.0f, 1.0f, 1.0f));
@@ -250,7 +223,6 @@ namespace SushiEngine {
 		glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
 
 		glDrawArrays(GL_QUADS, 0, 16);
-		
 
 		glfwSwapBuffers(window->GetWindowHandle());
 		
