@@ -8,6 +8,9 @@
 #include "Window.h"
 #include "SuTexture.h"
 #include "IL\il.h"
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
 
 // #include "vgl.h" // uses free glut -.-'
 // #include "VertexShaderCodeRaw.h"

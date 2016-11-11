@@ -1,3 +1,15 @@
+/*
+Nicco NTS:
+
+Window -> New Vertical Tab Group
+
+and
+
+View -> Task List.. to view TODOs
+
+*/
+
+
 #include "OpenGLRenderer.h"
 
 namespace SushiEngine {
@@ -157,6 +169,41 @@ namespace SushiEngine {
 		if (go) printf("Game Object Creation -- OK\n");
 		// ---------------------------------------- SUGAMEOBJECT END ----------------------------------------------------
 
+		// ---------------------------------------- ASSIMP TESTS --------------------------------------------------
+
+		// TODO: ModelLoader / Resourcemanager
+
+		const aiScene* scene;
+		Assimp::Importer importer;
+
+		std::string filename = "models/ananas.fbx";
+		std::ifstream fileIn(filename.c_str());
+		if (fileIn.fail())
+		{
+			//std::cout << "failed to open file " << filename.c_str() << std::endl;
+			Debug::Log(EMessageType::S_ERROR, "Failed to open file : " + (std::string)filename.c_str(), __FILENAME__, __LINE__);
+
+		}
+		else
+		{
+			printf("Opening .fbx file -- OK\n");
+			fileIn.close();
+		}
+
+		scene = importer.ReadFile(filename, aiProcessPreset_TargetRealtime_Quality);
+
+		if (!scene)
+		{
+			//std::cout << importer.GetErrorString() << std::endl;
+			Debug::Log(EMessageType::S_ERROR, importer.GetErrorString(), __FILENAME__, __LINE__);
+
+		}
+		else {
+			printf("Asset Loading -- OK\n");
+		}
+
+		// ---------------------------------------- ASSIMP TESTS END ----------------------------------------------------
+
 
 		location = glGetUniformLocation(program, "model_matrix");
 		location2 = glGetUniformLocation(program, "camera_matrix");
@@ -188,3 +235,4 @@ namespace SushiEngine {
 		
 	}
 }
+
