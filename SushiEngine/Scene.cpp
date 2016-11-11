@@ -16,6 +16,7 @@ namespace SushiEngine {
 		renderer = pRenderer;
 		renderer->setCamera(mainCamera);
 
+		SuMesh ananas = SuMesh("models/ananas.fbx");
 	};
 
 	//Polls GLFW Events

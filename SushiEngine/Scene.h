@@ -7,6 +7,7 @@
 #include "AbstractRenderer.h"
 #include "Camera.h"
 #include "InputManager.h"
+#include "SuMesh.h"
 
 namespace SushiEngine {
 	class Scene
