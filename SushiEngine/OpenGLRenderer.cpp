@@ -117,68 +117,6 @@ namespace SushiEngine {
 		// Enable Depth Culling
 		glEnable(GL_DEPTH_TEST);
 
-		glGenTextures(1, texture);
-
-		//glBindTexture(GL_TEXTURE_2D, texture[1]);
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, textureData);
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-
-		/* ----------------------------------------- TEXTURE TESTS -----------------------------------------------------
-
-		ilInit();
-
-		GLint width, height;
-		std::string path = "wall.png";
-
-		//Texture loading success
-		bool textureLoaded = false;
-
-		//Generate and set current image ID
-		ILuint imgID = 0;
-		ilGenImages(1, &imgID);
-		ilBindImage(imgID);
-
-		//Load image
-		ILboolean success = ilLoadImage(path.c_str());
-
-		//Image loaded successfully
-		if (success == IL_TRUE)
-		{
-			//Convert image to RGBA
-			success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
-
-
-			if (success == IL_TRUE)
-			{
-				//Create texture from file pixels
-				//Bind texture ID
-				glBindTexture(GL_TEXTURE_2D, texture[1]);
-
-				//Generate texture
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLuint*)ilGetData());
-
-				//Set texture parameters
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-				textureLoaded = true;
-			}
-
-			//Delete file from memory
-			ilDeleteImages(1, &imgID);
-		}
-
-		//Report error
-		if (!textureLoaded)
-		{
-			printf("Unable to load %s\n", path.c_str());
-		}
-
-		// -----------------------------------------TEXTURE TESTS END ------------------------------------------------------*/
 		// -----------------------------------------SUMESH TESTS --------------------------------------------------------
 		
 		mesh = new SuMesh2();
@@ -212,6 +150,11 @@ namespace SushiEngine {
 		// ---------------------------------------- SUTEXTURE TESTS END--------------------------------------------------
 		// ---------------------------------------- SUGAMEOBJECT TESTS --------------------------------------------------
 
+		go = new SuGameObject(glm::vec4(0, 0, 0, 1));
+		go->mesh = mesh; // temporary setters
+		go->texture = tex;
+
+		if (go) printf("Game Object Creation -- OK\n");
 		// ---------------------------------------- SUGAMEOBJECT END ----------------------------------------------------
 
 
@@ -219,15 +162,6 @@ namespace SushiEngine {
 		location2 = glGetUniformLocation(program, "camera_matrix");
 		location3 = glGetUniformLocation(program, "projection_matrix");
 
-		/*
-		glBindBuffer(GL_ARRAY_BUFFER, buffers[2]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(textureCoordinates), textureCoordinates, GL_STATIC_DRAW);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(2);
-		*/
-
-		mesh->Use();
-		tex->Use();
 		
 	}
 
@@ -237,18 +171,18 @@ namespace SushiEngine {
 		rotation += 0.005f;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-
-		glm::mat4 model_view = glm::translate(glm::mat4(1.0), glm::vec3(0, 0, 0));
-		model_view = glm::rotate(model_view, rotation, glm::vec3(0.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(location, 1, GL_FALSE, &model_view[0][0]);
-
 		glUniformMatrix4fv(location2, 1, GL_FALSE, &(camera->getMatrix())[0][0]); // View
-		
+
 		glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 1.0f, 100.0f);  // Projection
 		glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
 
-		glDrawArrays(GL_QUADS, 0, 16);
+		//----- Manual Update of Position
+
+		glm::mat4 model_view = glm::translate(glm::mat4(1.0), go->position);
+		model_view = glm::rotate(model_view, rotation, glm::vec3(0.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(location, 1, GL_FALSE, &model_view[0][0]);
+
+		go->Render();
 
 		glfwSwapBuffers(window->GetWindowHandle());
 		

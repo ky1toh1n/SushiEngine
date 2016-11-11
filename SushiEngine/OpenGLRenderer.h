@@ -18,8 +18,7 @@
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 
-#include "SuMesh2.h"
-#include "SuTexture.h"
+#include "SuGameObject.h"
 
 namespace SushiEngine {
 
@@ -84,6 +83,7 @@ namespace SushiEngine {
 
 		SuMesh2* mesh;
 		SuTexture* tex;
+		SuGameObject* go;
 	};
 }
 #endif

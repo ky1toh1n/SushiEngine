@@ -1,22 +1,27 @@
 #ifndef SU_GAME_OBJECT_H
 #define SU_GAME_OBJECT_H
 
-#include "SuMesh.h"
+#include "SuMesh2.h"
 #include "SuTexture.h"
+
+#include "glm\glm.hpp"
+#include "glm\gtc\matrix_transform.hpp"
 
 
 namespace SushiEngine {
 	class SuGameObject
 	{
 	public:
-		SuGameObject();
+		SuGameObject(glm::vec3 _position);
 		~SuGameObject();
 
-	private:
-		const SuMesh* mesh;
+		glm::vec3 position;
+		void Render();
+
+		SuMesh2* mesh;
 
 		// TODO: Should be 'material' later on
-		const SuTexture* texture;
+		SuTexture* texture;
 	};
 
 }
