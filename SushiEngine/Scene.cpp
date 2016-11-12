@@ -31,10 +31,10 @@ namespace SushiEngine {
 		InputManager * input = InputManager::GetInstance();
 		
 		//Translation
-		float translateX = input->isKeyDown(GLFW_KEY_A) ? 1 : 0
-			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0;
-		float translateY = input->isKeyDown(GLFW_KEY_W) ? -1 : 0
-			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0;
+		float translateX = (float)(input->isKeyDown(GLFW_KEY_A) ? 1 : 0
+			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0);
+		float translateY = (float)(input->isKeyDown(GLFW_KEY_W) ? -1 : 0
+			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0);
 
 		// mainCamera->translate(translateX * 0.001, translateY * 0.001);
 
@@ -58,7 +58,7 @@ namespace SushiEngine {
 			//Otherwise, let's rotate!
 			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1;
 			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1;
-			float antiChronoFactor = 0.01;
+			float antiChronoFactor = 0.01f;
 
 			// mainCamera->rotate(rotateX * antiChronoFactor, rotateY * antiChronoFactor);
 		}

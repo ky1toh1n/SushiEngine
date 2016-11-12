@@ -28,7 +28,7 @@ namespace SushiEngine {
 			return 0;
 		}
 
-		unsigned int sleepTime = milliSecsPerFrame - (glfwGetTime() - currTicks);
+		unsigned int sleepTime = milliSecsPerFrame - (unsigned int)(glfwGetTime() - currTicks);
 		if (sleepTime > milliSecsPerFrame) {
 			return milliSecsPerFrame;
 		}

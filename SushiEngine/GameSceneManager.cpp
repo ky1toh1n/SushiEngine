@@ -75,7 +75,7 @@ namespace SushiEngine
 		//Used to get Delta Time/Control Frame Rate [TODO: Make it work.]
 		Timer timer;
 		unsigned int fps = 60;
-		float spf = 1 / fps;
+		float spf = (float)(1 / fps);
 		float delay = 0.0f;
 		timer.Start();
 
@@ -87,7 +87,7 @@ namespace SushiEngine
 		while (isRunning)
 		{
 			timer.UpdateFrameTicks();
-			double deltaTime = timer.GetDeltaTime();
+			float deltaTime = (float)timer.GetDeltaTime();
 
 			Update(deltaTime);
 			Render();

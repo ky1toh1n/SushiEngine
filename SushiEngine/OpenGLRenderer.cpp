@@ -140,7 +140,8 @@ namespace SushiEngine {
 
 		ilInit();
 
-		GLint width, height;
+		// WARNING: unused local variable
+		//GLint width, height;
 		std::string path = "wall.png";
 
 		//Generate and set current image ID

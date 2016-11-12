@@ -20,7 +20,7 @@ namespace SushiEngine {
 		S_FATAL_ERROR
 	};
 
-	static class Debug {
+	class Debug {
 	public:
 
 		// Disable automatic constructor from being created
