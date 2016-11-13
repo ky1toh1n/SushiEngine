@@ -14,11 +14,6 @@
 #include <glm\glm.hpp>
 #include <glm\gtc\quaternion.hpp>
 
-namespace std
-{
-#include <cstdlib>
-}
-
 namespace SushiEngine
 {
 	// macro for ensuring constructors arent implicitly created
