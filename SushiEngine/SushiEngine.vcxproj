@@ -157,6 +157,7 @@
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="SuGameObject.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="SuGameObject.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />

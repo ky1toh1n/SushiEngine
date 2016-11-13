@@ -47,7 +47,6 @@ namespace SushiEngine
 		location2 = glGetUniformLocation(program, "camera_matrix");
 		location3 = glGetUniformLocation(program, "projection_matrix");
 
-		
 	}
 
 

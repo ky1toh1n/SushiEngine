@@ -37,6 +37,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Framework\Components</Filter>
     </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLRenderer.h">
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
