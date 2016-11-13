@@ -7,23 +7,27 @@
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 
+#include "Macros.h"
+#include "Component.h"
+#include "Transform.h"
+
 
 namespace SushiEngine {
 	class SuGameObject
 	{
 	public:
-		SuGameObject(glm::vec3 _position);
-		~SuGameObject();
+		vector(Component) * components;
 
-		glm::vec3 position;
-		void Render();
-
+		vec3 position;
 		SuMesh2* mesh;
-
 		// TODO: Should be 'material' later on
 		SuTexture* texture;
-	};
 
+		SuGameObject(vec3 _position);
+		~SuGameObject();
+		void AddComponent(Component _component);
+		void Render();
+	};
 }
 
 #endif
