@@ -29,18 +29,18 @@ namespace SushiEngine
 		ModelManager& operator=(ModelManager&&) = delete;
 
 	private:
-		std::map<const std::string, GLuint>* modelHandles;
-		std::vector<DrawData> modelDrawData;
+		std::map<const std::string, GLuint*>* modelHandles;
+		std::vector<DrawData>* modelDrawData;
 
 		// Loads a model from a given path and returns an Id to that model once loaded in the GPU. If the model instance already exists,
 		// the function simply returns the Id to the model.
-		GLuint loadModel(std::string filepath);
+		GLuint* loadModel(std::string _filepath);
 
 		// Removes the instance of the model in the GPU and also remove it from the list of loaded models
-		void destroyModel(GLuint id);
+		void destroyModel(GLuint* _id);
 
 		// Retrieves a struct that contains all neccessary attributes for a draw call
-		DrawData getDrawData(GLuint id);
+		DrawData getDrawData(GLuint* _id);
 	};
 }
 #endif
