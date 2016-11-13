@@ -14,7 +14,7 @@ namespace SushiEngine
 	{
 	public:
 		// a list of the components this gameobject holds
-		vector(Component) * components;
+		vector<Component> * components;
 
 		vec3 position;
 
