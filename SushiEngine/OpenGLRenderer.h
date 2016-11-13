@@ -16,7 +16,8 @@
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
 
-namespace SushiEngine {
+namespace SushiEngine 
+{
 
 	class OpenGLRenderer : public AbstractRenderer
 	{

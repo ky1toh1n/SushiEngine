@@ -4,9 +4,11 @@
 #include <GL/glew.h>
 #include <stdio.h>
 
-namespace SushiEngine {
+namespace SushiEngine 
+{
 
-	class SuTexture {
+	class SuTexture
+	{
 
 	public:
 		SuTexture();

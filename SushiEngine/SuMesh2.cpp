@@ -1,6 +1,7 @@
 #include "SuMesh2.h"
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 
 	SuMesh2::SuMesh2()
 	{
@@ -23,7 +24,8 @@ namespace SushiEngine {
 	mesh->LoadMesh(_vertexData);
 	
 	*/
-	bool SuMesh2::LoadMesh(const GLfloat* _vertexData, const GLfloat* _colorData, const GLuint _numVerts) {
+	bool SuMesh2::LoadMesh(const GLfloat* _vertexData, const GLfloat* _colorData, const GLuint _numVerts) 
+	{
 		glGenBuffers(2, vertexBuffer); // Create buffer binding point
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[0]); // bind current buffer to binding point
 
@@ -39,7 +41,8 @@ namespace SushiEngine {
 		return vertexBuffer ? true : false;
 	}
 
-	void SuMesh2::Use() {
+	void SuMesh2::Use() 
+	{
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[0]); // Switch buffer binding point
 		glEnableVertexAttribArray(0); // Set pointer '0' to start of buffer attrib
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // Describe how data is read

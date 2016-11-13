@@ -8,11 +8,12 @@
 #include "Camera.h"
 #include "InputManager.h"
 
-namespace SushiEngine {
+namespace SushiEngine 
+{
 	class Scene
 	{
 	public:
-		//Constructor
+		// Constructor
 		Scene();
 		virtual ~Scene() = 0;
 		
@@ -29,7 +30,6 @@ namespace SushiEngine {
 		virtual void Destroy() = 0;
 
 	protected:
-		
 		Window * window;
 		AbstractRenderer * renderer;
 		Camera * mainCamera;

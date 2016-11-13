@@ -1,16 +1,20 @@
 #include "SuTexture.h"
 #include <IL/il.h>
 
-namespace SushiEngine {
+namespace SushiEngine 
+{
 
-	SuTexture::SuTexture() {
+	SuTexture::SuTexture()
+	{
 	}
 
-	SuTexture::~SuTexture() {
+	SuTexture::~SuTexture()
+	{
 
 	}
 
-	bool SuTexture::LoadTexture(GLuint* _texData, GLfloat* _UVData, GLuint _width, GLuint _height) {
+	bool SuTexture::LoadTexture(GLuint* _texData, GLfloat* _UVData, GLuint _width, GLuint _height) 
+	{
 		glGenTextures(1, &mTextureID);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
 
@@ -35,7 +39,8 @@ namespace SushiEngine {
 		return false;
 	}
 
-	void SuTexture::Use() {
+	void SuTexture::Use() 
+	{
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
 		glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
 
@@ -46,15 +51,18 @@ namespace SushiEngine {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	GLuint SuTexture::getTextureID() {
+	GLuint SuTexture::getTextureID()
+	{
 		return mTextureID;
 	}
 
-	GLuint SuTexture::textureWidth() {
+	GLuint SuTexture::textureWidth() 
+	{
 		return mTextureWidth;
 	}
 
-	GLuint SuTexture::textureHeight() {
+	GLuint SuTexture::textureHeight() 
+	{
 		return mTextureHeight;
 	}
 }

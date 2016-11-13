@@ -1,6 +1,7 @@
 #include "SuGameObject.h"
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 
 	SuGameObject::SuGameObject(vec3 _position)
 	{
@@ -40,7 +41,8 @@ namespace SushiEngine {
 	//	return _component;
 	//}
 	
-	void SuGameObject::Render() {
+	void SuGameObject::Render()
+	{
 		mesh->Use();
 		texture->Use();
 

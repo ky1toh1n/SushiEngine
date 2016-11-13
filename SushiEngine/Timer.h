@@ -4,8 +4,8 @@
 
 #include <GLFW\glfw3.h>
 
-namespace SushiEngine {
-
+namespace SushiEngine 
+{
 	class Timer {
 	public:
 		Timer();

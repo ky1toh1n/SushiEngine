@@ -3,13 +3,15 @@
 namespace SushiEngine 
 {
 	//Creates a window with specificed parameters
-	Window::Window(const char* title, const int width, const int height) {
+	Window::Window(const char* title, const int width, const int height) 
+	{
 		Debug::Log(EMessageType::S_INFO, "\tWindow(char*,int,int)", __FILENAME__, __LINE__);
 		Initialize(title, width, height);
 	}
 
 	//Handles termination of the GLFW library.
-	Window::~Window() {
+	Window::~Window() 
+	{
 		Debug::Log(EMessageType::S_INFO, "\t~Window()", __FILENAME__, __LINE__);
 		//glfwTerminate();
 	}
@@ -20,7 +22,8 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "\tWindow->Initialize()", __FILENAME__, __LINE__);
 		isInitialized = false;
 
-		if (!glfwInit()) {
+		if (!glfwInit()) 
+		{
 			Debug::Log(EMessageType::S_FATAL_ERROR, "\tGLFW cannot be initialized!", __FILENAME__, __LINE__);
 			return false;
 		}
@@ -33,7 +36,8 @@ namespace SushiEngine
 
 		// glfwWindow = glfwCreateWindow(640, 480, "My Title", glfwGetPrimaryMonitor(), NULL); // Reserved for multiple viewports or fullscreen handling
 		glfwWindow = glfwCreateWindow(width, height, title, nullptr, nullptr);
-		if (!glfwWindow) {
+		if (!glfwWindow)
+		{
 			Debug::Log(EMessageType::S_FATAL_ERROR, "\tWindow or OpenGL context creation failed", __FILENAME__, __LINE__);
 			return false;
 		}
@@ -48,7 +52,8 @@ namespace SushiEngine
 	}
 
 	//Terminates the GLFW Window.
-	void Window::Destroy() {
+	void Window::Destroy() 
+	{
 		Debug::Log(EMessageType::S_INFO, "\tWindow->Destroy()", __FILENAME__, __LINE__);
 		/*
 		When a window is no longer needed, destroy it with glfwDestroyWindow.
@@ -60,29 +65,34 @@ namespace SushiEngine
 	}
 
 	//Returns a pointer to the GLFWwindow.
-	GLFWwindow* Window::GetWindowHandle() {
+	GLFWwindow* Window::GetWindowHandle()
+	{
 		return glfwWindow;
 	}
 
 	//Sets the window title.
-	void Window::SetTitle(const char* title) {
+	void Window::SetTitle(const char* title) 
+	{
 		glfwSetWindowTitle(glfwWindow, title);
 	}
 	
 	//TODO: [DOES NOT WORK]
-	void Window::SetSize(const int width, const int height) {
+	void Window::SetSize(const int width, const int height) 
+	{
 		glfwSetWindowSize(glfwWindow, width, height);
 		// glfwSetWindowAspectRatio(glfwWindow, width, height);
 		// glfwSetWindowSizeLimits(glfwWindow, width, height, GLFW_DONT_CARE, GLFW_DONT_CARE);
 	}
 
-	void Window::GetSize(int*width, int*height) {
+	void Window::GetSize(int*width, int*height)
+	{
 		glfwGetWindowSize(glfwWindow, width, height);
 	}
 
 	//TODO: [MISSING IMPLEMENTATION]
 	//
-	void Window::Clear() {
+	void Window::Clear() 
+	{
 
 	}
 }

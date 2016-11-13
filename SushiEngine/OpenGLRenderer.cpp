@@ -12,7 +12,8 @@ View -> Task List.. to view TODOs
 
 #include "OpenGLRenderer.h"
 
-namespace SushiEngine {
+namespace SushiEngine 
+{
 
 	OpenGLRenderer::OpenGLRenderer(Window* window) : AbstractRenderer(window)
 	{
@@ -28,7 +29,8 @@ namespace SushiEngine {
 		glDeleteShader(fragmentShaderID);
 	}
 
-	void OpenGLRenderer::init() {
+	void OpenGLRenderer::init()
+	{
 
 		glewInit();
 
@@ -53,7 +55,8 @@ namespace SushiEngine {
 		glUseProgram(program);	//My Pipeline is set up
 		
 		const GLuint numVerts = 16;
-		const GLfloat cubeVerts[numVerts][3] = {
+		const GLfloat cubeVerts[numVerts][3] = 
+		{
 			{ -0.5, +0.5, -0.5 }, // B
 			{ +0.5, +0.5, -0.5 },
 			{ +0.5, -0.5, -0.5 },
@@ -75,7 +78,8 @@ namespace SushiEngine {
 			{ -0.5, -0.5, +0.5 },
 		};
 
-		const GLfloat cubeVertsColor[numVerts][3] = {
+		const GLfloat cubeVertsColor[numVerts][3] =
+		{
 			{ 0,1,0 },
 			{ 0,1,0 },
 			{ 0,1,0 },
@@ -97,14 +101,16 @@ namespace SushiEngine {
 			{ 0,0.7,1 }
 		};
 
-		GLfloat textureData[] = {
+		GLfloat textureData[] = 
+		{
 			1.0f, 0.0f, 0.0f,
 			1.0f, 1.0f, 1.0f,
 			1.0f, 1.0f, 1.0f,
 			1.0f, 0.0f, 0.0f
 		};
 
-		GLfloat textureCoordinates[numVerts][2] = {
+		GLfloat textureCoordinates[numVerts][2] = 
+		{
 			0.0f, 1.0f,
 			1.0f, 1.0f,
 			1.0f, 0.0f,
@@ -199,7 +205,8 @@ namespace SushiEngine {
 			Debug::Log(EMessageType::S_ERROR, importer.GetErrorString(), __FILENAME__, __LINE__);
 
 		}
-		else {
+		else 
+		{
 			printf("Asset Loading -- OK\n");
 		}
 

@@ -12,7 +12,8 @@
 #include "Transform.h"
 
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 	class SuGameObject
 	{
 	public:

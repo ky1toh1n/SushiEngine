@@ -6,8 +6,8 @@
 #include "GLFW/glfw3.h"
 #include "Debug.h"
 
-namespace SushiEngine {
-
+namespace SushiEngine 
+{
 	class InputManager
 	{
 
@@ -15,9 +15,9 @@ namespace SushiEngine {
 		bool isKeyDown(int key);
 		void getMousePosition(double*, double*);
 
-		//Public methods
+		// Public methods
 		static InputManager* GetInstance();
-		//Callbacks
+		// Callbacks
 		static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
 		static void ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods);
 		static void MouseMoveCallback(GLFWwindow *, double, double);

@@ -5,8 +5,10 @@
 #include <GLFW\glfw3.h>
 #include "Debug.h"
 
-namespace SushiEngine {
-	class Window {
+namespace SushiEngine 
+{
+	class Window 
+	{
 
 	public:
 		/// C11 precautions delete these non-needed default constructors and operators

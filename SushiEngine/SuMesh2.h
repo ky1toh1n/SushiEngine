@@ -9,7 +9,8 @@
 // SuMesh Class a class that holds the vertex data and default color data for each vertex. Ideally, each mesh will be unique and will only be loaded once each.
 
 // TODO: Current mplementation uses 2 separate buffers for the vertex data and the default color data. Might want to use Sub Buffers instead.
-namespace SushiEngine {
+namespace SushiEngine 
+{
 
 	class SuMesh2
 	{
