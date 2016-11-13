@@ -12,7 +12,7 @@ namespace SushiEngine {
 	//Initializes scene by getting window pointer
 	void Scene::Initialize(AbstractRenderer* pRenderer) {
 		window = GameSceneManager::GetInstance()->getWindowInstance();
-		mainCamera = new Camera(glm::vec3(0,0,2), glm::vec3(0,1,0));
+		mainCamera = new Camera(vec3(0,0,2), vec3(0,1,0));
 		renderer = pRenderer;
 		renderer->setCamera(mainCamera);
 

@@ -46,6 +46,12 @@
     <ClCompile Include="SuGameObject.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Framework\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLRenderer.h">
@@ -90,6 +96,15 @@
     <ClInclude Include="SuGameObject.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Framework\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />
@@ -112,6 +127,12 @@
     </Filter>
     <Filter Include="Source Files\Framework">
       <UniqueIdentifier>{721771c9-5ce2-4a6a-9628-33011a43d5f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Framework\Components">
+      <UniqueIdentifier>{a8987d98-23ba-4db0-b91c-06e82a8a87dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Framework\Components">
+      <UniqueIdentifier>{626ccd79-5047-4267-aebe-ee8a1e51e9dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
