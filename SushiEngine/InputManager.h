@@ -6,10 +6,22 @@
 #include "GLFW/glfw3.h"
 #include "Debug.h"
 
-namespace SushiEngine {
-
+namespace SushiEngine 
+{
 	class InputManager
 	{
+
+	public:
+		bool isKeyDown(int key);
+		void getMousePosition(double*, double*);
+
+		// Public methods
+		static InputManager* GetInstance();
+		// Callbacks
+		static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
+		static void ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods);
+		static void MouseMoveCallback(GLFWwindow *, double, double);
+
 	private:
 		///std::unique_ptr is a smart pointer that destroys the object it point to when the unique_ptr goes out of scope.
 		static std::unique_ptr<InputManager> instance;
@@ -26,17 +38,7 @@ namespace SushiEngine {
 		int keyData[GLFW_KEY_LAST];	
 		double mouseX=-1;
 		double mouseY=-1;
-	public:
-		//
-		bool isKeyDown(int key);
-		void getMousePosition(double*, double*);
 
-		//Public methods
-		static InputManager* GetInstance();
-		//Callbacks
-		static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
-		static void ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods);
-		static void MouseMoveCallback(GLFWwindow *, double, double);
 	};
 }
 #endif INPUT_MANAGER_H

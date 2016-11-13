@@ -1,6 +1,7 @@
 #include "Camera.h"
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 	Camera::Camera(glm::vec3 position, glm::vec3 up, float angleX, float angleY) : pos(position), angleX(angleX), angleY(angleY), up(up)
 	{
 		computeLookAt();
@@ -11,7 +12,8 @@ namespace SushiEngine {
 	{
 	}
 
-	void Camera::translate(float x, float y) {
+	void Camera::translate(float x, float y) 
+	{
 		//Forwards movement: 
 		glm::vec3 forwardAxis(lookAt * -y);
 
@@ -23,13 +25,15 @@ namespace SushiEngine {
 
 	}
 
-	void Camera::rotate(float x, float y) {
+	void Camera::rotate(float x, float y) 
+	{
 		angleX += x;
 		angleY += y;
 		computeLookAt();
 	}
 
-	void Camera::computeLookAt() {
+	void Camera::computeLookAt()
+	{
 		//Look at; uses two circles (along XZ and YZ axis) to find the proper rotation
 		lookAt = glm::vec3(
 			glm::sin(angleX),
@@ -37,7 +41,8 @@ namespace SushiEngine {
 			-glm::cos(angleX) * glm::cos(angleY));
 	}
 
-	glm::mat4 Camera::getMatrix() {
+	glm::mat4 Camera::getMatrix() 
+	{
 		return glm::lookAt(pos, pos + lookAt, up);
 	}
 }

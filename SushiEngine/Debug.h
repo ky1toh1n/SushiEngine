@@ -12,17 +12,20 @@
 //It gets rid of the file path to reduce clutter in the log file.
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
-namespace SushiEngine {
-	enum class EMessageType : unsigned char {
+namespace SushiEngine 
+{
+	enum class EMessageType : unsigned char 
+	{
 		S_INFO = 0,
 		S_WARNING,
 		S_ERROR,
 		S_FATAL_ERROR
 	};
 
-	static class Debug {
-	public:
+	class Debug 
+	{
 
+	public:
 		// Disable automatic constructor from being created
 		Debug() = delete;
 
@@ -36,6 +39,5 @@ namespace SushiEngine {
 		static void Log(const EMessageType MsgType, const std::string& message, const std::string& filename, const int line);
 		static void Print(const std::string text);
 	};
-
 }
 #endif
