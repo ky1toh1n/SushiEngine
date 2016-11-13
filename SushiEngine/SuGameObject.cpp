@@ -4,7 +4,7 @@ namespace SushiEngine {
 
 	SuGameObject::SuGameObject(vec3 _position)
 	{
-		components = new vector(Component);
+		components = new vector<Component>;
 		Transform * transform = new Transform(this, _position);
 		components->push_back(*transform);
 

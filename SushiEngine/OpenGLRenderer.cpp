@@ -155,7 +155,7 @@ namespace SushiEngine {
 
 		tex = new SuTexture();
 		bool texTest = tex->LoadTexture((GLuint*)ilGetData(), textureCoordinates[0], (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
-		std::cout << (GLuint)ilGetInteger(IL_IMAGE_WIDTH) << "x" << (GLuint)ilGetInteger(IL_IMAGE_HEIGHT)<<std::endl;
+		cout << (GLuint)ilGetInteger(IL_IMAGE_WIDTH) << "x" << (GLuint)ilGetInteger(IL_IMAGE_HEIGHT)<< endl;
 		if (meshTest) printf("Texture Test Load -- OK\n");
 
 		ilDeleteImages(1, &imgID);
