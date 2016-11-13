@@ -8,6 +8,9 @@
 #include "Window.h"
 #include "SuTexture.h"
 #include "IL\il.h"
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
 
 // #include "vgl.h" // uses free glut -.-'
 // #include "VertexShaderCodeRaw.h"
@@ -17,6 +20,8 @@
 
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
+
+#include "SuGameObject.h"
 
 namespace SushiEngine {
 
@@ -78,6 +83,10 @@ namespace SushiEngine {
 
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;
+
+		SuMesh2* mesh;
+		SuTexture* tex;
+		SuGameObject* go;
 	};
 }
 #endif
