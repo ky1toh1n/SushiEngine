@@ -1,9 +1,6 @@
 #ifndef SU_GAME_OBJECT_H
 #define SU_GAME_OBJECT_H
 
-#include "SuMesh2.h"
-#include "SuTexture.h"
-
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 
@@ -11,8 +8,8 @@
 #include "Component.h"
 #include "Transform.h"
 
-
-namespace SushiEngine {
+namespace SushiEngine 
+{
 	class SuGameObject
 	{
 	public:
@@ -20,9 +17,6 @@ namespace SushiEngine {
 		vector(Component) * components;
 
 		vec3 position;
-		SuMesh2* mesh;
-		// TODO: Should be 'material' later on
-		SuTexture* texture;
 
 		SuGameObject(vec3 _position);
 		~SuGameObject();

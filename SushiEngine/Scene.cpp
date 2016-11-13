@@ -1,23 +1,28 @@
 #include "Scene.h"
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 	//Constructs a Scene
 	Scene::Scene()
 	{
 
 	}
 
-	Scene::~Scene() {};
+	Scene::~Scene() 
+	{
+	
+	}
 
 	//Initializes scene by getting window pointer
-	void Scene::Initialize(AbstractRenderer* pRenderer) {
+	void Scene::Initialize(AbstractRenderer* pRenderer) 
+	{
 		window = GameSceneManager::GetInstance()->getWindowInstance();
 		mainCamera = new Camera(vec3(0,0,2), vec3(0,1,0));
 		renderer = pRenderer;
 		renderer->setCamera(mainCamera);
 
 		// SuMesh ananas = SuMesh("models/ananas.fbx");
-	};
+	}
 
 	//Polls GLFW Events
 	void Scene::Update()
@@ -54,7 +59,8 @@ namespace SushiEngine {
 			//Do nothing
 			return;
 		}
-		else {
+		else 
+		{
 			//Otherwise, let's rotate!
 			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1;
 			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1;
