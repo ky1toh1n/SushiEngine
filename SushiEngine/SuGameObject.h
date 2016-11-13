@@ -21,13 +21,16 @@ namespace SushiEngine {
 
 		vec3 position;
 		SuMesh2* mesh;
+
 		// TODO: Should be 'material' later on
 		SuTexture* texture;
 
 		SuGameObject(vec3 _position);
 		~SuGameObject();
-		// adds a component to the component list
+
+		// Adds a component to the component list
 		void AddComponent(Component _component);
+
 		// HIGHLY EXPERIMENTAL, disregard
 		//Component* GetComponent(Component _componentType);
 		void Render();

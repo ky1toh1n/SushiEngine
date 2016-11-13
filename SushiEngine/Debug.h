@@ -13,7 +13,8 @@
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 namespace SushiEngine {
-	enum class EMessageType : unsigned char {
+	enum class EMessageType : unsigned char 
+	{
 		S_INFO = 0,
 		S_WARNING,
 		S_ERROR,

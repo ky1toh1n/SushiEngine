@@ -2,22 +2,19 @@
 #ifndef OPENGL_RENDERER_H
 #define OPENGL_RENDERER_H
 
-
 #include <iostream>
+#include <GL/glew.h>
+#include "glm\glm.hpp"
+#include "glm\gtc\matrix_transform.hpp"
+
 #include "AbstractRenderer.h"
 #include "Window.h"
-#include "SuTexture.h"
+
+#include "SuGameObject.h"
 #include "IL\il.h"
 #include <assimp\Importer.hpp>
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
-
-#include <GL/glew.h>
-
-#include "glm\glm.hpp"
-#include "glm\gtc\matrix_transform.hpp"
-
-#include "SuGameObject.h"
 
 namespace SushiEngine {
 

@@ -7,7 +7,6 @@
 #include "AbstractRenderer.h"
 #include "Camera.h"
 #include "InputManager.h"
-#include "SuMesh.h"
 
 namespace SushiEngine {
 	class Scene
@@ -23,14 +22,14 @@ namespace SushiEngine {
 		Scene& operator = (const Scene&) = delete;
 		Scene& operator = (Scene&&) = delete;
 
-		//Main methods of a scene
+		// Main methods of a scene
 		virtual void Initialize(AbstractRenderer*);
 		virtual void Update();
 		virtual void Render();
 		virtual void Destroy() = 0;
 
 	protected:
-		//
+		
 		Window * window;
 		AbstractRenderer * renderer;
 		Camera * mainCamera;

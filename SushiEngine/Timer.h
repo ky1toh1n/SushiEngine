@@ -7,11 +7,6 @@
 namespace SushiEngine {
 
 	class Timer {
-
-	private:
-		double prevTicks;
-		double currTicks;
-
 	public:
 		Timer();
 		~Timer();
@@ -26,7 +21,10 @@ namespace SushiEngine {
 		void UpdateFrameTicks();
 		double GetDeltaTime() const;
 		unsigned int GetSleepTime(const unsigned int fps) const;
-	};
 
+	private:
+		double prevTicks;
+		double currTicks;
+	};
 }
 #endif
