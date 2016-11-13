@@ -1,6 +1,8 @@
 #ifndef MACROS_H
 #define MACROS_H
 
+#include <typeinfo>
+
 #include <vector>
 
 #include <glm\glm.hpp>

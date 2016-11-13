@@ -2,9 +2,9 @@
 
 namespace SushiEngine
 {
-	Component::Component(SuGameObject * _gameObject)
+	Component::Component(const SuGameObject * fGameObject)
 	{
-		mGameObject = _gameObject;
+		mGameObject = fGameObject;
 	}
 
 	Component::~Component()

@@ -226,6 +226,7 @@ namespace SushiEngine {
 
 		//----- Manual Update of Position
 
+		
 		glm::mat4 model_view = glm::translate(glm::mat4(1.0), go->position);
 		model_view = glm::rotate(model_view, rotation, vec3(0.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(location, 1, GL_FALSE, &model_view[0][0]);

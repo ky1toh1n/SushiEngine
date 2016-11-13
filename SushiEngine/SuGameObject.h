@@ -16,6 +16,7 @@ namespace SushiEngine {
 	class SuGameObject
 	{
 	public:
+		// a list of the components this gameobject holds
 		vector(Component) * components;
 
 		vec3 position;
@@ -25,7 +26,10 @@ namespace SushiEngine {
 
 		SuGameObject(vec3 _position);
 		~SuGameObject();
+		// adds a component to the component list
 		void AddComponent(Component _component);
+		// HIGHLY EXPERIMENTAL, disregard
+		//Component* GetComponent(Component _componentType);
 		void Render();
 	};
 }

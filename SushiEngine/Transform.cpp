@@ -1,43 +1,43 @@
-//#include "Transform.h"
-//
-//namespace SushiEngine
-//{
-//	Transform::Transform(const SuGameObject * _gameObject) : Component(_gameObject)
-//	{
-//		position = new vec3(0.0f, 0.0f, 0.0f);
-//		rotation = new quat(0.0f, 0.0f, 0.0f, 0.0f);
-//		scale = new vec3(1.0f, 1.0f, 1.0f);
-//	}
-//
-//	Transform::Transform(const SuGameObject * _gameObject, vec3 _pos) : Component(_gameObject)
-//	{
-//		position = &_pos;
-//		rotation = new quat(0.0f, 0.0f, 0.0f, 0.0f);
-//		scale = new vec3(1.0f, 1.0f, 1.0f);
-//	}
-//
-//	Transform::Transform(const SuGameObject * _gameObject, vec3 _pos, quat _rot) : Component(_gameObject)
-//	{
-//		position = &_pos;
-//		rotation = &_rot;
-//		scale = new vec3(1.0f, 1.0f, 1.0f);
-//	}
-//
-//	Transform::Transform(const SuGameObject * _gameObject, vec3 _pos, quat _rot, vec3 _scale) : Component(_gameObject)
-//	{
-//		position = &_pos;
-//		rotation = &_rot;
-//		scale = &_scale;
-//	}
-//
-//
-//	Transform::~Transform()
-//	{
-//		delete position;
-//		position = nullptr;
-//		delete rotation;
-//		rotation = nullptr;
-//		delete scale;
-//		scale = nullptr;
-//	}
-//}
+#include "Transform.h"
+
+namespace SushiEngine
+{
+	Transform::Transform(const SuGameObject * fGameObject) : Component(fGameObject)
+	{
+		mPosition = new vec3(0.0f, 0.0f, 0.0f);
+		mRotation = new quat(0.0f, 0.0f, 0.0f, 0.0f);
+		mScale = new vec3(1.0f, 1.0f, 1.0f);
+	}
+
+	Transform::Transform(const SuGameObject * fGameObject, vec3 fPosition) : Component(fGameObject)
+	{
+		mPosition = &fPosition;
+		mRotation = new quat(0.0f, 0.0f, 0.0f, 0.0f);
+		mScale = new vec3(1.0f, 1.0f, 1.0f);
+	}
+
+	Transform::Transform(const SuGameObject * fGameObject, vec3 fPosition, quat fRotation) : Component(fGameObject)
+	{
+		mPosition = &fPosition;
+		mRotation = &fRotation;
+		mScale = new vec3(1.0f, 1.0f, 1.0f);
+	}
+
+	Transform::Transform(const SuGameObject * fGameObject, vec3 fPosition, quat fRotation, vec3 fScale) : Component(fGameObject)
+	{
+		mPosition = &fPosition;
+		mRotation = &fRotation;
+		mScale = &fScale;
+	}
+
+
+	Transform::~Transform()
+	{
+		delete mPosition;
+		mPosition = nullptr;
+		delete mRotation;
+		mRotation = nullptr;
+		delete mScale;
+		mScale = nullptr;
+	}
+}
