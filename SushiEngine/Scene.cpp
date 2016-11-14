@@ -5,17 +5,18 @@ namespace SushiEngine
 	//Constructs a Scene
 	Scene::Scene()
 	{
-
+		Debug::Log(EMessageType::S_INFO, "\tScene()", __FILENAME__, __LINE__);
 	}
 
 	Scene::~Scene() 
 	{
-	
+		Debug::Log(EMessageType::S_INFO, "\t~Scene()", __FILENAME__, __LINE__);
 	}
 
 	//Initializes scene by getting window pointer
 	void Scene::Initialize(AbstractRenderer* pRenderer) 
 	{
+		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
 		window = GameSceneManager::GetInstance()->getWindowInstance();
 		mainCamera = new Camera(vec3(0,0,2), vec3(0,1,0));
 		renderer = pRenderer;

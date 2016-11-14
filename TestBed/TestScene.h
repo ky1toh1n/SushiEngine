@@ -3,6 +3,7 @@
 #define TEST_SCENE_H
 
 #include "Scene.h"
+#include "Debug.h"
 
 class TestScene : public SushiEngine::Scene
 {

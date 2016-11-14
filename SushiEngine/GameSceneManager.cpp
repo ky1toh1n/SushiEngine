@@ -16,8 +16,9 @@ namespace SushiEngine
 	{
 		Debug::Log(EMessageType::S_INFO, "~GameSceneManager()", __FILENAME__, __LINE__);
 
-		delete(window);
 		delete(renderer);
+		delete(window);
+		delete(currentScene);
 	}
 
 	//Updates the current scene and handles if the user has attempted to close the window.

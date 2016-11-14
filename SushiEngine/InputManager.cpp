@@ -8,12 +8,12 @@ namespace SushiEngine
 
 	InputManager::InputManager()
 	{
-
+		Debug::Log(EMessageType::S_INFO, "\tInputManager()", __FILENAME__, __LINE__);
 	}
 
 	InputManager::~InputManager()
 	{
-
+		Debug::Log(EMessageType::S_INFO, "\t~InputManager()", __FILENAME__, __LINE__);
 	}
 
 	InputManager* InputManager::GetInstance()

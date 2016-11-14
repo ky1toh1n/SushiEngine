@@ -13,13 +13,13 @@ namespace SushiEngine
 	Window::~Window() 
 	{
 		Debug::Log(EMessageType::S_INFO, "\t~Window()", __FILENAME__, __LINE__);
-		//glfwTerminate();
+		glfwTerminate();
 	}
 
 	//Attempts to create a GLFW window and set its title and screen dimensions.
 	bool Window::Initialize(const char* title, const int width, const int height)
 	{
-		Debug::Log(EMessageType::S_INFO, "\tWindow->Initialize()", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "\tWindow::Initialize()", __FILENAME__, __LINE__);
 		isInitialized = false;
 
 		if (!glfwInit()) 
