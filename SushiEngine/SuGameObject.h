@@ -14,14 +14,14 @@ namespace SushiEngine
 	{
 	public:
 		// a list of the components this gameobject holds
-		vector<Component> * components;
+		vector<Component*> components;
 
 		vec3 position;
 
 		SuGameObject(vec3 _position);
 		~SuGameObject();
 		// adds a component to the component list
-		void AddComponent(Component _component);
+		void AddComponent(Component * _component);
 		// HIGHLY EXPERIMENTAL, disregard
 		//Component* GetComponent(Component _componentType);
 		void Render();

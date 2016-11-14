@@ -9,6 +9,6 @@ namespace SushiEngine
 
 	Component::~Component()
 	{
-		delete mGameObject;
+		mGameObject = nullptr;
 	}
 }

@@ -30,7 +30,6 @@ namespace SushiEngine
 		mScale = &fScale;
 	}
 
-
 	Transform::~Transform()
 	{
 		delete mPosition;
@@ -39,5 +38,15 @@ namespace SushiEngine
 		mRotation = nullptr;
 		delete mScale;
 		mScale = nullptr;
+	}
+
+
+	mat4 Transform::getMatrix()
+	{
+		//TODO: Implement this function. How the f**k do we use quaternions to rotate, House?!
+
+		//Rotate then translate.
+
+		//TODO: Then Scale.
 	}
 }

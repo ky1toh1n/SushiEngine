@@ -23,6 +23,8 @@ namespace SushiEngine
 		Transform(const SuGameObject* fGameObject, vec3 fPosition, quat fRotation);
 		Transform(const SuGameObject* fGameObject, vec3 fPosition, quat fRotation, vec3 fScale);
 		~Transform();	
+
+		mat4 getMatrix();
 	};
 }
 #endif 
