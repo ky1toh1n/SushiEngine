@@ -22,26 +22,11 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="LoadShaders.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="VertexShaderCodeRaw.h">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="SuTexture.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="SuMesh2.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="SuMesh.cpp">
-      <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="SuGameObject.cpp">
       <Filter>Source Files\Framework</Filter>
@@ -78,20 +63,8 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="LoadShaders.h">
-      <Filter>Header Files\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="SuTexture.h">
-      <Filter>Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="SuMesh2.h">
-      <Filter>Header Files\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="SuMesh.h">
-      <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="SuGameObject.h">
       <Filter>Header Files\Framework</Filter>

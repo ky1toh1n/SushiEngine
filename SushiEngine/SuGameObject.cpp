@@ -1,7 +1,7 @@
 #include "SuGameObject.h"
 
-namespace SushiEngine {
-
+namespace SushiEngine 
+{
 	SuGameObject::SuGameObject(vec3 _position)
 	{
 		components = new vector<Component>;
@@ -14,6 +14,7 @@ namespace SushiEngine {
 
 	SuGameObject::~SuGameObject()
 	{
+
 	}
 
 	void SuGameObject::AddComponent(Component _component)
@@ -41,10 +42,6 @@ namespace SushiEngine {
 	//}
 	
 	void SuGameObject::Render() {
-		mesh->Use();
-		texture->Use();
-
-		glDrawArrays(GL_QUADS, 0, 16);
 	}
 
 }

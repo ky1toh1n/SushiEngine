@@ -16,6 +16,7 @@
 
 namespace std
 {
+
 #include <cstdlib>
 }
 
@@ -28,7 +29,7 @@ namespace SushiEngine
 	classType& operator = (const classType&) = delete; \
 	classType& operator = (classType&&) = delete;
 
-// iostream macros
+	// iostream macros
 #define cout std::cout
 #define cin std::cin
 #define endl std::endl

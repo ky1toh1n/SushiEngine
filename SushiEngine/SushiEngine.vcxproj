@@ -158,15 +158,10 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="SuGameObject.cpp" />
-    <ClCompile Include="SuMesh.cpp" />
-    <ClCompile Include="SuMesh2.cpp" />
-    <ClCompile Include="SuTexture.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="LoadShaders.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="VertexShaderCodeRaw.h" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,12 +173,8 @@
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="SuGameObject.h" />
-    <ClInclude Include="SuMesh.h" />
-    <ClInclude Include="SuMesh2.h" />
-    <ClInclude Include="SuTexture.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="LoadShaders.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
