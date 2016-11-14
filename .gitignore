@@ -17,8 +17,6 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-#x64/
-x86/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -254,8 +252,13 @@ paket-files/
 *.sln.iml
 
 # Logs
-TestBed/GameLog.txt
-TestBed/.GameLog.txt.swp
+GameLog.txt
+.GameLog.txt.swp
 
-# dlls
-!x64/[Dd]ebug/*.dll
+# Enabling build tracking for DLLs
+!x64/[Dd]ebug/
+!x64/[Rr]elase/
+
+# Let's ignore the non DLL stuffs
+x64/[Dd]ebug/*.lib
+x64/[Dd]ebug/*.exe

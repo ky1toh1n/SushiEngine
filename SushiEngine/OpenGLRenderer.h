@@ -2,24 +2,21 @@
 #ifndef OPENGL_RENDERER_H
 #define OPENGL_RENDERER_H
 
-
 #include <iostream>
-#include "AbstractRenderer.h"
-#include "Window.h"
-#include "SuTexture.h"
+
 #include "IL\il.h"
-
-// #include "vgl.h" // uses free glut -.-'
-// #include "VertexShaderCodeRaw.h"
-// #include "LoadShaders.cpp"
-#include <GL/glew.h>
-//#include <GL/gl.h>
-
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 
-namespace SushiEngine {
+#include "AbstractRenderer.h"
+#include "Window.h"
+#include "SuGameObject.h"
 
+namespace SushiEngine
+{
 	class OpenGLRenderer : public AbstractRenderer
 	{
 	public:
@@ -78,6 +75,8 @@ namespace SushiEngine {
 
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;
+
+		SuGameObject* go;
 	};
 }
 #endif

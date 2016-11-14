@@ -1,8 +1,7 @@
 #include "AbstractRenderer.h"
 
-
-
-namespace SushiEngine {
+namespace SushiEngine 
+{
 	AbstractRenderer::AbstractRenderer(Window* window) : window(window)
 	{
 	}
@@ -12,7 +11,8 @@ namespace SushiEngine {
 	{
 	}
 
-	void AbstractRenderer::setCamera(Camera* pCamera) {
+	void AbstractRenderer::setCamera(Camera* pCamera) 
+	{
 		camera = pCamera;
 	}
 }

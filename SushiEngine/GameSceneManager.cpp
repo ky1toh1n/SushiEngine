@@ -6,16 +6,19 @@ namespace SushiEngine
 	std::unique_ptr<GameSceneManager> GameSceneManager::gameInstance(nullptr);
 
 	//Creates the GameSceneManager.
-	GameSceneManager::GameSceneManager() {
+	GameSceneManager::GameSceneManager() 
+	{
 		Debug::Log(EMessageType::S_INFO, "GameSceneManager()", __FILENAME__, __LINE__);
 	}
 
 	//Destroys the GameSceneManager.
-	GameSceneManager::~GameSceneManager() {
+	GameSceneManager::~GameSceneManager() 
+	{
 		Debug::Log(EMessageType::S_INFO, "~GameSceneManager()", __FILENAME__, __LINE__);
 
-		delete(window);
 		delete(renderer);
+		delete(window);
+		delete(currentScene);
 	}
 
 	//Updates the current scene and handles if the user has attempted to close the window.
@@ -31,8 +34,10 @@ namespace SushiEngine
 	}
 
 	//Returns the current lkan Renderer Initialized.instance of the GameSceneManager.
-	GameSceneManager* GameSceneManager::GetInstance() {
-		if (gameInstance == nullptr) {
+	GameSceneManager* GameSceneManager::GetInstance() 
+	{
+		if (gameInstance == nullptr)
+		{
 			gameInstance.reset(new GameSceneManager());
 		}		
 		return gameInstance.get();
@@ -75,7 +80,7 @@ namespace SushiEngine
 		//Used to get Delta Time/Control Frame Rate [TODO: Make it work.]
 		Timer timer;
 		unsigned int fps = 60;
-		float spf = 1 / fps;
+		float spf = (float)(1 / fps);
 		float delay = 0.0f;
 		timer.Start();
 
@@ -87,7 +92,7 @@ namespace SushiEngine
 		while (isRunning)
 		{
 			timer.UpdateFrameTicks();
-			double deltaTime = timer.GetDeltaTime();
+			float deltaTime = (float)timer.GetDeltaTime();
 
 			Update(deltaTime);
 			Render();
@@ -95,14 +100,16 @@ namespace SushiEngine
 			//Calculating FPS
 			timeElapsed += deltaTime;
 			frames++;
-			if (timeElapsed >= 1) {
+			if (timeElapsed >= 1) 
+			{
 				// std::cout << "\nfps: " << frames;
 				frames = 0;
 				timeElapsed = 0;
 			}
 
 			//Gracefully shutdown scene and window
-			if (glfwWindowShouldClose(window->GetWindowHandle())) {
+			if (glfwWindowShouldClose(window->GetWindowHandle()))
+			{
 				currentScene->Destroy();
 				window->Destroy();
 				isRunning = false;
@@ -111,16 +118,19 @@ namespace SushiEngine
 	}
 	
 	//Returns the window instance.
-	Window* GameSceneManager::getWindowInstance() {
+	Window* GameSceneManager::getWindowInstance()
+	{
 		return window;
 	}
 
 	// ---- Callback Functions ---
-	static void CloseWindowCallback(GLFWwindow* glfwWindow) {
+	static void CloseWindowCallback(GLFWwindow* glfwWindow) 
+	{
 		glfwSetWindowShouldClose(glfwWindow, GLFW_TRUE);
 	}
 
-	static void ResizeWindowCallback(GLFWwindow* window, int width, int height) {
+	static void ResizeWindowCallback(GLFWwindow* window, int width, int height)
+	{
 		glViewport(0,0, width, height);
 	}
 }

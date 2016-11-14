@@ -1,8 +1,10 @@
 #include "Debug.h"
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 
-	void Debug::Init() {
+	void Debug::Init()
+	{
 		std::ofstream out;
 		// out.open("GameLog.txt", std::ios::app | std::ios::out);
 		out.open("GameLog.txt", std::ios::out);
@@ -10,12 +12,14 @@ namespace SushiEngine {
 		out.close();
 	}
 
-	void Debug::Log(const EMessageType MsgType, const std::string& message, const std::string& filename, const int line) {
+	void Debug::Log(const EMessageType MsgType, const std::string& message, const std::string& filename, const int line) 
+	{
 		std::ofstream out;
 		out.open("GameLog.txt", std::ios::app | std::ios::out);
 		// out.open("GameLog.txt", std::ios::out);
 
-		switch (MsgType) {
+		switch (MsgType) 
+		{
 		case EMessageType::S_INFO:
 			out << "INFO: " << message << " (" << filename << ":" << line << ")" << std::endl;
 			break;
@@ -32,7 +36,8 @@ namespace SushiEngine {
 		out.close();
 	}
 
-	void Debug::Print(const std::string text) {
+	void Debug::Print(const std::string text)
+	{
 		std::cout << text << std::endl;
 	}
 

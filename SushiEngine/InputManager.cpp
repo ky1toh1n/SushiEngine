@@ -1,44 +1,52 @@
 #include "InputManager.h"
 
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 	/// See the header file reguarding unique_ptr
 	std::unique_ptr<InputManager> InputManager::instance(nullptr);
 
 	InputManager::InputManager()
 	{
-
+		Debug::Log(EMessageType::S_INFO, "\tInputManager()", __FILENAME__, __LINE__);
 	}
 
 	InputManager::~InputManager()
 	{
-
+		Debug::Log(EMessageType::S_INFO, "\t~InputManager()", __FILENAME__, __LINE__);
 	}
 
-	InputManager* InputManager::GetInstance() {
-		if (instance == nullptr) {
+	InputManager* InputManager::GetInstance()
+	{
+		if (instance == nullptr)
+		{
 			instance.reset(new InputManager());
 		}
 		return instance.get();
 	}
 
-	void InputManager::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) {
+	void InputManager::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) 
+	{
 		//Update state
 		GetInstance()->keyData[key] = action;
 
 		//Print to console
-		if (action == GLFW_PRESS) {
+		if (action == GLFW_PRESS) 
+		{
 			std::cout << "Keypressed: " << char(key) << std::endl;
 		}
-		else if (action == GLFW_RELEASE) {
+		else if (action == GLFW_RELEASE) 
+		{
 			std::cout << "Released: " << char(key) << std::endl;
 		}
-		else if (action == GLFW_REPEAT) {
+		else if (action == GLFW_REPEAT)
+		{
 			std::cout << "Repeated: " << char(key) << std::endl;
 		}
 	}
 
-	void InputManager::ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods) {
+	void InputManager::ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods)
+	{
 		std::cout << "Click: " << std::endl;
 	}
 
@@ -50,12 +58,14 @@ namespace SushiEngine {
 		input->mouseY = y;
 	}
 	
-	bool InputManager::isKeyDown(int key) {
+	bool InputManager::isKeyDown(int key)
+	{
 		return keyData[key] == GLFW_PRESS || keyData[key] == GLFW_REPEAT;
 	}
 
 
-	void InputManager::getMousePosition(double* xRef, double* yRef) {
+	void InputManager::getMousePosition(double* xRef, double* yRef)
+	{
 		*xRef = mouseX;
 		*yRef = mouseY;
 	}
