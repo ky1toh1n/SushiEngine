@@ -13,7 +13,12 @@ namespace SushiEngine
 
 	SuGameObject::~SuGameObject()
 	{
-
+		//Destroy components; remove this if we're gonna share components >o<
+		std::vector<Component*>::iterator it;
+		for (it = components.begin(); it < components.end(); it++)
+		{
+			delete (*it);
+		}
 	}
 
 	void SuGameObject::AddComponent(Component *_component)

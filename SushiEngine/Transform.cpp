@@ -48,5 +48,6 @@ namespace SushiEngine
 		//Rotate then translate.
 
 		//TODO: Then Scale.
+		return mat4(1);
 	}
 }
