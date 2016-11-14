@@ -14,9 +14,15 @@
 #include <glm\glm.hpp>
 #include <glm\gtc\quaternion.hpp>
 
+namespace std
+{
+
+#include <cstdlib>
+}
+
 namespace SushiEngine
 {
-	// macro for ensuring constructors arent implicitly created
+// macro for ensuring constructors arent implicitly created
 #define NO_COPY_CONSTRUCTORS(classType) \
 	classType(const classType&) = delete; \
 	classType(classType&&) = delete; \
@@ -30,7 +36,7 @@ namespace SushiEngine
 
 	// primitives
 	typedef std::string string;
-
+	
 	// data structures
 	template<typename T>
 	using vector = std::vector<T>;
