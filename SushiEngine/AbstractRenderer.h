@@ -8,7 +8,8 @@
 #include "Window.h"
 #include "Camera.h"
 
-namespace SushiEngine {
+namespace SushiEngine
+{
 	class AbstractRenderer
 	{
 	public:
