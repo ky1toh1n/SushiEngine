@@ -14,6 +14,7 @@
 #include "AbstractRenderer.h"
 #include "Window.h"
 #include "SuGameObject.h"
+#include "ModelManager.h"
 
 namespace SushiEngine
 {
@@ -59,7 +60,7 @@ namespace SushiEngine
 			""
 			"void main()"
 			"{"
-			"	 fColor = texture2D(texture, texCoord);"
+			"	 fColor = vec4( 1.0, 0.0, 0.0, 1.0 );"
 			"}";
 		
 

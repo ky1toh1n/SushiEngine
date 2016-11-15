@@ -8,6 +8,9 @@
 #include "Component.h"
 #include "Transform.h"
 
+#include "GL\glew.h"
+
+
 namespace SushiEngine 
 {
 	class SuGameObject
@@ -18,6 +21,8 @@ namespace SushiEngine
 
 		vec3 position;
 
+		
+
 		SuGameObject(vec3 _position);
 		~SuGameObject();
 		// adds a component to the component list
@@ -25,6 +30,13 @@ namespace SushiEngine
 		// HIGHLY EXPERIMENTAL, disregard
 		//Component* GetComponent(Component _componentType);
 		void Render();
+
+
+
+
+		// ModelImporter Tests
+		const GLuint* modelId;
+
 	};
 }
 
