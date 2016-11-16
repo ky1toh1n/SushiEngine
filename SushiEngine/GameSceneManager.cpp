@@ -24,7 +24,7 @@ namespace SushiEngine
 	//Updates the current scene and handles if the user has attempted to close the window.
 	void GameSceneManager::Update(float deltaTime)
 	{
-		currentScene->Update();
+		currentScene->Update(deltaTime);
 	}
 
 	//Renders the current scene.
