@@ -16,26 +16,27 @@ namespace SushiEngine
 	class SuGameObject
 	{
 	public:
-		// a list of the components this gameobject holds
-		vector<Component*> components;
-
 		vec3 position;
-
-		
 
 		SuGameObject(vec3 _position);
 		~SuGameObject();
+
 		// adds a component to the component list
+		template<typename T>
 		void AddComponent(Component * _component);
-		// HIGHLY EXPERIMENTAL, disregard
-		//Component* GetComponent(Component _componentType);
+
+		// gets a component from the component list
+		template<typename T>
+		T* GetComponent();
+
 		void Render();
-
-
-
 
 		// ModelImporter Tests
 		const GLuint* modelId;
+
+	protected:
+		// a list of the components this gameobject holds
+		unordered_map<string, Component*> components;
 
 	};
 }

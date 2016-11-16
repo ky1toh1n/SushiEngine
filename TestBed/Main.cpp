@@ -1,5 +1,8 @@
 #include "GameSceneManager.h"
 #include "TestScene.h"
+#include "SuGameObject.h"
+
+using namespace SushiEngine;
 
 const int TESTBED_VERSION_NUMBER = 0b00000111;
 
