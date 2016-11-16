@@ -25,7 +25,7 @@ namespace SushiEngine
 
 		//Main methods of a scene
 		virtual void Initialize(AbstractRenderer*);
-		virtual void Update();
+		virtual void Update(float deltaTime);
 		virtual void Render();
 		virtual void Destroy() = 0;
 

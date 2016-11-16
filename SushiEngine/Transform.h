@@ -18,10 +18,7 @@ namespace SushiEngine
 		vec3* mScale;
 
 		// Default constructor, positioned at origin, no rotation and a scale of 1 assumed.
-		Transform(const SuGameObject* fGameObject);
-		Transform(const SuGameObject* fGameObject, vec3 fPosition);
-		Transform(const SuGameObject* fGameObject, vec3 fPosition, quat fRotation);
-		Transform(const SuGameObject* fGameObject, vec3 fPosition, quat fRotation, vec3 fScale);
+		Transform(const SuGameObject* fGameObject, vec3 fPosition = vec3(0,0,0), quat fRotation = quat(0,0,0,0), vec3 fScale = vec3(1,1,1));
 		~Transform();	
 
 		mat4 getMatrix();
