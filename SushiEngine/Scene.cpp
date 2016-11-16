@@ -44,7 +44,7 @@ namespace SushiEngine
 		float translateY = (float)(input->isKeyDown(GLFW_KEY_W) ? -1 : 0
 			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0) * deltaTime;
 
-		mainCamera->translate(translateX, translateY);
+		// mainCamera->translate(translateX, translateY);
 
 		//Rotation
 		int screenWidth, screenHeight;
@@ -68,7 +68,7 @@ namespace SushiEngine
 			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * deltaTime;
 			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * deltaTime;
 
-			mainCamera->rotate(rotateX, rotateY);
+			// mainCamera->rotate(rotateX, rotateY);
 		}
 #endif 
 	}

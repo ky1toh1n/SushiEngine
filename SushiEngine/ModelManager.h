@@ -22,6 +22,12 @@ namespace SushiEngine
 
 	};
 
+	struct VertexData
+	{
+		vec3 vPosition;
+		// vec3 vNormal;
+	};
+
 	class ModelManager
 	{
 	public:

@@ -55,7 +55,7 @@ namespace SushiEngine
 				cout << "model loaded into CPU" << endl;
 			}
 
-			vector<float> vertices;
+			vector<VertexData> vertices;
 
 			if (modelScene->HasMeshes())
 			{
@@ -69,10 +69,16 @@ namespace SushiEngine
 					for (unsigned int v = 0; v < mesh->mNumVertices; v++)
 					{
 						aiVector3D* pPos = &mesh->mVertices[v];
+						aiVector3D* pNor = &mesh->mNormals[v];
 
-						vertices.push_back(pPos->x);
-						vertices.push_back(pPos->y);
-						vertices.push_back(pPos->z);
+						VertexData vertex;
+						vec3 vPos = vec3(pPos->x, pPos->y, pPos->z);
+						vec3 vNor = vec3(pNor->x, pNor->y, pNor->z);
+
+						vertex.vPosition = vPos;
+						// vertex.vNormal = vNor;
+
+						vertices.push_back(vertex);
 					}
 					//if (mesh->HasPositions())
 
@@ -80,17 +86,33 @@ namespace SushiEngine
 				cout << "total verts: " << verts << endl;
 			}
 
-			// Condition OK 
+			// Condition: being improved
 			GLuint buffer;
 
 			glGenBuffers(1, &buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, buffer);
 			// glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts * 3, &vertices[0], GL_STATIC_DRAW); // The same thing as below
-			glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+			// glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), NULL, GL_STATIC_DRAW);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * verts, &vertices[0].vPosition);
+			// glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3), sizeof(vec3) * verts, &vertices[0].vNormal);
+
+			// Memory Tests
+			printf("-------------------------------\n");
+			printf("sizeof(vec3): %u\n", sizeof(vec3));
+			printf("sizeof(float) * 3: %u\n", sizeof(float) * 3);
+			printf("-------------------------------\n");
+			printf("&vertices: %u\n", &vertices);
+			printf("&vertices[0]: %u\n", &vertices[0]);
+			printf("&vertices[0].vPosition: %u\n", &vertices[0].vPosition);
+			printf("&vertices[1].vPosition: %u\n", &vertices[1].vPosition);
+			printf("&vertices[0].vPosition.x: %u\n", &vertices[0].vPosition.x);
+			printf("&vertices[1].vPosition.x: %u\n", &vertices[1].vPosition.x);
+			printf("-------------------------------\n");
 
 			//store the pointer inside modelHandles with the corresponding key
 			sModelHandles.emplace(_filepath, buffer);
-			GLuint test = sModelHandles[_filepath];
+
 			// lastly, return the pointer to the model
 			// TODO: make this more efficient by just returning the buffer.. im just not sure how its gonna work if i return it locally
 			return &sModelHandles[_filepath];

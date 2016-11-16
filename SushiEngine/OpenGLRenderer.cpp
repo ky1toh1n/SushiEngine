@@ -66,10 +66,12 @@ namespace SushiEngine
 		cout << "Failed to set GameObject's model" << endl;
 
 		GLuint renderId = *go->modelId;
-		//cout << renderId << endl;
 		glBindBuffer(GL_ARRAY_BUFFER, renderId);
 		glEnableVertexAttribArray(0); 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		GLuint shaderPosition = glGetAttribLocation(program, "vPosition");
+		glVertexAttribPointer(shaderPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		// GLuint shaderNormal = glGetAttribLocation(program, "vertexColor");
+		// glVertexAttribPointer(shaderNormal, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), 0);
 	}
 
 
