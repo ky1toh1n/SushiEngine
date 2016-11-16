@@ -19,7 +19,7 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "~ModelManager()", __FILENAME__, __LINE__);
 	}
 
-	const GLuint* ModelManager::LoadModel(std::string _filepath)
+	const GLuint* ModelManager::LoadModel(string _filepath)
 	{
 		
 		map<string, const GLuint>::iterator it;
@@ -157,6 +157,8 @@ namespace SushiEngine
 
 		return modelScene;
 	}
+
+
 
 	//DrawData ModelManager::getDrawData(const GLuint* _id)
 	//{

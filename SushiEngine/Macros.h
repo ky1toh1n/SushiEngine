@@ -19,12 +19,16 @@
 
 namespace SushiEngine
 {
-// macro for ensuring constructors arent implicitly created
+	// macro for ensuring constructors arent implicitly created
 #define NO_COPY_CONSTRUCTORS(classType) \
 	classType(const classType&) = delete; \
 	classType(classType&&) = delete; \
 	classType& operator = (const classType&) = delete; \
 	classType& operator = (classType&&) = delete;
+
+#define DELETE_PTR(classType) \
+	delete classType; \
+	classType = nullptr; 
 
 	// iostream macros
 #define cout std::cout

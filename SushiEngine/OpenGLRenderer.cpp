@@ -50,26 +50,6 @@ namespace SushiEngine
 		location = glGetUniformLocation(program, "model_matrix");
 		location2 = glGetUniformLocation(program, "camera_matrix");
 		location3 = glGetUniformLocation(program, "projection_matrix");
-
-		// ModelImporter Tests
-
-
-		// camera->translate(0.0f, 0.5f); // Dont use yet till fixed
-
-		go = new SuGameObject(glm::vec3(0,0,0));
-		if (!go) cout << "Failed to create GameObject" << endl;
-		// go->modelId = ModelManager::LoadModel("models/Wooden_House/Wooden_House.fbx");
-		// go->modelId = ModelManager::LoadModel("models/cube.obj");
-		// go->modelId = ModelManager::LoadModel("models/ananas.fbx"); // holy shit don't use this for testing
-		 go->modelId = ModelManager::LoadModel("models/house/house.3ds");
-		if (!go->modelId)
-		cout << "Failed to set GameObject's model" << endl;
-
-		GLuint renderId = *go->modelId;
-		//cout << renderId << endl;
-		glBindBuffer(GL_ARRAY_BUFFER, renderId);
-		glEnableVertexAttribArray(0); 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	}
 
 
@@ -93,5 +73,7 @@ namespace SushiEngine
 		glfwSwapBuffers(window->GetWindowHandle());
 		
 	}
+
+
 }
 

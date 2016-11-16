@@ -29,9 +29,6 @@ namespace SushiEngine
 
 		void Render();
 
-		// ModelImporter Tests
-		const GLuint* modelId;
-
 	protected:
 		// a list of the components this gameobject holds
 		unordered_map<string, Component*> components;

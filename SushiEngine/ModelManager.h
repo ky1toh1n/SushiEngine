@@ -14,6 +14,7 @@
 #include <assimp\postprocess.h>
 #include "Debug.h"
 #include "Macros.h"
+#include "SuGameObject.h"
 
 namespace SushiEngine
 {
@@ -52,7 +53,6 @@ namespace SushiEngine
 
 		// helper func: load and return the model data into memory
 		static const aiScene* loadModelScene(std::string _filepath); 
-
 	};
 }
 #endif
