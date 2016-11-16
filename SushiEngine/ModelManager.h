@@ -42,8 +42,8 @@ namespace SushiEngine
 		static int verts; // TODO: replace this for something more dynamic
 
 	private:
-		static std::map<const std::string, const GLuint> sModelHandles;
-		static std::vector<DrawData>* sModelDrawData;
+		static map<const std::string, const GLuint> sModelHandles;
+		static vector<DrawData>* sModelDrawData;
 		const aiScene* mModelScene;
 		static Assimp::Importer sImporter;
 

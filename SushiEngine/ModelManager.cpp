@@ -131,7 +131,7 @@ namespace SushiEngine
 
 		const aiScene* modelScene;
 
-		std::ifstream fileIn(_filepath.c_str());
+		ifstream fileIn(_filepath.c_str());
 
 		if (fileIn.fail())
 		{

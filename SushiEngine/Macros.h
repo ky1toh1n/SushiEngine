@@ -31,6 +31,9 @@ namespace SushiEngine
 #define cin std::cin
 #define endl std::endl
 
+	// fstream macros
+	typedef std::ifstream ifstream;
+
 	// primitives
 	typedef std::string string;
 	
