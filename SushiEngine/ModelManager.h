@@ -4,8 +4,7 @@
 #ifndef MODEL_MANAGER_H
 #define MODEL_MANAGER_H
 
-#include "Debug.h"
-#include "Macros.h"
+#include <memory>
 #include <map>
 #include <vector>
 #include <GL\glew.h>
@@ -13,7 +12,8 @@
 #include <assimp\Importer.hpp>
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
-// typedef std::map<const std::string, GLuint> SuModelIDs;
+#include "Debug.h"
+#include "Macros.h"
 
 namespace SushiEngine
 {
@@ -28,39 +28,30 @@ namespace SushiEngine
 		ModelManager();
 		~ModelManager();
 
-		ModelManager(const ModelManager&) = delete;
-		ModelManager(ModelManager&&) = delete;
-		ModelManager& operator=(const ModelManager&) = delete;
-		ModelManager& operator=(ModelManager&&) = delete;
-
+		NO_COPY_CONSTRUCTORS(ModelManager)
 
 		// Loads a model from a given path and returns an Id to that model once loaded in the GPU. If the model instance already exists,
 		// the function simply returns the Id to the model.
-		static const GLuint* loadModel(std::string _filepath);
+		static const GLuint* LoadModel(std::string _filepath);
 
 		// Retrieves a struct that contains all neccessary attributes for a draw call
 		static DrawData getDrawData(const GLuint* _id);
 
 		// Test ModelImporter
 
-		static int verts;
-
+		static int verts; // TODO: replace this for something more dynamic
 
 	private:
-		static std::map<const std::string, const GLuint> modelHandles;
-		static std::vector<DrawData>* modelDrawData;
-		const aiScene* modelScene;
-
-
+		static std::map<const std::string, const GLuint> sModelHandles;
+		static std::vector<DrawData>* sModelDrawData;
+		const aiScene* mModelScene;
+		static Assimp::Importer sImporter;
 
 		// Removes the instance of the model in the GPU and also remove it from the list of loaded models
-		void destroyModel(GLuint _id);
-
+		static void destroyModel(GLuint _id);
 
 		// helper func: load and return the model data into memory
 		static const aiScene* loadModelScene(std::string _filepath); 
-
-
 
 	};
 }

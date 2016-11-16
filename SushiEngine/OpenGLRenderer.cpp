@@ -54,22 +54,22 @@ namespace SushiEngine
 		// ModelImporter Tests
 
 
-		// camera->translate(0.0f, 0.5f);
+		// camera->translate(0.0f, 0.5f); // Dont use yet till fixed
 
 		go = new SuGameObject(glm::vec3(0,0,0));
 		if (!go) cout << "Failed to create GameObject" << endl;
-		go->modelId = ModelManager::loadModel("models/Wooden_House/Wooden_House.fbx");
+		// go->modelId = ModelManager::LoadModel("models/Wooden_House/Wooden_House.fbx");
+		// go->modelId = ModelManager::LoadModel("models/cube.obj");
+		// go->modelId = ModelManager::LoadModel("models/ananas.fbx"); // holy shit don't use this for testing
+		 go->modelId = ModelManager::LoadModel("models/house/house.3ds");
 		if (!go->modelId)
 		cout << "Failed to set GameObject's model" << endl;
-		// else cout << "modelID: " << go << endl;
 
-		//GLuint renderId = *go->modelId;
+		GLuint renderId = *go->modelId;
 		//cout << renderId << endl;
-		//glBindBuffer(GL_ARRAY_BUFFER, renderId); // Switch buffer binding point
-		glEnableVertexAttribArray(0); // Set pointer '0' to start of buffer attrib
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // Describe how data is read
-
-
+		glBindBuffer(GL_ARRAY_BUFFER, renderId);
+		glEnableVertexAttribArray(0); 
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	}
 
 
@@ -88,8 +88,7 @@ namespace SushiEngine
 		glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
 
 
-		glDrawArrays(GL_TRIANGLES, 0, ModelManager::verts);
-
+		glDrawArrays(GL_LINE_STRIP, 0, ModelManager::verts);
 
 		glfwSwapBuffers(window->GetWindowHandle());
 		
