@@ -26,23 +26,25 @@ namespace SushiEngine
 	}
 
 	//Polls GLFW Events
-	void Scene::Update()
+	void Scene::Update(float deltaTime)
 	{
 		
 		/*Poll for input*/
 		glfwPollEvents();
 		
 		/*Handle Camera Controls.*/
+#define ENABLE_CAMERA
 		///TODO: Add Delta Time/Chrono PLEASE :"(
+#ifdef ENABLE_CAMERA
 		InputManager * input = InputManager::GetInstance();
 		
 		//Translation
 		float translateX = (float)(input->isKeyDown(GLFW_KEY_A) ? 1 : 0
-			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0);
+			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0) * deltaTime;
 		float translateY = (float)(input->isKeyDown(GLFW_KEY_W) ? -1 : 0
-			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0);
+			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0) * deltaTime;
 
-		// mainCamera->translate(translateX * 0.001, translateY * 0.001);
+		mainCamera->translate(translateX, translateY);
 
 		//Rotation
 		int screenWidth, screenHeight;
@@ -63,13 +65,12 @@ namespace SushiEngine
 		else 
 		{
 			//Otherwise, let's rotate!
-			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1;
-			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1;
-			float antiChronoFactor = 0.01f;
+			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * deltaTime;
+			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * deltaTime;
 
-			// mainCamera->rotate(rotateX * antiChronoFactor, rotateY * antiChronoFactor);
+			mainCamera->rotate(rotateX, rotateY);
 		}
-		
+#endif 
 	}
 
 	//Swaps GLFW Buffers
