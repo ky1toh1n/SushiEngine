@@ -4,12 +4,14 @@
 // misc standard librariess
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <typeinfo>
 #include <type_traits>
 
 // data structures
 #include <vector>
 #include <unordered_map>
+#include <map>
 
 // this party libraries
 #include <glm\glm.hpp>
@@ -36,8 +38,12 @@ namespace SushiEngine
 	template<typename T>
 	using vector = std::vector<T>;
 
-	template<typename T, typename C>
-	using unordered_map = std::unordered_map<T, C>;
+	template<typename K, typename V>
+	using unordered_map = std::unordered_map<K, V>;
+
+	template<typename K, typename V>
+	using map = std::map<K, V>;
+
 
 	// glm structs that will be commonly used
 	typedef glm::vec3 vec3;

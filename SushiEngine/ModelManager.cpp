@@ -3,7 +3,7 @@
 namespace SushiEngine 
 {
 	int ModelManager::verts = 0; // to be removed. see header
-	std::map<const std::string, const GLuint> ModelManager::sModelHandles;
+	map<const string, const GLuint> ModelManager::sModelHandles;
 	Assimp::Importer ModelManager::sImporter;
 
 	// std::vector<DrawData>* ModelManager::modelDrawData = nullptr;
@@ -22,7 +22,7 @@ namespace SushiEngine
 	const GLuint* ModelManager::LoadModel(std::string _filepath)
 	{
 		
-		std::map<std::string, const GLuint>::iterator it;
+		map<string, const GLuint>::iterator it;
 
 		// Search for a filepath similar to _filepath
 		it = sModelHandles.find(_filepath);
@@ -55,7 +55,7 @@ namespace SushiEngine
 				cout << "model loaded into CPU" << endl;
 			}
 
-			std::vector<float> vertices;
+			vector<float> vertices;
 
 			if (modelScene->HasMeshes())
 			{
@@ -110,7 +110,7 @@ namespace SushiEngine
 		}
 
 		/// Remove from the list of instances
-		std::map<std::string, const GLuint>::iterator it;
+		map<string, const GLuint>::iterator it;
 		// find the id in the list
 		for (it = sModelHandles.begin(); it != sModelHandles.end(); ++it)
 		{

@@ -23,6 +23,7 @@ namespace SushiEngine
 	mat4 Transform::getMatrix()
 	{
 		//TODO: Implement this function. How the f**k do we use quaternions to rotate, House?!
+		// FFS learn to rotate :{X
 
 		//Rotate then translate.
 
