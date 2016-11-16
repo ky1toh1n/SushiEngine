@@ -4,13 +4,16 @@
 
 #include "Scene.h"
 #include "Debug.h"
+#include "SuGameObject.h"
+
+using namespace SushiEngine;
 
 class TestScene : public SushiEngine::Scene
 {
 public:
 	TestScene();
 	~TestScene();
-
+	void Initialize(AbstractRenderer* abstractRenderer);
 	void Destroy();
 };
 #endif
