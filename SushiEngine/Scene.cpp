@@ -18,7 +18,7 @@ namespace SushiEngine
 	{
 		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
 		window = GameSceneManager::GetInstance()->getWindowInstance();
-		mainCamera = new Camera(vec3(0,0,2), vec3(0,1,0));
+		mainCamera = new Camera(vec3(0,0,20), vec3(0,1,0));
 		renderer = pRenderer;
 		renderer->setCamera(mainCamera);
 

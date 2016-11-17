@@ -1,72 +1,167 @@
-//#include "ModelManager.h"
-//
-//
-//namespace SushiEngine 
-//{
-//
-//	ModelManager::ModelManager()
-//	{
-//	}
-//
-//
-//	ModelManager::~ModelManager()
-//	{
-//	}
-//
-//	GLuint* ModelManager::loadModel(std::string _filepath)
-//	{
-//		std::map<std::string, GLuint*>::iterator it;
-//
-//		// Search for a filepath similar to _filepath
-//		it = modelHandles->find(_filepath);
-//
-//		// If found
-//		if (it != modelHandles->end())
-//		{
-//			// return the value of that key
-//			return it->second;
-//		}
-//		else 
-//		{
-//			// otherwise, create a buffer object reference pointer
-//
-//			// load data into the gpu via vbo
-//
-//			// store the pointer inside modelHandles with the corresponding key
-//
-//			// lastly, return the pointer to the model
-//			
-//		}
-//	}
-//
-//	void ModelManager::destroyModel(GLuint* id)
-//	{
-//
-//		/// Remove from the GPU
-//		// if the id is a vbo
-//		if (glIsBuffer(*id))
-//		{
-//			// delete from gpu
-//			glDeleteBuffers(1, id);
-//		}
-//
-//		/// Remove from the list of instances
-//		std::map<std::string, GLuint*>::iterator it;
-//		// find the id in the list
-//		for (it = modelHandles->begin(); it != modelHandles->end(); ++it)
-//		{
-//			// if found
-//			if (it->second == id)
-//			{
-//				// delete it from the list
-//				modelHandles->erase(it);
-//				break;
-//			}
-//		}
-//	}
-//
-//	DrawData ModelManager::getDrawData(GLuint* _id)
-//	{
-//	}
-//
-//}
+#include "ModelManager.h"
+
+namespace SushiEngine 
+{
+	int ModelManager::verts = 0; // to be removed. see header
+	map<const string, const GLuint> ModelManager::sModelHandles;
+	Assimp::Importer ModelManager::sImporter;
+
+	// std::vector<DrawData>* ModelManager::modelDrawData = nullptr;
+
+	ModelManager::ModelManager()
+	{
+		Debug::Log(EMessageType::S_INFO, "ModelManager()", __FILENAME__, __LINE__);
+	}
+
+
+	ModelManager::~ModelManager()
+	{
+		Debug::Log(EMessageType::S_INFO, "~ModelManager()", __FILENAME__, __LINE__);
+	}
+
+	const GLuint* ModelManager::LoadModel(string fFilepath)
+	{
+		
+		map<string, const GLuint>::iterator it;
+
+		// Search for a filepath similar to _filepath
+		it = sModelHandles.find(fFilepath);
+		
+		// If found
+		if (it != sModelHandles.end())
+		{
+			Debug::Log(EMessageType::S_INFO, "existing _filepath found" , __FILENAME__, __LINE__);
+			cout << "exisiting _filepath found" << endl;
+			// return the value of that key
+			GLuint id = it->second;
+			return (GLuint*)id;
+		}
+		else
+		{
+			// otherwise,
+			Debug::Log(EMessageType::S_INFO, "exisiting _filepath not found", __FILENAME__, __LINE__);
+			cout << "exisiting _filepath not found" << endl;
+
+			// load the model from the filepath
+			const aiScene* modelScene = loadModelScene(fFilepath);
+
+			if (!modelScene)
+			{
+				cout << "failed to load model into CPU" << endl;
+				return nullptr;
+			}
+			else
+			{
+				cout << "model loaded into CPU" << endl;
+			}
+
+			vector<float> vertices;
+
+			if (modelScene->HasMeshes())
+			{
+				cout << "# of Meshes: " << modelScene->mNumMeshes << endl;
+				for (unsigned int m = 0; m < modelScene->mNumMeshes; m++)
+				{
+					const aiMesh* mesh = modelScene->mMeshes[m];
+					cout << m+1 << ": # of Vertices: " << mesh->mNumVertices << endl;
+					verts += mesh->mNumVertices;
+					
+					for (unsigned int v = 0; v < mesh->mNumVertices; v++)
+					{
+						aiVector3D* pPos = &mesh->mVertices[v];
+
+						vertices.push_back(pPos->x);
+						vertices.push_back(pPos->y);
+						vertices.push_back(pPos->z);
+					}
+					//if (mesh->HasPositions())
+
+				}
+				cout << "total verts: " << verts << endl;
+			}
+
+			// Condition OK 
+			GLuint buffer;
+
+			glGenBuffers(1, &buffer);
+			glBindBuffer(GL_ARRAY_BUFFER, buffer);
+			// glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts * 3, &vertices[0], GL_STATIC_DRAW); // The same thing as below
+			glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+
+			//store the pointer inside modelHandles with the corresponding key
+			sModelHandles.emplace(fFilepath, buffer);
+			GLuint test = sModelHandles[fFilepath];
+			// lastly, return the pointer to the model
+			// TODO: make this more efficient by just returning the buffer.. im just not sure how its gonna work if i return it locally
+			return &sModelHandles[fFilepath];
+		}
+	}
+
+	// Untested
+	void ModelManager::destroyModel(GLuint fID)
+	{
+		
+		/// Remove from the GPU
+		// if the id is a vbo
+		if (glIsBuffer(fID))
+		{
+			// delete from gpu
+			glDeleteBuffers(1, &fID);
+		}
+
+		/// Remove from the list of instances
+		map<string, const GLuint>::iterator it;
+		// find the id in the list
+		for (it = sModelHandles.begin(); it != sModelHandles.end(); ++it)
+		{
+			// if found
+			if (it->second == fID)
+			{
+				// delete it from the list
+				sModelHandles.erase(it);
+				break;
+			}
+		}
+	}
+
+
+	// Condition OK
+	const aiScene* ModelManager::loadModelScene(std::string fFilepath)
+	{
+
+		const aiScene* modelScene;
+
+		ifstream fileIn(fFilepath.c_str());
+
+		if (fileIn.fail())
+		{
+			Debug::Log(EMessageType::S_ERROR, "Failed to open file : " + (std::string)fFilepath.c_str(), __FILENAME__, __LINE__);
+			return nullptr;
+		}
+
+		// modelScene = importer.ReadFile(_filepath, aiProcessPreset_TargetRealtime_Quality);
+		modelScene = sImporter.ReadFile(fFilepath,
+			aiProcess_CalcTangentSpace |
+			aiProcess_Triangulate |
+			// aiProcess_JoinIdenticalVertices |
+			aiProcess_SortByPType);
+
+		if (!modelScene)
+		{
+			Debug::Log(EMessageType::S_ERROR, sImporter.GetErrorString(), __FILENAME__, __LINE__);
+		}
+		else
+		{
+			Debug::Log(EMessageType::S_ERROR, "ModelManager::loadModelScene() SUCCESS ", __FILENAME__, __LINE__);
+		}
+
+		return modelScene;
+	}
+
+
+
+	//DrawData ModelManager::getDrawData(const GLuint* _id)
+	//{
+	//}
+
+}
