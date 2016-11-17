@@ -262,3 +262,10 @@ GameLog.txt
 # Let's ignore the non DLL stuffs
 x64/[Dd]ebug/*.lib
 x64/[Dd]ebug/*.exe
+
+# Unignore (There's a problem with .obj being ignored, Thanks VS)
+# Anchoring git ignore stuff. I don't really understand it. - Cat
+/*
+
+!.gitignore
+!TestBed/models
