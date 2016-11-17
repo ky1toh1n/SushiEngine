@@ -60,9 +60,11 @@ namespace SushiEngine
 			""
 			"void main()"
 			"{"
-			"	 fColor = vec4( 1.0, 0.0, 0.0, 1.0 );"
+			"	 fColor = texture2D(texture, texCoord);"
 			"}";
 		
+		// fColor = vec4( 1.0, 0.0, 0.0, 1.0 );"
+		// fColor = texture2D(texture, texCoord);"
 
 		GLuint buffers[3];
 		GLuint location;

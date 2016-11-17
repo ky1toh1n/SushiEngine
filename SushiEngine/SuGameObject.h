@@ -30,7 +30,8 @@ namespace SushiEngine
 		void Render();
 
 		// ModelImporter Tests
-		const GLuint* modelId;
+		const GLuint* modelId = nullptr;
+		const GLuint* textureId = nullptr;
 
 	protected:
 		// a list of the components this gameobject holds

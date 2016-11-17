@@ -22,12 +22,6 @@ namespace SushiEngine
 
 	};
 
-	struct VertexData
-	{
-		vec3 vPosition;
-		// vec3 vNormal;
-	};
-
 	class ModelManager
 	{
 	public:
@@ -36,6 +30,8 @@ namespace SushiEngine
 
 		NO_COPY_CONSTRUCTORS(ModelManager)
 
+
+		static bool Init();
 		// Loads a model from a given path and returns an Id to that model once loaded in the GPU. If the model instance already exists,
 		// the function simply returns the Id to the model.
 		static const GLuint* LoadModel(std::string _filepath);
@@ -45,12 +41,15 @@ namespace SushiEngine
 
 		// Test ModelImporter
 
-		static int verts; // TODO: replace this for something more dynamic
+		static int verts; // TODO: replace this with something more dynamic
+
+		static const GLuint* LoadTexture(std::string _filepath); // currently a member but can be used statically later..?
+
 
 	private:
 		static map<const std::string, const GLuint> sModelHandles;
+		static map<const std::string, const GLuint> sTextureHandles;
 		static vector<DrawData>* sModelDrawData;
-		const aiScene* mModelScene;
 		static Assimp::Importer sImporter;
 
 		// Removes the instance of the model in the GPU and also remove it from the list of loaded models
@@ -58,6 +57,8 @@ namespace SushiEngine
 
 		// helper func: load and return the model data into memory
 		static const aiScene* loadModelScene(std::string _filepath); 
+
+		// helper func: loads the image using DevIL
 
 	};
 }

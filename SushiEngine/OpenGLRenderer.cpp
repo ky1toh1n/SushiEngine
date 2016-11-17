@@ -5,7 +5,9 @@ namespace SushiEngine
 	OpenGLRenderer::OpenGLRenderer(Window* window) : AbstractRenderer(window)
 	{
 		Debug::Log(EMessageType::S_INFO, "\tOpenGLRenderer()", __FILENAME__, __LINE__);
+		ModelManager::Init();
 		init();
+
 	}
 
 
@@ -58,20 +60,49 @@ namespace SushiEngine
 
 		go = new SuGameObject(glm::vec3(0,0,0));
 		if (!go) cout << "Failed to create GameObject" << endl;
-		// go->modelId = ModelManager::LoadModel("models/Wooden_House/Wooden_House.fbx");
+		//go->modelId = ModelManager::LoadModel("models/Wooden_House/Wooden_House.fbx");
 		// go->modelId = ModelManager::LoadModel("models/cube.obj");
-		// go->modelId = ModelManager::LoadModel("models/ananas.fbx"); // holy shit don't use this for testing
-		 go->modelId = ModelManager::LoadModel("models/house/house.3ds");
+		// go->modelId = ModelManager::LoadModel("models/ananas.fbx");
+		// go->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
+		go->modelId = ModelManager::LoadModel("models/house/house.obj");
 		if (!go->modelId)
-		cout << "Failed to set GameObject's model" << endl;
+		{
+			cout << "Failed to set GameObject's model" << endl;
+		}
+		else
+		{
 
-		GLuint renderId = *go->modelId;
-		glBindBuffer(GL_ARRAY_BUFFER, renderId);
-		glEnableVertexAttribArray(0); 
+
+		}
+		go->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+	    // go->textureId = ModelManager::LoadTexture("models/Crate/crate_1.jpg");
+		// go->textureId = ModelManager::LoadTexture("models/house/house.jpg");
+		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/House_Texture.png");
+		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/rsz_1house_texture_s.png");
+		// go->textureId = ModelManager::LoadTexture("wall.png");
+		if (!go->textureId)
+		{
+			cout << "Failed to set GameObject's texture" << endl;
+		}
+		else
+		{
+
+
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, *go->modelId);
 		GLuint shaderPosition = glGetAttribLocation(program, "vPosition");
+		cout << "posattrib loc: " << shaderPosition << endl;
+		glEnableVertexAttribArray(shaderPosition);
 		glVertexAttribPointer(shaderPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		// GLuint shaderNormal = glGetAttribLocation(program, "vertexColor");
-		// glVertexAttribPointer(shaderNormal, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), 0);
+		cout << "textureId: " << *go->textureId << endl;
+
+		glBindTexture(GL_TEXTURE_2D, *go->textureId);
+		GLuint shaderUVs = glGetAttribLocation(program, "vTexCoord");
+		cout << "texcoordattrib loc: " << shaderUVs << endl;
+		glEnableVertexAttribArray(shaderUVs);
+		glVertexAttribPointer(shaderUVs, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * ModelManager::verts));
+
 	}
 
 
@@ -90,7 +121,8 @@ namespace SushiEngine
 		glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
 
 
-		glDrawArrays(GL_LINE_STRIP, 0, ModelManager::verts);
+		// glDrawArrays(GL_LINE_STRIP, 0, ModelManager::verts);
+		glDrawArrays(GL_TRIANGLES, 0, ModelManager::verts);
 
 		glfwSwapBuffers(window->GetWindowHandle());
 		
