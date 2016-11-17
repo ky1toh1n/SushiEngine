@@ -7,6 +7,7 @@
 #include "Macros.h"
 #include "Component.h"
 #include "Transform.h"
+#include "MeshRenderer.h"
 
 #include "GL\glew.h"
 

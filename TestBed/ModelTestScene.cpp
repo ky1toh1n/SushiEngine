@@ -23,7 +23,7 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	houseMesh = new MeshRenderer(go, "models/house/house.3ds");
 
 	// this break it for some reason
-	//go->AddComponent<MeshRenderer>(houseMesh);
+	go->AddComponent<MeshRenderer>(houseMesh);
 
 }
 
