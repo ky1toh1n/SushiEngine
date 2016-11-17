@@ -74,7 +74,11 @@ namespace SushiEngine
 
 
 		}
-		go->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+
+		go->textureId = ModelManager::LoadTexture("models/house/house2.png");
+		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/texhouse2.png");
+		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/texhouse.png");
+		// go->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
 	    // go->textureId = ModelManager::LoadTexture("models/Crate/crate_1.jpg");
 		// go->textureId = ModelManager::LoadTexture("models/house/house.jpg");
 		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/House_Texture.png");
