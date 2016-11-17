@@ -4,9 +4,6 @@
 #ifndef MODEL_MANAGER_H
 #define MODEL_MANAGER_H
 
-#include <memory>
-#include <map>
-#include <vector>
 #include <GL\glew.h>
 #include "IL\il.h"
 #include <assimp\Importer.hpp>
@@ -33,10 +30,10 @@ namespace SushiEngine
 
 		// Loads a model from a given path and returns an Id to that model once loaded in the GPU. If the model instance already exists,
 		// the function simply returns the Id to the model.
-		static const GLuint* LoadModel(std::string _filepath);
+		static const GLuint* LoadModel(std::string fFilepath);
 
 		// Retrieves a struct that contains all neccessary attributes for a draw call
-		static DrawData getDrawData(const GLuint* _id);
+		//static DrawData getDrawData(const GLuint* fID);
 
 		// Test ModelImporter
 
@@ -49,10 +46,10 @@ namespace SushiEngine
 		static Assimp::Importer sImporter;
 
 		// Removes the instance of the model in the GPU and also remove it from the list of loaded models
-		static void destroyModel(GLuint _id);
+		static void destroyModel(GLuint fID);
 
 		// helper func: load and return the model data into memory
-		static const aiScene* loadModelScene(std::string _filepath); 
+		static const aiScene* loadModelScene(string fFilepath); 
 	};
 }
 #endif

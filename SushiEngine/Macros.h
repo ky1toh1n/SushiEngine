@@ -7,15 +7,17 @@
 #include <fstream>
 #include <typeinfo>
 #include <type_traits>
+#include <memory>
 
 // data structures
 #include <vector>
 #include <unordered_map>
 #include <map>
 
-// this party libraries
+// third party libraries
 #include <glm\glm.hpp>
 #include <glm\gtc\quaternion.hpp>
+#include <glm\gtc\matrix_transform.hpp>
 
 namespace SushiEngine
 {

@@ -3,32 +3,39 @@
 namespace SushiEngine 
 {
 	// prototype
-	SuGameObject::SuGameObject(vec3 _position)
+	SuGameObject::SuGameObject()
 	{
-		Transform * transform = new Transform(this, _position);
-		AddComponent<Transform>(transform);
+		Transform * _transform = new Transform(this, vec3(1.0f, 1.0f, 1.0f));
+		AddComponent<Transform>(_transform);
 		GetComponent<Transform>();
-		MeshRenderer * houseMesh = new MeshRenderer(this, "models/Crate/Crate1.3ds");
-		AddComponent<MeshRenderer>(houseMesh);
+
+		MeshRenderer * _houseMesh = new MeshRenderer(this, "models/Crate/Crate1.3ds");
+		AddComponent<MeshRenderer>(_houseMesh);
 		GetComponent<MeshRenderer>();
+	}
+
+	SuGameObject::SuGameObject(vec3 fPosition)
+	{
+		Transform * _transform = new Transform(this, fPosition);
+		AddComponent<Transform>(_transform);
 	}
 
 	SuGameObject::~SuGameObject()
 	{
-		components.clear();
+		mComponents.clear();
 	}
 
 	template <typename T>
-	void SuGameObject::AddComponent(Component *_component)
+	void SuGameObject::AddComponent(Component * fComponent)
 	{
-		components.insert(std::make_pair(typeid(T).name(), _component));
+		mComponents.insert(std::make_pair(typeid(T).name(), fComponent));
 	}
 
 	template <typename T>
 	T* SuGameObject::GetComponent()
 	{
 		// casting from base class (component) to child class :{D
-		return dynamic_cast<T*>(components[typeid(T).name()]);
+		return dynamic_cast<T*>(mComponents[typeid(T).name()]);
 	}
 	
 	void SuGameObject::Render() {
