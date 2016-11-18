@@ -15,6 +15,8 @@ TestScene::~TestScene()
 void TestScene::Initialize(AbstractRenderer* abstractRenderer) {
 	Scene::Initialize(abstractRenderer);
 
+
+
 	SuGameObject* box = new SuGameObject(vec3(0.0f, 0.0f, 0.0f));
 	Transform* t = box->GetComponent<Transform>();
 

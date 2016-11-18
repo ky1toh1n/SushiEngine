@@ -46,7 +46,7 @@ namespace SushiEngine
 		glAttachShader(program, fragmentShaderID);
 
 		glLinkProgram(program);
-		glUseProgram(program);	//My Pipeline is set up
+		glUseProgram(program);	// My Pipeline is set up
 		
 		// Enable Depth Culling
 		glEnable(GL_DEPTH_TEST);
@@ -75,6 +75,60 @@ namespace SushiEngine
 		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/House_Texture.png");
 		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/rsz_1house_texture_s.png");
 		// go->textureId = ModelManager::LoadTexture("wall.png");
+
+		unsigned int numberOfDivisions = 10;
+		float increments = 1.0 / numberOfDivisions;
+		const unsigned int gridNumVerts = numberOfDivisions * 4;
+		vector<vec3> grid(gridNumVerts);
+		vector<vec3> gridColor(gridNumVerts);
+
+		// Points for the horizontal lines
+		for (unsigned int y = -1; y < 1; y+=increments)
+		{
+			// line from
+			vec3 pointA = vec3(-1, 0, y);
+			// to
+			vec3 pointB = vec3(1, 0, y);
+
+			grid.push_back(pointA);
+			grid.push_back(pointB);
+			gridColor.push_back(vec3(1, 0, 0));
+			gridColor.push_back(vec3(1, 0, 0));
+		}
+
+		// Points for the vertical lines
+		for (unsigned int x = -1; x < 1; x += increments)
+		{
+			// line from
+			vec3 pointA = vec3(x, 0, -1);
+			// to
+			vec3 pointB = vec3(x, 0, 1);
+
+			grid.push_back(pointA);
+			grid.push_back(pointB);
+			gridColor.push_back(vec3(1, 0, 0));
+			gridColor.push_back(vec3(1, 0, 0));
+		}
+
+		GLuint gridBuffer[2];
+		glGenBuffers(2, gridBuffer);
+
+		glBindBuffer(GL_ARRAY_BUFFER, gridBuffer[0]);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * gridNumVerts, &grid[0], GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ARRAY_BUFFER, gridBuffer[1]);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * gridNumVerts, &gridColor[0], GL_STATIC_DRAW);
+
+		GLuint shaderPosition = glGetAttribLocation(program, "vPosition");
+		glEnableVertexAttribArray(shaderPosition);
+		glVertexAttribPointer(shaderPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		GLuint shaderColor = glGetAttribLocation(program, "vertexColor");
+		glEnableVertexAttribArray(shaderColor);
+		glVertexAttribPointer(shaderColor, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+
+		glDrawArrays(GL_LINE_STRIP, 0, gridNumVerts);
 	}
 
 
