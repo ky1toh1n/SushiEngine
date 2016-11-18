@@ -158,6 +158,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="SuGameObject.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -174,16 +175,13 @@
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="SuGameObject.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FramentShader.frag" />
-    <None Include="VertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -40,6 +40,7 @@
     <ClCompile Include="OpenGLRenderer.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -84,6 +85,7 @@
     <ClInclude Include="OpenGLRenderer.h">
       <Filter>Graphics\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />
@@ -107,16 +109,5 @@
     <Filter Include="Graphics\OpenGL">
       <UniqueIdentifier>{b3c86400-0aaf-4e74-9ef6-d2b360cda394}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{e2afc0c1-5e98-41b4-923e-1aab8f7cf3c5}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="VertexShader.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="FramentShader.frag">
-      <Filter>Shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>

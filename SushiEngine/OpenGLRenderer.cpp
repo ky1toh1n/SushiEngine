@@ -25,15 +25,17 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "\tOpenGLRenderer::init", __FILENAME__, __LINE__);
 		glewInit();
 
+		ShaderLoader::loadShader(SU_VERTEX_SHADER, "shaders/VertexShader.vert");
+		ShaderLoader::loadShader(SU_FRAGMENT_SHADER, "shaders/FragmentShader.frag");
 
 		// Testing Manual Loading of Shaders
 		vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 		fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
-		char* adapter[1];
-		adapter[0] = vertexShaderCode;
+		const char* adapter[1];
+		adapter[0] = ShaderLoader::shader[SU_VERTEX_SHADER].c_str();
 		glShaderSource(vertexShaderID, 1, adapter, 0);
-		adapter[0] = fragmentShaderCode;
+		adapter[0] = ShaderLoader::shader[SU_FRAGMENT_SHADER].c_str();
 		glShaderSource(fragmentShaderID, 1, adapter, 0);
 
 		glCompileShader(vertexShaderID);
