@@ -31,6 +31,8 @@ namespace SushiEngine
 		static bool Init();
 		// Loads a model from a given path and returns an Id to that model once loaded in the GPU. If the model instance already exists,
 		// the function simply returns the Id to the model.
+
+		static const GLuint* LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata, const unsigned int numVerts);
 		static const GLuint* LoadModel(std::string _filepath);
 
 		// Retrieves a struct that contains all neccessary attributes for a draw call

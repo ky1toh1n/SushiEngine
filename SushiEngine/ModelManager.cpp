@@ -26,6 +26,40 @@ namespace SushiEngine
 		return true;
 	}
 
+	// TODO: simplify container checks???
+	const GLuint* ModelManager::LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata,  const unsigned int _numVerts)
+	{
+		map<string, const GLuint>::iterator it;
+
+		// Search for a filepath similar to _filepath
+		it = sModelHandles.find(_name);
+
+		if (it != sModelHandles.end())
+		{
+			Debug::Log(EMessageType::S_INFO, "existing _filepath found", __FILENAME__, __LINE__);
+			// cout << "exisiting _filepath found" << endl;
+			// return the value of that key
+			GLuint id = it->second;
+			return (GLuint*)id;
+		}
+		else
+		{
+			verts = _numVerts;
+			GLuint buffer;
+			glGenBuffers(1, &buffer);
+
+			glBindBuffer(GL_ARRAY_BUFFER, buffer);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * _numVerts * 2, NULL, GL_STATIC_DRAW);
+
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * verts, _vertdata);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * verts, sizeof(vec3) * verts, _coldata);
+
+			sModelHandles.emplace(_name, buffer);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			return &sModelHandles[_name];
+		}
+	}
+
 	const GLuint* ModelManager::LoadModel(std::string _filepath)
 	{
 		
