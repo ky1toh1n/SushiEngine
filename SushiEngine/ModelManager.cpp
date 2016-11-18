@@ -38,7 +38,7 @@ namespace SushiEngine
 		if (it != sModelHandles.end())
 		{
 			Debug::Log(EMessageType::S_INFO, "existing _filepath found" , __FILENAME__, __LINE__);
-			cout << "exisiting _filepath found" << endl;
+			// cout << "exisiting _filepath found" << endl;
 			// return the value of that key
 			GLuint id = it->second;
 			return (GLuint*)id;
@@ -47,7 +47,7 @@ namespace SushiEngine
 		{
 			// otherwise,
 			Debug::Log(EMessageType::S_INFO, "exisiting _filepath not found", __FILENAME__, __LINE__);
-			cout << "exisiting _filepath not found" << endl;
+			// cout << "exisiting _filepath not found" << endl;
 
 			// load the model from the filepath
 			const aiScene* modelScene = loadModelScene(_filepath);
@@ -59,7 +59,7 @@ namespace SushiEngine
 			}
 			else
 			{
-				cout << "model loaded into CPU" << endl;
+				// cout << "model loaded into CPU" << endl;
 			}
 
 			vector<vec3> vertexPositions;
@@ -68,12 +68,12 @@ namespace SushiEngine
 
 			if (modelScene->HasMeshes())
 			{
-				cout << "# of Meshes: " << modelScene->mNumMeshes << endl;
+				// cout << "# of Meshes: " << modelScene->mNumMeshes << endl;
 				for (unsigned int m = 0; m < modelScene->mNumMeshes; m++)
 				{
 					const aiMesh* mesh = modelScene->mMeshes[m];
 					verts += mesh->mNumVertices;
-					cout << m + 1 << ": # of Vertices: " << mesh->mNumVertices << endl;
+					// cout << m + 1 << ": # of Vertices: " << mesh->mNumVertices << endl;
 
 					
 					for (unsigned int v = 0; v < mesh->mNumVertices; v++)
@@ -92,16 +92,16 @@ namespace SushiEngine
 							aiVector3D* pUV = &mesh->mTextureCoords[0][v];
 							vec2 vUV = vec2(pUV->x, pUV->y);
 							vertexUVs.push_back(vUV);
-							if (v < 1) cout << "			sample vTexCoord: (" << pUV->x << "," << pUV->y << ")" << endl;
+							// if (v < 1) cout << "			sample vTexCoord: (" << pUV->x << "," << pUV->y << ")" << endl;
 						}
 
 					}
 					//if (mesh->HasPositions())
 
 				}
-				cout << "total verts: " << verts << endl;
-				printf("# Textures: %i\n", modelScene->mNumTextures);
-				printf("# Materials: %i\n", modelScene->mNumMaterials);
+				// cout << "total verts: " << verts << endl;
+				// printf("# Textures: %i\n", modelScene->mNumTextures);
+				// printf("# Materials: %i\n", modelScene->mNumMaterials);
 				if (modelScene->HasTextures())
 				{
 				}
@@ -126,6 +126,7 @@ namespace SushiEngine
 			// glBufferSubData(GL_VERTEX_ARRAY, sizeof(vec3), sizeof(vec3) * verts, &vertices[0].vNormal);
 
 			// Memory Tests
+			/*
 			printf("-------------------------------\n");
 			printf("sizeof(vertexPositions): %u\n", sizeof(vertexPositions));
 			printf("sizeof(vec3): %u\n", sizeof(vec3));
@@ -138,9 +139,11 @@ namespace SushiEngine
 			printf("&vertexUVs %u\n", &vertexUVs[0]);
 			printf("&vertexPositions[1]: %u\n", &vertexPositions[1]);
 			printf("-------------------------------\n");
+			*/
 
 			//store the pointer inside modelHandles with the corresponding key
 			sModelHandles.emplace(_filepath, buffer);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 			// lastly, return the pointer to the model
 			// TODO: make this more efficient by just returning the buffer.. im just not sure how its gonna work if i return it locally
@@ -237,7 +240,7 @@ namespace SushiEngine
 			ILboolean success = ilLoadImage(_filepath.c_str());
 			if (success) 
 			{
-				printf("DevIL Load Image -- OK\n");
+				// printf("DevIL Load Image -- OK\n");
 			}
 			else
 			{
@@ -268,15 +271,15 @@ namespace SushiEngine
 			// -----------------------------------
 
 
-			cout << (GLuint)ilGetInteger(IL_IMAGE_WIDTH) << "x" << (GLuint)ilGetInteger(IL_IMAGE_HEIGHT) << endl;
+			// cout << (GLuint)ilGetInteger(IL_IMAGE_WIDTH) << "x" << (GLuint)ilGetInteger(IL_IMAGE_HEIGHT) << endl;
 
 			ilDeleteImages(1, &imgID);
 
 			// lastly, return the pointer to the image
-			cout << sTextureHandles[_filepath] << endl;
+			// cout << sTextureHandles[_filepath] << endl;
 
 			glBindTexture(GL_TEXTURE_2D, 0);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 
 			return &sTextureHandles[_filepath];

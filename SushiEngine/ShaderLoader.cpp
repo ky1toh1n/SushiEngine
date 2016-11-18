@@ -18,6 +18,7 @@ namespace SushiEngine {
 		shader[_type] = readFileToChar(_filepath);
 	}
 
+	// TODO: Change implementation -- apparently I'm not doing something right, or maybe a bad practice. Not sure what it is
 	std::string ShaderLoader::readFileToChar(const std::string _filepath)
 	{
 		std::ifstream file(_filepath); // strictly for reading files only

@@ -25,9 +25,6 @@ namespace SushiEngine
 	class ModelManager
 	{
 	public:
-		ModelManager();
-		~ModelManager();
-
 		NO_COPY_CONSTRUCTORS(ModelManager)
 
 
@@ -47,6 +44,9 @@ namespace SushiEngine
 
 
 	private:
+		ModelManager();
+		~ModelManager();
+
 		static map<const std::string, const GLuint> sModelHandles;
 		static map<const std::string, const GLuint> sTextureHandles;
 		static vector<DrawData>* sModelDrawData;

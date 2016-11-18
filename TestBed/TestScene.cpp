@@ -15,9 +15,15 @@ TestScene::~TestScene()
 void TestScene::Initialize(AbstractRenderer* abstractRenderer) {
 	Scene::Initialize(abstractRenderer);
 
-	SuGameObject box = SuGameObject(vec3(1.0f, 10.0f, 9.0f));
-	Transform* t = box.GetComponent<Transform>();
-	cout << t->mPosition->y << endl;
+	SuGameObject* box = new SuGameObject(vec3(0.0f, 0.0f, 0.0f));
+	Transform* t = box->GetComponent<Transform>();
+
+	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
+	box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+
+	glBindBuffer(GL_ARRAY_BUFFER, *box->modelId);
+	glBindTexture(GL_TEXTURE_2D, *box->textureId);
+
 }
 
 void TestScene::Destroy() {

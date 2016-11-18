@@ -40,7 +40,9 @@
     <ClCompile Include="OpenGLRenderer.cpp">
       <Filter>Graphics\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="ShaderLoader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -85,7 +87,9 @@
     <ClInclude Include="OpenGLRenderer.h">
       <Filter>Graphics\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="ShaderLoader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />
