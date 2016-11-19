@@ -42,6 +42,8 @@
     </ClCompile>
     <ClCompile Include="ShaderLoader.cpp">
       <Filter>Graphics</Filter>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +91,8 @@
     </ClInclude>
     <ClInclude Include="ShaderLoader.h">
       <Filter>Graphics</Filter>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>GameObjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

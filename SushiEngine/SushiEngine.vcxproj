@@ -157,6 +157,7 @@
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="SuGameObject.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="SuGameObject.h" />
