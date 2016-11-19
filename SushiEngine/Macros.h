@@ -7,30 +7,24 @@
 #include <fstream>
 #include <typeinfo>
 #include <type_traits>
-#include <memory>
 
 // data structures
 #include <vector>
 #include <unordered_map>
 #include <map>
 
-// third party libraries
+// this party libraries
 #include <glm\glm.hpp>
 #include <glm\gtc\quaternion.hpp>
-#include <glm\gtc\matrix_transform.hpp>
 
 namespace SushiEngine
 {
-	// macro for ensuring constructors arent implicitly created
+// macro for ensuring constructors arent implicitly created
 #define NO_COPY_CONSTRUCTORS(classType) \
 	classType(const classType&) = delete; \
 	classType(classType&&) = delete; \
 	classType& operator = (const classType&) = delete; \
 	classType& operator = (classType&&) = delete;
-
-#define DELETE_PTR(classType) \
-	delete classType; \
-	classType = nullptr; 
 
 	// iostream macros
 #define cout std::cout
