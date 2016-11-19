@@ -5,9 +5,9 @@ namespace SushiEngine
 	int ModelManager::verts = 0; // to be removed. see header
 	map<const std::string, const GLuint> ModelManager::sModelHandles;
 	map<const std::string, const GLuint> ModelManager::sTextureHandles;
+	map<const GLuint, const DrawData> ModelManager::sModelDrawData;
 	Assimp::Importer ModelManager::sImporter;
 
-	// std::vector<DrawData>* ModelManager::modelDrawData = nullptr;
 
 	ModelManager::ModelManager()
 	{
@@ -29,6 +29,10 @@ namespace SushiEngine
 	// TODO: simplify container checks???
 	const GLuint* ModelManager::LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata,  const unsigned int _numVerts)
 	{
+
+		DrawData drawData;
+		drawData.numVertices = _numVerts;
+		drawData.hasColor = true;
 		map<string, const GLuint>::iterator it;
 
 		// Search for a filepath similar to _filepath
@@ -44,9 +48,6 @@ namespace SushiEngine
 		}
 		else
 		{
-
-			printf("&vertData %u\n", &_vertdata);
-			verts = _numVerts;
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
 
@@ -58,6 +59,8 @@ namespace SushiEngine
 
 			sModelHandles.emplace(_name, buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			sModelDrawData.emplace(buffer, drawData);
 			return &sModelHandles[_name];
 		}
 	}
@@ -66,7 +69,7 @@ namespace SushiEngine
 	{
 		
 		map<string, const GLuint>::iterator it;
-
+		unsigned int numVerts = 0;
 		// Search for a filepath similar to _filepath
 		it = sModelHandles.find(_filepath);
 		
@@ -98,6 +101,7 @@ namespace SushiEngine
 				// cout << "model loaded into CPU" << endl;
 			}
 
+			DrawData drawData;
 			vector<vec3> vertexPositions;
 			vector<vec3> vertexNormals;
 			vector<vec2> vertexUVs;
@@ -108,10 +112,9 @@ namespace SushiEngine
 				for (unsigned int m = 0; m < modelScene->mNumMeshes; m++)
 				{
 					const aiMesh* mesh = modelScene->mMeshes[m];
-					verts += mesh->mNumVertices;
+					numVerts += mesh->mNumVertices;
 					// cout << m + 1 << ": # of Vertices: " << mesh->mNumVertices << endl;
 
-					
 					for (unsigned int v = 0; v < mesh->mNumVertices; v++)
 					{
 						aiVector3D* pPos = &mesh->mVertices[v];
@@ -140,6 +143,7 @@ namespace SushiEngine
 				// printf("# Materials: %i\n", modelScene->mNumMaterials);
 				if (modelScene->HasTextures())
 				{
+
 				}
 
 				if (modelScene->HasMaterials())
@@ -154,45 +158,42 @@ namespace SushiEngine
 
 			glGenBuffers(1, &buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, buffer);
-			// glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts * 3, &vertices[0], GL_STATIC_DRAW); // The same thing as below
-			// glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * verts  + sizeof(vec2) * verts, NULL, GL_STATIC_DRAW); // allocate buffer memory for the actual size of vertices container
-			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * verts, &vertexPositions[0]);
-			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * verts, sizeof(vec2) * verts, &vertexUVs[0]);
-			// glBufferSubData(GL_VERTEX_ARRAY, sizeof(vec3), sizeof(vec3) * verts, &vertices[0].vNormal);
 
-			// Memory Tests
-			/*
-			printf("-------------------------------\n");
-			printf("sizeof(vertexPositions): %u\n", sizeof(vertexPositions));
-			printf("sizeof(vec3): %u\n", sizeof(vec3));
-			printf("sizeof(float) * 3: %u\n", sizeof(float) * 3);
-			printf("-------------------------------\n");
-			printf("&vertices: %u\n", &vertexPositions);
-			printf("&vertices[0]: %u\n", &vertexPositions[0]);
-			printf("&vertexPositions: %u\n", &vertexPositions[0]);
-			printf("&vertexNormals %u\n", &vertexNormals[0]);
-			printf("&vertexUVs %u\n", &vertexUVs[0]);
-			printf("&vertexPositions[1]: %u\n", &vertexPositions[1]);
-			printf("-------------------------------\n");
-			*/
-
-
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts + sizeof(vec2) * numVerts, NULL, GL_STATIC_DRAW); // allocate buffer memory for the actual size of vertices container
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * numVerts, &vertexPositions[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts, sizeof(vec2) * numVerts, &vertexUVs[0]);
 
 			//store the pointer inside modelHandles with the corresponding key
 			sModelHandles.emplace(_filepath, buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+			drawData.numVertices = numVerts;
+			drawData.hasTexture = true;
+			drawData.drawType = SU_TRIANGLES;
+
+			sModelDrawData.emplace(buffer, drawData);
 			// lastly, return the pointer to the model
 			// TODO: make this more efficient by just returning the buffer.. im just not sure how its gonna work if i return it locally
 			return &sModelHandles[_filepath];
 		}
 	}
 
+	DrawData ModelManager::getDrawData(const GLuint* _id)
+	{
+		map<const GLuint, const DrawData>::iterator it;
+
+		it = sModelDrawData.find(*_id);
+		if (it != sModelDrawData.end())
+		{
+			DrawData drawData = it->second;
+			return drawData;
+		}
+		return sModelDrawData[*_id];
+	}
+
 	// Untested
 	void ModelManager::destroyModel(GLuint _id)
 	{
-		
 		/// Remove from the GPU
 		// if the id is a vbo
 		if (glIsBuffer(_id))

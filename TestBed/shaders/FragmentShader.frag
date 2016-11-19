@@ -8,6 +8,15 @@ uniform sampler2D texture;
 
 void main()
 {
-	 // fColor = texture2D(texture, texCoord);
-	 fColor = vec4(0.33,0.074,0.090,1);
+	// fColor = texture2D(texture, texCoord) * myColor;
+
+
+	// temporary
+	if (texCoord == 0) {
+		fColor = myColor;
+	} else {
+		fColor =  texture2D(texture, texCoord);
+	}
+
+
 };

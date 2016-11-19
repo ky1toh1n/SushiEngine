@@ -34,6 +34,7 @@ namespace SushiEngine
 		Window * window;
 		AbstractRenderer * renderer;
 		Camera * mainCamera;
+		vector<SuGameObject*> gameObjects;
 	};
 }
 #endif

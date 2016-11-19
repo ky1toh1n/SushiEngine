@@ -17,9 +17,20 @@
 
 namespace SushiEngine
 {
+
+
+	enum DrawType
+	{
+		SU_LINES,
+		SU_TRIANGLES
+	};
+
 	struct DrawData
 	{
-
+		unsigned int numVertices = 0;
+		bool hasTexture = false;
+		bool hasColor = false;
+		DrawType drawType = SU_LINES;
 	};
 
 	class ModelManager
@@ -42,7 +53,7 @@ namespace SushiEngine
 
 		static int verts; // TODO: replace this with something more dynamic
 
-		static const GLuint* LoadTexture(std::string _filepath); // currently a member but can be used statically later..?
+		static const GLuint* LoadTexture(std::string _filepath); // currently a member but can be changed later..?
 
 
 	private:
@@ -51,7 +62,7 @@ namespace SushiEngine
 
 		static map<const std::string, const GLuint> sModelHandles;
 		static map<const std::string, const GLuint> sTextureHandles;
-		static vector<DrawData>* sModelDrawData;
+		static map<const GLuint, const DrawData> sModelDrawData;
 		static Assimp::Importer sImporter;
 
 		// Removes the instance of the model in the GPU and also remove it from the list of loaded models

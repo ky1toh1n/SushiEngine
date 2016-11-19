@@ -4,11 +4,12 @@
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 
+#include "GL\glew.h"
+
 #include "Macros.h"
 #include "Component.h"
 #include "Transform.h"
 
-#include "GL\glew.h"
 
 
 namespace SushiEngine 
