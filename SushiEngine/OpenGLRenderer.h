@@ -44,8 +44,6 @@ namespace SushiEngine
 
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;
-
-		SuGameObject* go;
 	};
 }
 #endif

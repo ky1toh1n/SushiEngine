@@ -1,18 +1,27 @@
 #include "GameSceneManager.h"
+
 #include "TestScene.h"
-#include "SuGameObject.h"
+#include "ComponentTestScene.h"
+#include "ModelTestScene.h"
 
 using namespace SushiEngine;
 
 const int TESTBED_VERSION_NUMBER = 0b00000111;
 
 int main(int count, char** args) {
-	SushiEngine::Debug::Init();
-	SushiEngine::GameSceneManager* game = SushiEngine::GameSceneManager::GetInstance();
+	Debug::Init();
+	GameSceneManager* game = GameSceneManager::GetInstance();
 
-	game->Run(new TestScene());
+	Scene* scene;
 
+	//scene = new TestScene();
+	//scene = new ComponentTestScene();
+	scene = new ModelTestScene();
+
+	game->Run(scene);
+
+	DELETE_PTR(scene)
+	
 	getchar();
-
 	return 0;
 }

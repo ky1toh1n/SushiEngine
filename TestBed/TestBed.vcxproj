@@ -118,7 +118,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ComponentTestScene.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ModelTestScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +132,8 @@
     <Text Include="GameLog.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComponentTestScene.h" />
+    <ClInclude Include="ModelTestScene.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
