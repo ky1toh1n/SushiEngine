@@ -113,5 +113,8 @@
     <Filter Include="Graphics\OpenGL">
       <UniqueIdentifier>{b3c86400-0aaf-4e74-9ef6-d2b360cda394}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TestFilter">
+      <UniqueIdentifier>{643528fd-5bef-43c9-9a82-12d646bd7cea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
