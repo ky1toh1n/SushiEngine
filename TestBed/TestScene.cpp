@@ -56,18 +56,25 @@ void TestScene::Initialize(AbstractRenderer* abstractRenderer) {
 	SuGameObject* debugPlane = new SuGameObject(vec3(0, 0, 0));
 
 	debugPlane->modelId = ModelManager::LoadModel("debugPlane", &grid[0][0], &gridColor[0][0], gridNumVerts);
-	// glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
+	glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
 
 	SuGameObject* box = new SuGameObject(vec3(0.0f, 0.0f, 0.0f));
 	// Transform* t = box->GetComponent<Transform>();
 
 
 	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	// glDisableVertexArrayAttrib(*box->modelId, 2);
+	glDisableVertexArrayAttrib(*box->modelId, 2);
 	box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+
+
+	SuGameObject* house = new SuGameObject(vec3(0, 0, 0));
+	house->modelId = ModelManager::LoadModel("models/house/house.obj");
+	glDisableVertexArrayAttrib(*house->modelId, 2);
+	house->textureId = ModelManager::LoadTexture("models/house/house2.png");
 
 	gameObjects.push_back(debugPlane);
 	gameObjects.push_back(box);
+	gameObjects.push_back(house);
 
 
 }
