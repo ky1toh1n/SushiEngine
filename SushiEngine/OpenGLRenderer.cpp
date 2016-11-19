@@ -76,47 +76,13 @@ namespace SushiEngine
 		// go->textureId = ModelManager::LoadTexture("models/Wooden_House/rsz_1house_texture_s.png");
 		// go->textureId = ModelManager::LoadTexture("wall.png");
 
-	    float numberOfDivisions = 10;
-		float increments = 1.0f / numberOfDivisions;
-		const unsigned int gridNumVerts = numberOfDivisions * 4;
-		vector<vec3> grid(gridNumVerts);
-		vector<vec3> gridColor(gridNumVerts);
-
-		// Points for the horizontal lines
-		for (float y = -1; y < 1; y+=increments)
-		{
-			// line from
-			vec3 pointA = vec3(-1, 0, y);
-			// to
-			vec3 pointB = vec3(1, 0, y);
-
-			grid.push_back(pointA);
-			grid.push_back(pointB);
-			gridColor.push_back(vec3(1, 0, 0));
-			gridColor.push_back(vec3(1, 0, 0));
-		}
-
-		// Points for the vertical lines
-		for (float x = -1; x < 1; x += increments)
-		{
-			// line from
-			vec3 pointA = vec3(x, 0, -1);
-			// to
-			vec3 pointB = vec3(x, 0, 1);
-
-			grid.push_back(pointA);
-			grid.push_back(pointB);
-			gridColor.push_back(vec3(1, 0, 0));
-			gridColor.push_back(vec3(1, 0, 0));
-		}
-
 
 	}
 
 
 	void OpenGLRenderer::render()
 	{
-		rotation += 0.005f;
+		// rotation += 0.005f;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Attrib Pointers
 
@@ -127,6 +93,14 @@ namespace SushiEngine
 		// GLuint shaderUVs = glGetAttribLocation(program, "vTexCoord");
 		// glEnableVertexAttribArray(shaderUVs);
 		// glVertexAttribPointer(shaderUVs, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * ModelManager::verts));
+
+
+		// Warning: for some reason glGetAttribLocation isnt returning the right value
+
+		glBindAttribLocation(program, 1, "vColor");
+		// GLuint shaderColor = glGetAttribLocation(program, "vColor");
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * ModelManager::verts));
 
 
 		// MVP
@@ -140,8 +114,8 @@ namespace SushiEngine
 		glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
 
 
-		// glDrawArrays(GL_LINE_STRIP, 0, ModelManager::verts);
-		glDrawArrays(GL_TRIANGLES, 0, ModelManager::verts);
+		glDrawArrays(GL_LINES, 0, ModelManager::verts);
+		// glDrawArrays(GL_TRIANGLES, 0, ModelManager::verts);
 
 		glfwSwapBuffers(window->GetWindowHandle());
 		

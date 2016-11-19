@@ -1,6 +1,6 @@
 #version 430
 layout(location = 0) in vec4 vPosition;
-layout(location = 1) in vec4 vertexColor;
+layout(location = 1) in vec4 vColor;
 layout(location = 2) in vec2 vTexCoord;
 
 uniform mat4 model_matrix;
@@ -12,7 +12,7 @@ out vec2 texCoord;
 
 void main()
 {
-	myColor = vertexColor;
+	myColor = vColor;
 	gl_Position = projection_matrix * camera_matrix * model_matrix * vPosition;
 	texCoord = vTexCoord;
 }

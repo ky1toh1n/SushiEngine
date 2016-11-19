@@ -69,7 +69,7 @@ namespace SushiEngine
 			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * deltaTime;
 			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * deltaTime;
 
-			mainCamera->rotate(rotateX, rotateY);
+		mainCamera->rotate(rotateX, rotateY);
 		}
 #endif 
 	}

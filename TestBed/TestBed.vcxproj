@@ -133,7 +133,7 @@
     <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FragmentShader.frag" />
+    <None Include="shaders\FragmentShader.frag" />
     <None Include="shaders\VertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

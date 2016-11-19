@@ -44,6 +44,8 @@ namespace SushiEngine
 		}
 		else
 		{
+
+			printf("&vertData %u\n", &_vertdata);
 			verts = _numVerts;
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
@@ -51,8 +53,8 @@ namespace SushiEngine
 			glBindBuffer(GL_ARRAY_BUFFER, buffer);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * _numVerts * 2, NULL, GL_STATIC_DRAW);
 
-			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * verts, _vertdata);
-			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * verts, sizeof(vec3) * verts, _coldata);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * _numVerts, _vertdata);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * _numVerts, sizeof(vec3) * _numVerts, _coldata);
 
 			sModelHandles.emplace(_name, buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -174,6 +176,8 @@ namespace SushiEngine
 			printf("&vertexPositions[1]: %u\n", &vertexPositions[1]);
 			printf("-------------------------------\n");
 			*/
+
+
 
 			//store the pointer inside modelHandles with the corresponding key
 			sModelHandles.emplace(_filepath, buffer);

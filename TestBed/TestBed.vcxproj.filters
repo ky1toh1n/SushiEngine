@@ -34,10 +34,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FragmentShader.frag">
+    <None Include="shaders\VertexShader.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="shaders\VertexShader.vert">
+    <None Include="shaders\FragmentShader.frag">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
