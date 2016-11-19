@@ -172,6 +172,7 @@ namespace SushiEngine
 			drawData.drawType = SU_TRIANGLES;
 
 			sModelDrawData.emplace(buffer, drawData);
+
 			// lastly, return the pointer to the model
 			// TODO: make this more efficient by just returning the buffer.. im just not sure how its gonna work if i return it locally
 			return &sModelHandles[_filepath];
@@ -192,14 +193,14 @@ namespace SushiEngine
 	}
 
 	// Untested
-	void ModelManager::destroyModel(GLuint _id)
+	void ModelManager::destroyModel(GLuint fID)
 	{
 		/// Remove from the GPU
 		// if the id is a vbo
-		if (glIsBuffer(_id))
+		if (glIsBuffer(fID))
 		{
 			// delete from gpu
-			glDeleteBuffers(1, &_id);
+			glDeleteBuffers(1, &fID);
 		}
 
 		/// Remove from the list of instances
@@ -208,7 +209,7 @@ namespace SushiEngine
 		for (it = sModelHandles.begin(); it != sModelHandles.end(); ++it)
 		{
 			// if found
-			if (it->second == _id)
+			if (it->second == fID)
 			{
 				// delete it from the list
 				sModelHandles.erase(it);
@@ -219,21 +220,21 @@ namespace SushiEngine
 
 
 	// Condition OK
-	const aiScene* ModelManager::loadModelScene(std::string _filepath)
+	const aiScene* ModelManager::loadModelScene(std::string fFilepath)
 	{
 
 		const aiScene* modelScene;
 
-		ifstream fileIn(_filepath.c_str());
+		ifstream fileIn(fFilepath.c_str());
 
 		if (fileIn.fail())
 		{
-			Debug::Log(EMessageType::S_ERROR, "Failed to open file : " + (std::string)_filepath.c_str(), __FILENAME__, __LINE__);
+			Debug::Log(EMessageType::S_ERROR, "Failed to open file : " + (std::string)fFilepath.c_str(), __FILENAME__, __LINE__);
 			return nullptr;
 		}
 
 		// modelScene = importer.ReadFile(_filepath, aiProcessPreset_TargetRealtime_Quality);
-		modelScene = sImporter.ReadFile(_filepath,
+		modelScene = sImporter.ReadFile(fFilepath,
 			aiProcess_CalcTangentSpace |
 			aiProcess_Triangulate |
 			// aiProcess_JoinIdenticalVertices |
@@ -250,6 +251,8 @@ namespace SushiEngine
 
 		return modelScene;
 	}
+
+
 
 	//DrawData ModelManager::getDrawData(const GLuint* _id)
 	//{
