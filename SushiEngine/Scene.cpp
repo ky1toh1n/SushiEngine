@@ -77,10 +77,11 @@ namespace SushiEngine
 	//Swaps GLFW Buffers
 	void Scene::Render()
 	{
-		vector<SuGameObject*>::iterator it;
-		for (it = gameObjects.begin(); it != gameObjects.end(); ++it)
-		{
-			renderer->render(*it);
-		}
+		//vector<SuGameObject*>::iterator it;
+		//for (it = gameObjects.begin(); it != gameObjects.end(); ++it)
+		//{
+		//	renderer->render(*it);
+		//}
+		renderer->render(gameObjects);
 	}
 }

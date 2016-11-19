@@ -27,7 +27,7 @@ namespace SushiEngine
 		~OpenGLRenderer();
 
 		virtual void init();
-		virtual void render(SuGameObject* gameObject);
+		virtual void render(vector<SuGameObject*> gameObjects);
 
 		// fColor = vec4( 1.0, 0.0, 0.0, 1.0 );"
 		// fColor = texture2D(texture, texCoord);"
