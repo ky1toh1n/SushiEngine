@@ -34,11 +34,14 @@ namespace SushiEngine
 		GLuint mModelLocation;
 		GLuint mCameraLocation;
 		GLuint mProjectionLocation;
-		GLuint shaderProgram;
+		GLuint programID;
 		//temp
 		GLfloat rotation = 0;
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;
+
+		/* Instance methods */
+		GLuint EZSHADING(SuShaderType pShaderType, const char * pFilePath, GLenum pFlShaderType, GLenum pShaderProgram);
 	};
 }
 #endif

@@ -6,7 +6,6 @@ namespace SushiEngine
 	{
 	}
 
-
 	AbstractRenderer::~AbstractRenderer()
 	{
 	}
@@ -15,9 +14,4 @@ namespace SushiEngine
 	{
 		mCamera = pCamera;
 	}
-
-/*	Window* AbstractRenderer::getWindow()
-	{
-		return mWindow;
-	}*/
 }

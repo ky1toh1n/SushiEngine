@@ -11,7 +11,7 @@
 #include "Timer.h"
 #include "Macros.h"
 /* ---- */
-namespace SushiEngine 
+namespace SushiEngine
 {
 	class GameSceneManager
 	{
@@ -19,7 +19,7 @@ namespace SushiEngine
 		/* Instance methods */
 		void run(Scene*);
 		InputManager* getInput();
-		
+
 		/* Static methods */
 		static GameSceneManager* GetInstance();
 	private:
@@ -28,8 +28,8 @@ namespace SushiEngine
 		~GameSceneManager();
 		NO_COPY_CONSTRUCTORS(GameSceneManager)
 
-		/* Instance fields */
-		bool mIsRunning;
+			/* Instance fields */
+			bool mIsRunning;
 		Scene * mCurrentScene;
 		SceneContext * mSceneContext;
 

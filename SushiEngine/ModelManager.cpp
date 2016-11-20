@@ -8,12 +8,10 @@ namespace SushiEngine
 	map<const GLuint, const DrawData> ModelManager::sModelDrawData;
 	Assimp::Importer ModelManager::sImporter;
 
-
 	ModelManager::ModelManager()
 	{
 		Debug::Log(EMessageType::S_INFO, "ModelManager()", __FILENAME__, __LINE__);
 	}
-
 
 	ModelManager::~ModelManager()
 	{
@@ -29,7 +27,6 @@ namespace SushiEngine
 	// TODO: simplify container checks???
 	const GLuint* ModelManager::LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata,  const unsigned int _numVerts)
 	{
-
 		DrawData drawData;
 		drawData.numVertices = _numVerts;
 		drawData.hasColor = true;
@@ -67,7 +64,6 @@ namespace SushiEngine
 
 	const GLuint* ModelManager::LoadModel(std::string _filepath)
 	{
-		
 		map<string, const GLuint>::iterator it;
 		unsigned int numVerts = 0;
 		// Search for a filepath similar to _filepath
@@ -136,7 +132,6 @@ namespace SushiEngine
 
 					}
 					//if (mesh->HasPositions())
-
 				}
 				// cout << "total verts: " << verts << endl;
 				// printf("# Textures: %i\n", modelScene->mNumTextures);
@@ -150,7 +145,6 @@ namespace SushiEngine
 				{
 					//for (int mat = 0; mat < modelScene->mNumMaterials; mat++)
 				}
-
 			}
 
 			// Condition: being improved
@@ -222,7 +216,6 @@ namespace SushiEngine
 	// Condition OK
 	const aiScene* ModelManager::loadModelScene(std::string fFilepath)
 	{
-
 		const aiScene* modelScene;
 
 		ifstream fileIn(fFilepath.c_str());
@@ -260,7 +253,6 @@ namespace SushiEngine
 
 	const GLuint* ModelManager::LoadTexture(std::string _filepath)
 	{
-
 		map<string, const GLuint>::iterator it;
 
 		// Search for a filepath similar to _filepath

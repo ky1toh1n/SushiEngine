@@ -12,11 +12,29 @@ namespace SushiEngine
 	OpenGLRenderer::~OpenGLRenderer()
 	{
 		Debug::Log(EMessageType::S_INFO, "\t~OpenGLRenderer()", __FILENAME__, __LINE__);
-		glDetachShader(shaderProgram, vertexShaderID);
-		glDetachShader(shaderProgram, fragmentShaderID);
+		glDetachShader(programID, vertexShaderID);
+		glDetachShader(programID, fragmentShaderID);
 		glDeleteShader(vertexShaderID);
 		glDeleteShader(fragmentShaderID);
-		glDeleteProgram(shaderProgram);
+		glDeleteProgram(programID);
+	}
+
+	GLuint OpenGLRenderer::EZSHADING(SuShaderType pShaderType, const char * pFilePath, GLenum pGlShaderType, GLenum pShaderProgram)
+	{
+		//There's a tiny redundancy in SuShaderType and OpenGL's shader type. Not easy to fix atm.
+
+		//Load shader into string
+		ShaderLoader::loadShader(pShaderType, pFilePath);
+		const char* adapter[1];
+		adapter[0] = ShaderLoader::shader[pShaderType].c_str();
+
+		//Compile and attach the shader to the program
+		GLuint shaderHandle = glCreateShader(pGlShaderType);
+		glShaderSource(shaderHandle, 1, adapter, 0);
+		glCompileShader(shaderHandle);
+		glAttachShader(pShaderProgram, shaderHandle);
+
+		return shaderHandle;
 	}
 
 	void OpenGLRenderer::init()
@@ -24,35 +42,22 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "\tOpenGLRenderer::init", __FILENAME__, __LINE__);
 		glewInit();
 
-		ShaderLoader::loadShader(SU_VERTEX_SHADER, "shaders/VertexShader.vert");
-		ShaderLoader::loadShader(SU_FRAGMENT_SHADER, "shaders/FragmentShader.frag");
+		/* Set up program and load shaders into it */
+		programID = glCreateProgram();
 
-		// Testing Manual Loading of Shaders
-		vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-		fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+		vertexShaderID = EZSHADING(SU_VERTEX_SHADER, "shaders/VertexShader.vert", GL_VERTEX_SHADER, programID);
+		fragmentShaderID = EZSHADING(SU_FRAGMENT_SHADER, "shaders/FragmentShader.frag", GL_FRAGMENT_SHADER, programID);
 
-		const char* adapter[1];
-		adapter[0] = ShaderLoader::shader[SU_VERTEX_SHADER].c_str();
-		glShaderSource(vertexShaderID, 1, adapter, 0);
-		adapter[0] = ShaderLoader::shader[SU_FRAGMENT_SHADER].c_str();
-		glShaderSource(fragmentShaderID, 1, adapter, 0);
-
-		glCompileShader(vertexShaderID);
-		glCompileShader(fragmentShaderID);
-
-		shaderProgram = glCreateProgram();
-		glAttachShader(shaderProgram, vertexShaderID);
-		glAttachShader(shaderProgram, fragmentShaderID);
-
-		glLinkProgram(shaderProgram);
-		glUseProgram(shaderProgram);	// My Pipeline is set up
+		glLinkProgram(programID);
+		glUseProgram(programID);	
 		
 		// Enable Depth Culling
 		glEnable(GL_DEPTH_TEST);
 
-		mModelLocation = glGetUniformLocation(shaderProgram, "model_matrix");
-		mCameraLocation = glGetUniformLocation(shaderProgram, "camera_matrix");
-		mProjectionLocation = glGetUniformLocation(shaderProgram, "projection_matrix");
+		/* Get uniform locations */
+		mModelLocation = glGetUniformLocation(programID, "model_matrix");
+		mCameraLocation = glGetUniformLocation(programID, "camera_matrix");
+		mProjectionLocation = glGetUniformLocation(programID, "projection_matrix");
 	}
 
 
@@ -63,15 +68,15 @@ namespace SushiEngine
 		DrawData data = ModelManager::getDrawData(gameObject->modelId);
 		glBindBuffer(GL_ARRAY_BUFFER, *gameObject->modelId);
 
-		GLuint shaderPosition = 0;// glGetAttribLocation(shaderProgram, "vPosition");
+		GLuint shaderPosition = 0;// glGetAttribLocation(programID, "vPosition");
 		glEnableVertexAttribArray(shaderPosition);
 		glVertexAttribPointer(shaderPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 		// Warning: for some reason glGetAttribLocation isnt returning the right value
-		GLuint shaderColor = 1;// glGetAttribLocation(shaderProgram, "vColor");
+		GLuint shaderColor = 1;// glGetAttribLocation(programID, "vColor");
 		glDisableVertexAttribArray(shaderColor);
 
-		// glBindAttribLocation(shaderProgram, 1, "vColor");
+		// glBindAttribLocation(programID, 1, "vColor");
 		if (data.hasColor)
 		{
 			glEnableVertexAttribArray(shaderColor);
@@ -83,7 +88,7 @@ namespace SushiEngine
 		}
 
 
-		GLuint shaderUVs = 2;// glGetAttribLocation(shaderProgram, "vTexCoord");
+		GLuint shaderUVs = 2;// glGetAttribLocation(programID, "vTexCoord");
 		if (data.hasTexture)
 		{
 			glEnableVertexAttribArray(shaderUVs);
@@ -96,7 +101,7 @@ namespace SushiEngine
 			glBindTexture(GL_TEXTURE_2D, NULL);
 		}
 
-		// MVP
+		/* Applying matrices/uniforms*/
 		glm::mat4 model_view = glm::translate(glm::mat4(1.0), vec3(0.0f, 0.0f, 0.0f));
 		model_view = glm::rotate(model_view, rotation, vec3(0.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(mModelLocation, 1, GL_FALSE, &model_view[0][0]);
@@ -106,8 +111,7 @@ namespace SushiEngine
 		glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 1.0f, 100.0f);  // Projection
 		glUniformMatrix4fv(mProjectionLocation, 1, GL_FALSE, &projection_matrix[0][0]);
 
-
-		
+		/* Submit rendering command */
 		if (data.drawType == SU_LINES)
 		{
 			glDrawArrays(GL_LINES, 0, data.numVertices);
@@ -117,6 +121,7 @@ namespace SushiEngine
 			glDrawArrays(GL_TRIANGLES, 0, data.numVertices);
 		}
 
+		/* Swap that buffer */
 		glfwSwapBuffers(mWindow->GetWindowHandle());
 	}
 }

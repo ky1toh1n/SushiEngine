@@ -61,5 +61,4 @@ namespace SushiEngine
 	typedef glm::mat4 mat4;
 	typedef glm::quat quat;
 }
-
 #endif

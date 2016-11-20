@@ -1,7 +1,6 @@
 #include "ShaderLoader.h"
 
 namespace SushiEngine {
-
 	std::string ShaderLoader::shader[NUM_SHADER_TYPES];
 
 	ShaderLoader::ShaderLoader()
@@ -32,5 +31,4 @@ namespace SushiEngine {
 							std::istreambuf_iterator<char>());
 		return data;
 	}
-
 }
