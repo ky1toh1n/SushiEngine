@@ -1,4 +1,4 @@
-/* A first peron fly-through camera. 
+/** A first peron fly-through camera. 
  Currently translates along the XY plane, and rotates along Y and Z axis*/
 #ifndef CAMERA_H
 #define CAMERA_H

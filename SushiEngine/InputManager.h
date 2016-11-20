@@ -1,4 +1,4 @@
-/* Stores the current state of the keyboard and mouse. */
+/** Stores the current state of the keyboard and mouse. */
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 /* System */

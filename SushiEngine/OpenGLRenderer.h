@@ -1,47 +1,42 @@
-//OpenGLRenderer - A renderer that uses OpenGL. (interfaced through GLFW)
+/** OpenGLRenderer - A renderer that uses OpenGL and GLFW.*/
 #ifndef OPENGL_RENDERER_H
 #define OPENGL_RENDERER_H
-
+/* System */
 #include <iostream>
-
+/* Third Party */
 #include "IL\il.h"
 #include <assimp\Importer.hpp>
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
-
+/* SushiEngine */
 #include "AbstractRenderer.h"
 #include "Window.h"
 #include "SuGameObject.h"
 #include "ModelManager.h"
-
 #include "ShaderLoader.h"
-
+/* ---- */
 namespace SushiEngine
 {
 	class OpenGLRenderer : public AbstractRenderer
 	{
 	public:
+		/* Constructor */
 		OpenGLRenderer(Window*);
 		~OpenGLRenderer();
 
+		/* Instance methods */
 		virtual void init();
 		virtual void render(SuGameObject* gameObject);
-
-		// fColor = vec4( 1.0, 0.0, 0.0, 1.0 );"
-		// fColor = texture2D(texture, texCoord);"
-
-		GLuint buffers[3];
-		GLuint location;
-		GLuint location2;
-		GLuint location3;
-		GLuint program;
-		GLuint texture[1];
-
-		GLuint mTextureID;
+	private:
+		/* Instance fields */
+		GLuint mModelLocation;
+		GLuint mCameraLocation;
+		GLuint mProjectionLocation;
+		GLuint shaderProgram;
+		//temp
 		GLfloat rotation = 0;
-
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;
 	};

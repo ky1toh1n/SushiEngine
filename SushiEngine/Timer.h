@@ -1,4 +1,4 @@
-/* A simple timer - keeps track of delta time through GLFW. */ 
+/** A simple timer - keeps track of delta time through GLFW. */ 
 #ifndef TIMER_H
 #define TIMER_H
 /* System */

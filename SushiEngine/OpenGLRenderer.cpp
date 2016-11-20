@@ -7,17 +7,16 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "\tOpenGLRenderer()", __FILENAME__, __LINE__);
 		ModelManager::Init();
 		init();
-
 	}
-
 
 	OpenGLRenderer::~OpenGLRenderer()
 	{
 		Debug::Log(EMessageType::S_INFO, "\t~OpenGLRenderer()", __FILENAME__, __LINE__);
-		glDetachShader(program, vertexShaderID);
-		glDetachShader(program, fragmentShaderID);
+		glDetachShader(shaderProgram, vertexShaderID);
+		glDetachShader(shaderProgram, fragmentShaderID);
 		glDeleteShader(vertexShaderID);
 		glDeleteShader(fragmentShaderID);
+		glDeleteProgram(shaderProgram);
 	}
 
 	void OpenGLRenderer::init()
@@ -41,19 +40,19 @@ namespace SushiEngine
 		glCompileShader(vertexShaderID);
 		glCompileShader(fragmentShaderID);
 
-		program = glCreateProgram();
-		glAttachShader(program, vertexShaderID);
-		glAttachShader(program, fragmentShaderID);
+		shaderProgram = glCreateProgram();
+		glAttachShader(shaderProgram, vertexShaderID);
+		glAttachShader(shaderProgram, fragmentShaderID);
 
-		glLinkProgram(program);
-		glUseProgram(program);	// My Pipeline is set up
+		glLinkProgram(shaderProgram);
+		glUseProgram(shaderProgram);	// My Pipeline is set up
 		
 		// Enable Depth Culling
 		glEnable(GL_DEPTH_TEST);
 
-		location = glGetUniformLocation(program, "model_matrix");
-		location2 = glGetUniformLocation(program, "camera_matrix");
-		location3 = glGetUniformLocation(program, "projection_matrix");
+		mModelLocation = glGetUniformLocation(shaderProgram, "model_matrix");
+		mCameraLocation = glGetUniformLocation(shaderProgram, "camera_matrix");
+		mProjectionLocation = glGetUniformLocation(shaderProgram, "projection_matrix");
 	}
 
 
@@ -64,15 +63,15 @@ namespace SushiEngine
 		DrawData data = ModelManager::getDrawData(gameObject->modelId);
 		glBindBuffer(GL_ARRAY_BUFFER, *gameObject->modelId);
 
-		GLuint shaderPosition = 0;// glGetAttribLocation(program, "vPosition");
+		GLuint shaderPosition = 0;// glGetAttribLocation(shaderProgram, "vPosition");
 		glEnableVertexAttribArray(shaderPosition);
 		glVertexAttribPointer(shaderPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 		// Warning: for some reason glGetAttribLocation isnt returning the right value
-		GLuint shaderColor = 1;// glGetAttribLocation(program, "vColor");
+		GLuint shaderColor = 1;// glGetAttribLocation(shaderProgram, "vColor");
 		glDisableVertexAttribArray(shaderColor);
 
-		// glBindAttribLocation(program, 1, "vColor");
+		// glBindAttribLocation(shaderProgram, 1, "vColor");
 		if (data.hasColor)
 		{
 			glEnableVertexAttribArray(shaderColor);
@@ -84,7 +83,7 @@ namespace SushiEngine
 		}
 
 
-		GLuint shaderUVs = 2;// glGetAttribLocation(program, "vTexCoord");
+		GLuint shaderUVs = 2;// glGetAttribLocation(shaderProgram, "vTexCoord");
 		if (data.hasTexture)
 		{
 			glEnableVertexAttribArray(shaderUVs);
@@ -100,12 +99,12 @@ namespace SushiEngine
 		// MVP
 		glm::mat4 model_view = glm::translate(glm::mat4(1.0), vec3(0.0f, 0.0f, 0.0f));
 		model_view = glm::rotate(model_view, rotation, vec3(0.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(location, 1, GL_FALSE, &model_view[0][0]);
+		glUniformMatrix4fv(mModelLocation, 1, GL_FALSE, &model_view[0][0]);
 
-		glUniformMatrix4fv(location2, 1, GL_FALSE, &(mCamera->getMatrix())[0][0]); // View
+		glUniformMatrix4fv(mCameraLocation, 1, GL_FALSE, &(mCamera->getMatrix())[0][0]); // View
 
 		glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 1.0f, 100.0f);  // Projection
-		glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
+		glUniformMatrix4fv(mProjectionLocation, 1, GL_FALSE, &projection_matrix[0][0]);
 
 
 		
@@ -119,9 +118,6 @@ namespace SushiEngine
 		}
 
 		glfwSwapBuffers(mWindow->GetWindowHandle());
-		
 	}
-
-
 }
 

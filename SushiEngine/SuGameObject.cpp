@@ -5,18 +5,20 @@ namespace SushiEngine
 	// prototype
 	SuGameObject::SuGameObject()
 	{
-		Transform * _transform = new Transform(this, vec3(1.0f, 1.0f, 1.0f));
-		AddComponent<Transform>(_transform);
+		//Force the compiler to create templated functions of every existing Component Type,
+		//by 'fake' calling the functions here.
+		//This function should NEVER be called.
+		Debug::Log(EMessageType::S_ERROR, "SuGameObject() Private Constructor called.", __FILENAME__, __LINE__);
+		AddComponent<Transform>(nullptr);
 		GetComponent<Transform>();
-
-		MeshRenderer * _houseMesh = new MeshRenderer(this, "models/Crate/Crate1.3ds");
-		AddComponent<MeshRenderer>(_houseMesh);
+		AddComponent<MeshRenderer>(nullptr);
 		GetComponent<MeshRenderer>();
+
 	}
 
-	SuGameObject::SuGameObject(vec3 fPosition)
+	SuGameObject::SuGameObject(vec3 pPosition)
 	{
-		Transform * _transform = new Transform(this, fPosition);
+		Transform * _transform = new Transform(this, pPosition);
 		AddComponent<Transform>(_transform);
 	}
 
@@ -26,9 +28,9 @@ namespace SushiEngine
 	}
 
 	template <typename T>
-	void SuGameObject::AddComponent(Component * fComponent)
+	void SuGameObject::AddComponent(Component * pComponent)
 	{
-		mComponents.insert(std::make_pair(typeid(T).name(), fComponent));
+		mComponents.insert(std::make_pair(typeid(T).name(), pComponent));
 	}
 
 	template <typename T>
@@ -39,6 +41,7 @@ namespace SushiEngine
 	}
 	
 	void SuGameObject::Render() {
+
 	}
 
 }

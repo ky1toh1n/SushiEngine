@@ -1,4 +1,4 @@
-/* Represents a playable (and abstract) scene in a game.*/
+/** Represents a playable (and abstract) scene in a game.*/
 #ifndef SCENE_H
 #define SCENE_H
 /* System */
