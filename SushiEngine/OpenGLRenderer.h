@@ -34,8 +34,8 @@ namespace SushiEngine
 		GLuint location3;
 
 		GLuint lightPositionUniformLocation;
-		GLuint diffuseUniformLocation;
 		GLuint ambientUniformLocation;
+		GLuint diffuseUniformLocation;
 
 		GLuint program;
 

@@ -55,7 +55,9 @@ namespace SushiEngine
 		location2 = glGetUniformLocation(program, "camera_matrix");
 		location3 = glGetUniformLocation(program, "projection_matrix");
 
+		lightPositionUniformLocation = glGetUniformLocation(program, "lightPosition");
 		ambientUniformLocation = glGetUniformLocation(program, "ambient_light");
+		diffuseUniformLocation = glGetUniformLocation(program, "diffuse_light");
 
 
 	}
@@ -110,7 +112,6 @@ namespace SushiEngine
 			{
 				glEnableVertexAttribArray(shaderNormals);
 				glVertexAttribPointer(shaderNormals, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices));
-
 			}
 			else
 			{
@@ -120,16 +121,14 @@ namespace SushiEngine
 
 			// ------------------- Lighting -------------------------
 
-			vec3 lightPosition = vec3(0.0f, 10.0f, 0.0f);
-			glUniform3fv(lightPositionUniformLocation, 1, &lightPosition[0]);
+			vec4 lightPosition = vec4(0.0f, 10.0f, 2.0f,0.0f);
+			glUniform4fv(lightPositionUniformLocation, 1, &lightPosition[0]);
 
-			vec4 ambientLight = vec4(0.2f, 0.2f, 0.2f, 1.0f);
+			vec4 ambientLight = vec4(0.1f, 0.1f, 0.1f, 1.0f);
 			glUniform4fv(ambientUniformLocation, 1, &ambientLight[0]);
 
-			vec4 diffuseLight = vec4(0.2f, 0.2f, 0.2f, 1.0f);
+			vec4 diffuseLight = vec4(1.0f, 0.80f, 0.80f, 1.0f);
 			glUniform4fv(diffuseUniformLocation, 1, &diffuseLight[0]);
-
-
 
 			// ------------------- Model View Projection -------------------------
 			// Temporary Position Setter
