@@ -117,21 +117,27 @@ namespace SushiEngine
 
 					for (unsigned int v = 0; v < mesh->mNumVertices; v++)
 					{
-						aiVector3D* pPos = &mesh->mVertices[v];
-						aiVector3D* pNor = &mesh->mNormals[v];
 
-						vec3 vPos = vec3(pPos->x, pPos->y, pPos->z);
-						vec3 vNor = vec3(pNor->x, pNor->y, pNor->z);
+						if (mesh->HasPositions())
+						{
+							aiVector3D* pPos = &mesh->mVertices[v];
+							vec3 vPos = vec3(pPos->x, pPos->y, pPos->z);
+							vertexPositions.push_back(vPos);
+						}
 
-						vertexPositions.push_back(vPos);
-						vertexNormals.push_back(vNor);
+						if (mesh->HasNormals())
+						{
+							aiVector3D* pNor = &mesh->mNormals[v];
+							vec3 vNor = vec3(pNor->x, pNor->y, pNor->z);
+							vertexNormals.push_back(vNor);
+						}
+
 
 						if (mesh->HasTextureCoords(0))
 						{
 							aiVector3D* pUV = &mesh->mTextureCoords[0][v];
 							vec2 vUV = vec2(pUV->x, pUV->y);
 							vertexUVs.push_back(vUV);
-							// if (v < 1) cout << "			sample vTexCoord: (" << pUV->x << "," << pUV->y << ")" << endl;
 						}
 
 					}
@@ -159,9 +165,10 @@ namespace SushiEngine
 			glGenBuffers(1, &buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts + sizeof(vec2) * numVerts, NULL, GL_STATIC_DRAW); // allocate buffer memory for the actual size of vertices container
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts * 2 + sizeof(vec2) * numVerts, NULL, GL_STATIC_DRAW); // allocate buffer memory for the actual size of vertices container
 			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * numVerts, &vertexPositions[0]);
-			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts, sizeof(vec2) * numVerts, &vertexUVs[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts, sizeof(vec3) * numVerts, &vertexNormals[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts * 2, sizeof(vec2) * numVerts, &vertexUVs[0]);
 
 			//store the pointer inside modelHandles with the corresponding key
 			sModelHandles.emplace(_filepath, buffer);
@@ -170,6 +177,7 @@ namespace SushiEngine
 			drawData.numVertices = numVerts;
 			drawData.hasTexture = true;
 			drawData.drawType = SU_TRIANGLES;
+			drawData.hasNormals = true;
 
 			sModelDrawData.emplace(buffer, drawData);
 

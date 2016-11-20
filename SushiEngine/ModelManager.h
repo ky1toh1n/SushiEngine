@@ -26,6 +26,7 @@ namespace SushiEngine
 		unsigned int numVertices = 0;
 		bool hasTexture = false;
 		bool hasColor = false;
+		bool hasNormals = false;
 		DrawType drawType = SU_LINES;
 	};
 

@@ -95,13 +95,27 @@ namespace SushiEngine
 			if (data.hasTexture)
 			{
 				glEnableVertexAttribArray(shaderUVs);
-				glVertexAttribPointer(shaderUVs, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices));
+				glVertexAttribPointer(shaderUVs, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices * 2));
 				glBindTexture(GL_TEXTURE_2D, *(*gameObject)->textureId);
 			}
 			else
 			{
 				glDisableVertexAttribArray(shaderUVs);
 				glBindTexture(GL_TEXTURE_2D, NULL);
+			}
+
+
+			GLuint shaderNormals = glGetAttribLocation(program, "vNormal");
+			if (data.hasNormals)
+			{
+				glEnableVertexAttribArray(shaderNormals);
+				glVertexAttribPointer(shaderNormals, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices));
+
+			}
+			else
+			{
+				glDisableVertexAttribArray(shaderNormals);
+
 			}
 
 			// ------------------- Lighting -------------------------
