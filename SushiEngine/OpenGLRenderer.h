@@ -29,18 +29,15 @@ namespace SushiEngine
 		virtual void init();
 		virtual void render(vector<SuGameObject*> gameObjects);
 
-		// fColor = vec4( 1.0, 0.0, 0.0, 1.0 );"
-		// fColor = texture2D(texture, texCoord);"
-
-		GLuint buffers[3];
 		GLuint location;
 		GLuint location2;
 		GLuint location3;
-		GLuint program;
-		GLuint texture[1];
 
-		GLuint mTextureID;
-		GLfloat rotation = 0;
+		GLuint lightPositionUniformLocation;
+		GLuint diffuseUniformLocation;
+		GLuint ambientUniformLocation;
+
+		GLuint program;
 
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;

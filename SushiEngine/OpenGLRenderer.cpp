@@ -54,6 +54,10 @@ namespace SushiEngine
 		location = glGetUniformLocation(program, "model_matrix");
 		location2 = glGetUniformLocation(program, "camera_matrix");
 		location3 = glGetUniformLocation(program, "projection_matrix");
+
+		ambientUniformLocation = glGetUniformLocation(program, "ambient_light");
+
+
 	}
 
 
@@ -100,9 +104,26 @@ namespace SushiEngine
 				glBindTexture(GL_TEXTURE_2D, NULL);
 			}
 
-			// MVP
-			glm::mat4 model_view = glm::translate(glm::mat4(1.0), vec3(0.0f, 0.0f, 0.0f));
-			model_view = glm::rotate(model_view, rotation, vec3(0.0f, 1.0f, 1.0f));
+			// ------------------- Lighting -------------------------
+
+			vec3 lightPosition = vec3(0.0f, 10.0f, 0.0f);
+			glUniform3fv(lightPositionUniformLocation, 1, &lightPosition[0]);
+
+			vec4 ambientLight = vec4(0.2f, 0.2f, 0.2f, 1.0f);
+			glUniform4fv(ambientUniformLocation, 1, &ambientLight[0]);
+
+			vec4 diffuseLight = vec4(0.2f, 0.2f, 0.2f, 1.0f);
+			glUniform4fv(diffuseUniformLocation, 1, &diffuseLight[0]);
+
+
+
+			// ------------------- Model View Projection -------------------------
+			// Temporary Position Setter
+			Transform* t = (*gameObject)->GetComponent<Transform>();
+			vec3 pos = *t->mPosition;
+
+			glm::mat4 model_view = glm::translate(glm::mat4(1.0), pos);
+			model_view = glm::rotate(model_view, 0.0f, vec3(0.0f, 1.0f, 1.0f));
 			glUniformMatrix4fv(location, 1, GL_FALSE, &model_view[0][0]);
 
 			glUniformMatrix4fv(location2, 1, GL_FALSE, &(camera->getMatrix())[0][0]); // View
@@ -110,7 +131,7 @@ namespace SushiEngine
 			glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 1.0f, 100.0f);  // Projection
 			glUniformMatrix4fv(location3, 1, GL_FALSE, &projection_matrix[0][0]);
 
-
+			// ------------------------------------------------------------------
 
 			if (data.drawType == SU_LINES)
 			{
