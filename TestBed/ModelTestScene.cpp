@@ -11,9 +11,9 @@ ModelTestScene::~ModelTestScene()
 	Debug::Log(EMessageType::S_INFO, "\t~ModelTestScene()", __FILENAME__, __LINE__);
 }
 
-void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
+void ModelTestScene::initialize(SceneContext* pSceneContext)
 {
-	Scene::Initialize(abstractRenderer);
+	Scene::initialize(pSceneContext);
 
 	//SuGameObject* go;
 	//MeshRenderer* houseMesh;
@@ -67,28 +67,28 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	SuGameObject* debugPlane = new SuGameObject(vec3(0, 0, 0));
 
 	debugPlane->modelId = ModelManager::LoadModel("debugPlane", &grid[0][0], &gridColor[0][0], gridNumVerts);
-	glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
+	//glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
 
 	SuGameObject* box = new SuGameObject(vec3(0.0f, 0.0f, 0.0f));
 	// Transform* t = box->GetComponent<Transform>();
 
 
 	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box->modelId, 2);
+	//glDisableVertexArrayAttrib(*box->modelId, 2);
 	box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
 
 
 	SuGameObject* house = new SuGameObject(vec3(0, 0, 0));
 	house->modelId = ModelManager::LoadModel("models/house/house.obj");
-	glDisableVertexArrayAttrib(*house->modelId, 2);
+	//glDisableVertexArrayAttrib(*house->modelId, 2);
 	house->textureId = ModelManager::LoadTexture("models/house/house2.png");
 
-	gameObjects.push_back(debugPlane);
-	gameObjects.push_back(box);
-	gameObjects.push_back(house);
+	mGameObjects.push_back(debugPlane);
+	mGameObjects.push_back(box);
+	mGameObjects.push_back(house);
 
 }
 
-void ModelTestScene::Destroy()
+void ModelTestScene::destroy()
 {
 }

@@ -18,7 +18,7 @@ int main(int count, char** args) {
 	//scene = new ComponentTestScene();
 	scene = new ModelTestScene();
 
-	game->Run(scene);
+	game->run(scene);
 
 	DELETE_PTR(scene)
 	

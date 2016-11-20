@@ -43,6 +43,10 @@
     <ClCompile Include="ShaderLoader.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="SceneContext.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -89,6 +93,10 @@
     </ClInclude>
     <ClInclude Include="ShaderLoader.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="SceneContext.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

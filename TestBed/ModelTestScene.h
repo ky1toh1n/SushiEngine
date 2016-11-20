@@ -13,8 +13,8 @@ class ModelTestScene :
 public:
 	ModelTestScene();
 	virtual ~ModelTestScene();
-	void Initialize(AbstractRenderer* abstractRenderer);
-	void Destroy();
+	void initialize(SceneContext* pSceneContext);
+	void destroy();
 };
 
 #endif

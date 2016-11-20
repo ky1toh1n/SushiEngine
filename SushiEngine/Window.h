@@ -4,6 +4,7 @@
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
+
 #include "Debug.h"
 
 namespace SushiEngine
@@ -26,7 +27,7 @@ namespace SushiEngine
 
 	private:
 		//Private constructor
-		friend class GameSceneManager;
+		friend class SceneContext;
 		explicit Window(const char* title, const int width, const int height);
 		~Window();
 

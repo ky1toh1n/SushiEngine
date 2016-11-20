@@ -159,6 +159,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="SceneContext.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="SuGameObject.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="SceneContext.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="SuGameObject.h" />
     <ClInclude Include="OpenGLRenderer.h" />

@@ -1,40 +1,33 @@
-//Scene - Represents a playable scene in a game. Concrete scenes must extend this abstract class.
+/* Represents a playable (and abstract) scene in a game.*/
 #ifndef SCENE_H
 #define SCENE_H
-
-#include "Window.h"
-#include "GameSceneManager.h"
-#include "AbstractRenderer.h"
+/* System */
+/* Third Party */
+/* SushiEngine */
+#include "SceneContext.h"
 #include "Camera.h"
-#include "InputManager.h"
-
+#include "Macros.h"
+/* ---- */
 namespace SushiEngine
 {
 	class Scene
 	{
 	public:
-		//Constructor
+		/* Constructor */
 		Scene();
 		virtual ~Scene() = 0;
-		
-		/// C11 precautions delete these non-needed default constructors and operators
-		Scene(const Scene&) = delete;
-		Scene(Scene&&) = delete;
-		Scene& operator = (const Scene&) = delete;
-		Scene& operator = (Scene&&) = delete;
+		NO_COPY_CONSTRUCTORS(Scene)
 
-		//Main methods of a scene
-		virtual void Initialize(AbstractRenderer*);
-		virtual void Update(float deltaTime);
-		virtual void Render();
-		virtual void Destroy() = 0;
-
+		/* Instance Methods */
+		virtual void initialize(SceneContext*);
+		virtual void update(float deltaTime);
+		virtual void render();
+		virtual void destroy() = 0;
 	protected:
-		//
-		Window * window;
-		AbstractRenderer * renderer;
-		Camera * mainCamera;
-		vector<SuGameObject*> gameObjects;
+		/* Instance Fields */
+		SceneContext * mSceneContext;
+		Camera * mMainCamera;
+		vector<SuGameObject*> mGameObjects;
 	};
 }
 #endif

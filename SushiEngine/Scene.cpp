@@ -13,21 +13,17 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "\t~Scene()", __FILENAME__, __LINE__);
 	}
 
-	//Initializes scene by getting window pointer
-	void Scene::Initialize(AbstractRenderer* pRenderer) 
+	//Initializes scene with a scene context
+	void Scene::initialize(SceneContext* pSceneContext)
 	{
 		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
-		window = GameSceneManager::GetInstance()->getWindowInstance();
-		mainCamera = new Camera(vec3(0,2,10), vec3(0,1,0));
-		renderer = pRenderer;
-		renderer->setCamera(mainCamera);
-
-		// SuMesh ananas = SuMesh("models/ananas.fbx");
-
+		mSceneContext = pSceneContext;
+		mMainCamera = new Camera(vec3(0,2,10), vec3(0,1,0));
+		mSceneContext->renderer->setCamera(mMainCamera);
 	}
 
 	//Polls GLFW Events
-	void Scene::Update(float deltaTime)
+	void Scene::update(float deltaTime)
 	{
 		
 		/*Poll for input*/
@@ -35,24 +31,26 @@ namespace SushiEngine
 		
 		/*Handle Camera Controls.*/
 #define ENABLE_CAMERA
-		///TODO: Add Delta Time/Chrono PLEASE :"(
+
 #ifdef ENABLE_CAMERA
-		InputManager * input = InputManager::GetInstance();
-		
+		InputManager * input = mSceneContext->input;
+
 		//Translation
-		float translateX = (float)(input->isKeyDown(GLFW_KEY_A) ? 1 : 0
+		float translateX = (float)
+			(input->isKeyDown(GLFW_KEY_A) ? 1 : 0
 			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0) * deltaTime;
-		float translateY = (float)(input->isKeyDown(GLFW_KEY_W) ? -1 : 0
+		float translateY = (float)
+			(input->isKeyDown(GLFW_KEY_W) ? -1 : 0
 			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0) * deltaTime;
 
-		mainCamera->translate(translateX, translateY);
+		mMainCamera->translate(translateX, translateY);
 
 		//Rotation
 		int screenWidth, screenHeight;
-		window->GetSize(&screenWidth, &screenHeight);
+		mSceneContext->window->GetSize(&screenWidth, &screenHeight);
 
 		double mouseX, mouseY;
-		input->getMousePosition(&mouseX, &mouseY);
+		mSceneContext->input->getMousePosition(&mouseX, &mouseY);
 
 		//If mouse is within the screenWidth-ish area of the screen
 		if (mouseX >= screenWidth / 2 - screenWidth / 10 &&
@@ -69,18 +67,18 @@ namespace SushiEngine
 			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * deltaTime;
 			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * deltaTime;
 
-		mainCamera->rotate(rotateX, rotateY);
+		mMainCamera->rotate(rotateX, rotateY);
 		}
 #endif 
 	}
 
-	//Swaps GLFW Buffers
-	void Scene::Render()
+	//Draw the whole scene
+	void Scene::render()
 	{
 		vector<SuGameObject*>::iterator it;
-		for (it = gameObjects.begin(); it != gameObjects.end(); ++it)
+		for (it = mGameObjects.begin(); it != mGameObjects.end(); ++it)
 		{
-			renderer->render(*it);
+			mSceneContext->renderer->render(*it);
 		}
 	}
 }

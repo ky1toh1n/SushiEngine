@@ -19,9 +19,10 @@ namespace SushiEngine
 
 		virtual void render(SuGameObject* gameObject) = 0;
 		void setCamera(Camera*);
+		//Window* getWindow();
 	protected:
-		Window* window;
-		Camera* camera;
+		Window* mWindow;
+		Camera* mCamera;
 	};
 }
 #endif
