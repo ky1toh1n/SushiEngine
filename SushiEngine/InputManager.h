@@ -27,12 +27,12 @@ namespace SushiEngine
 		~InputManager();
 
 		/* Instance fields */ 
-		int keyData[GLFW_KEY_LAST];	
-		double mouseX=-1;
-		double mouseY=-1;
+		int mKeyData[GLFW_KEY_LAST];	
+		double mMouseX=-1;
+		double mMouseY=-1;
 
 		/* Static fields*/
-		static InputManager* instance;
+		static InputManager* sInstance;
 
 		/* Static methods */
 		//GLFW Callbacks

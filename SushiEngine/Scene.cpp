@@ -23,7 +23,7 @@ namespace SushiEngine
 	}
 
 	//Polls GLFW Events
-	void Scene::update(float deltaTime)
+	void Scene::update(float pDeltaTime)
 	{
 		
 		/*Poll for input*/
@@ -38,10 +38,10 @@ namespace SushiEngine
 		//Translation
 		float translateX = (float)
 			(input->isKeyDown(GLFW_KEY_A) ? 1 : 0
-			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0) * deltaTime;
+			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0) * pDeltaTime;
 		float translateY = (float)
 			(input->isKeyDown(GLFW_KEY_W) ? -1 : 0
-			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0) * deltaTime;
+			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0) * pDeltaTime;
 
 		mMainCamera->translate(translateX, translateY);
 
@@ -64,8 +64,8 @@ namespace SushiEngine
 		else 
 		{
 			//Otherwise, let's rotate!
-			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * deltaTime;
-			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * deltaTime;
+			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * pDeltaTime;
+			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * pDeltaTime;
 
 		mMainCamera->rotate(rotateX, rotateY);
 		}

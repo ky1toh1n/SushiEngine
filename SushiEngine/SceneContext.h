@@ -16,7 +16,7 @@ namespace SushiEngine
 	struct SceneContext
 	{
 		/* Constructor */
-		SceneContext(const char * title, const int width, const int height);
+		SceneContext(const char * pTitle, const int pWidth, const int pHeight);
 		~SceneContext();
 		NO_COPY_CONSTRUCTORS(SceneContext)
 

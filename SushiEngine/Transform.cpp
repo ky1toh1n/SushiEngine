@@ -2,21 +2,18 @@
 
 namespace SushiEngine
 {
-	Transform::Transform(const SuGameObject * fGameObject, vec3 fPosition, quat fRotation, vec3 fScale) : Component(fGameObject)
+	Transform::Transform(const SuGameObject * pGameObject, vec3 pPosition, quat pRotation, vec3 pScale) : Component(pGameObject)
 	{
-		mPosition = new vec3(fPosition);
-		mRotation = new quat(fRotation);
-		mScale = new vec3(fScale);
+		mPosition = new vec3(pPosition);
+		mRotation = new quat(pRotation);
+		mScale = new vec3(pScale);
 	}
 
 	Transform::~Transform()
 	{
-		delete mPosition;
-		mPosition = nullptr;
-		delete mRotation;
-		mRotation = nullptr;
-		delete mScale;
-		mScale = nullptr;
+		DELETE_PTR(mPosition)
+		DELETE_PTR(mRotation)
+		DELETE_PTR(mScale)
 	}
 
 
@@ -24,6 +21,7 @@ namespace SushiEngine
 	{
 		//TODO: Implement this function. How the f**k do we use quaternions to rotate, House?!
 		// FFS learn to rotate :{X
+		// *cries*
 
 		//Rotate then translate.
 

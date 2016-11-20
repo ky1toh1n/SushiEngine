@@ -9,6 +9,7 @@
 
 namespace SushiEngine
 {
+	class SceneContext;
 	class Window
 	{
 	public:

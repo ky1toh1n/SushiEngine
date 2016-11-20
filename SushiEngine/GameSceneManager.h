@@ -1,19 +1,14 @@
-/** A singleton class that 'runs' the current game scene.	
-* It has objects necessary for a game scenes to function: a window, a renderer, and input manager.
-*/
+/** A singleton class that 'runs' the current game scene. */
 #ifndef GAME_H
 #define GAME_H 
 /* System */
 #include <memory>
 /* Third Party */
 /* SushiEngine */
-#include "Window.h"
 #include "Debug.h"
 #include "Scene.h"
+#include "SceneContext.h"
 #include "Timer.h"
-#include "AbstractRenderer.h"
-#include "OpenGLRenderer.h"
-#include "InputManager.h"
 #include "Macros.h"
 /* ---- */
 namespace SushiEngine 

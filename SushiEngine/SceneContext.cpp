@@ -15,9 +15,9 @@ namespace SushiEngine
 	/* ---- End of GLFW Callback ---- *
 
 	/* Constructor */
-	SceneContext::SceneContext(const char * title, const int width, const int height)
+	SceneContext::SceneContext(const char * pTitle, const int pWidth, const int pHeight)
 	{
-		window = new Window(title, width, height);
+		window = new Window(pTitle, pWidth, pHeight);
 		renderer = new OpenGLRenderer(window);
 		input = new InputManager();
 
@@ -45,5 +45,4 @@ namespace SushiEngine
 	{
 		window->Destroy();
 	}
-
 }

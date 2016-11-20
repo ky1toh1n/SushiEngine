@@ -3,12 +3,12 @@
 namespace SushiEngine
 {
 	/* ---- STATIC ---- */
-	InputManager* InputManager::instance = nullptr; 
+	InputManager* InputManager::sInstance = nullptr; 
 
-	void InputManager::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods)
+	void InputManager::KeyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods)
 	{
 		//Update state
-		instance->keyData[key] = action;
+		sInstance->mKeyData[key] = action;
 
 		//Print to console
 		if (action == GLFW_PRESS)
@@ -25,24 +25,24 @@ namespace SushiEngine
 		}
 	}
 
-	void InputManager::ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods)
+	void InputManager::ClickCallback(GLFWwindow* pGlfwWindow, int button, int action, int mods)
 	{
 		cout << "Click: " << endl;
 	}
 
-	void InputManager::MouseMoveCallback(GLFWwindow * glfwWindow, double x, double y)
+	void InputManager::MouseMoveCallback(GLFWwindow * pGlfwWindow, double pMouseX, double pMouseY)
 	{
-		instance->mouseX = x;
-		instance->mouseY = y;
+		sInstance->mMouseX = pMouseX;
+		sInstance->mMouseY = pMouseY;
 	}
 	/* ---- End of STATIC ---- */
 	/* ---- INSTANCE ---- */
 	InputManager::InputManager()
 	{
 		Debug::Log(EMessageType::S_INFO, "\tInputManager()", __FILENAME__, __LINE__);
-		if (instance == nullptr)
+		if (sInstance == nullptr)
 		{
-			instance = this;
+			sInstance = this;
 		}
 		else
 		{
@@ -55,15 +55,15 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "\t~InputManager()", __FILENAME__, __LINE__);
 	}
 
-	bool InputManager::isKeyDown(int key)
+	bool InputManager::isKeyDown(int pKey)
 	{
-		return keyData[key] == GLFW_PRESS || keyData[key] == GLFW_REPEAT;
+		return mKeyData[pKey] == GLFW_PRESS || mKeyData[pKey] == GLFW_REPEAT;
 	}
 
-	void InputManager::getMousePosition(double* xRef, double* yRef)
+	void InputManager::getMousePosition(double* pXreference, double* pYReference)
 	{
-		*xRef = mouseX;
-		*yRef = mouseY;
+		*pXreference = mMouseX;
+		*pYReference = mMouseY;
 	}
 	/* ---- End of INSTANCE ---- */
 }
