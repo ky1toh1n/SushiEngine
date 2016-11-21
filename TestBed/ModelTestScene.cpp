@@ -46,8 +46,8 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 
 		grid.push_back(pointA);
 		grid.push_back(pointB);
-		gridColor.push_back(vec3(1, 0, 0));
-		gridColor.push_back(vec3(1, 0, 0));
+		gridColor.push_back(vec3(0.2, 0.2, 0.25));
+		gridColor.push_back(vec3(0.2, 0.2, 0.25));
 	}
 
 	// Points for the vertical lines
@@ -60,8 +60,8 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 
 		grid.push_back(pointA);
 		grid.push_back(pointB);
-		gridColor.push_back(vec3(1, 0, 0));
-		gridColor.push_back(vec3(1, 0, 0));
+		gridColor.push_back(vec3(0.2, 0.2, 0.25));
+		gridColor.push_back(vec3(0.2, 0.2, 0.25));
 	}
 
 	SuGameObject* debugPlane = new SuGameObject(vec3(0, 0, 0));
@@ -90,7 +90,7 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	helpercolor.push_back(vec3(0, 0, 1));
 	helpercolor.push_back(vec3(0, 0, 1));
 
-	SuGameObject* orientation = new SuGameObject(vec3(0, 6, 0));
+	SuGameObject* orientation = new SuGameObject(vec3(0, 1, 5));
 	orientation->modelId = ModelManager::LoadModel("orientation", &helper[0][0], &helpercolor[0][0], 6);
 	glDisableVertexArrayAttrib(*orientation->modelId, 1);
 
@@ -117,7 +117,7 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 
 	box2->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
 	glDisableVertexArrayAttrib(*box2->modelId, 2);
-	box2->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+	box2->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate_flipped.png");
 
 	SuGameObject* box3 = new SuGameObject(vec3(-4.0f, 1.0f, 4.0f));
 	Transform* boxt3 = box3->GetComponent<Transform>();
@@ -144,4 +144,13 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 
 void ModelTestScene::Destroy()
 {
+}
+
+
+void ModelTestScene::Update(float _deltaTime)
+{
+	Scene::Update(_deltaTime);
+	float rotValue = 1.0f;
+	Transform* t = gameObjects[4]->GetComponent<Transform>();
+	t->mRotation = new vec3(t->mRotation->x, t->mRotation->y + rotValue * _deltaTime, t->mRotation->z);
 }

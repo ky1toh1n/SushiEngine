@@ -15,6 +15,7 @@ public:
 	virtual ~ModelTestScene();
 	void Initialize(AbstractRenderer* abstractRenderer);
 	void Destroy();
+	void Update(float _deltaTime);
 };
 
 #endif
