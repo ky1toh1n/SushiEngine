@@ -58,7 +58,8 @@ namespace SushiEngine
 		lightPositionUniformLocation = glGetUniformLocation(program, "lightPosition");
 		ambientUniformLocation = glGetUniformLocation(program, "ambient_light");
 		diffuseUniformLocation = glGetUniformLocation(program, "diffuse_light");
-
+		
+		// glClearColor(0.6, 0.6, 0.6, 1.0);
 
 	}
 
@@ -140,7 +141,7 @@ namespace SushiEngine
 			}
 
 
-			vec4 lightPosition = vec4(lightX, 10.0f, 0.0f,0.0f);
+			vec4 lightPosition = vec4(lightX, 3.0f, 1.0f,0.0f);
 			glUniform4fv(lightPositionUniformLocation, 1, &lightPosition[0]);
 
 			vec4 ambientLight = vec4(0.2f, 0.2f, 0.2f, 1.0f);

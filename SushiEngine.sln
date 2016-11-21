@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SushiEngine", "SushiEngine\SushiEngine.vcxproj", "{B40840D6-3EFB-4957-AE9F-607FF7A5A13B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestBed", "TestBed\TestBed.vcxproj", "{40F52FCD-3E52-4489-927D-0F62FCE1922C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TasteTest", "TasteTest\TasteTest.vcxproj", "{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{40F52FCD-3E52-4489-927D-0F62FCE1922C}.Release|x64.Build.0 = Release|x64
 		{40F52FCD-3E52-4489-927D-0F62FCE1922C}.Release|x86.ActiveCfg = Release|Win32
 		{40F52FCD-3E52-4489-927D-0F62FCE1922C}.Release|x86.Build.0 = Release|Win32
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Debug|x64.ActiveCfg = Debug|x64
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Debug|x64.Build.0 = Debug|x64
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Debug|x86.ActiveCfg = Debug|Win32
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Debug|x86.Build.0 = Debug|Win32
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Release|x64.ActiveCfg = Release|x64
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Release|x64.Build.0 = Release|x64
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Release|x86.ActiveCfg = Release|Win32
+		{6C41F5FD-4A16-4BC0-B1AB-8AA7F0C9004A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

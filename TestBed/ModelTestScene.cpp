@@ -26,10 +26,10 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	//// this break it for some reason
 	//go->AddComponent<MeshRenderer>(houseMesh);
 
-	float size = 100;
-	float numberOfDivisions = 100;
+	float size = 20;
+	float numberOfDivisions = 20;
 	float increments = size * 2.0f / numberOfDivisions;
-	unsigned int gridNumVerts = numberOfDivisions * 4 + 4;
+	unsigned int gridNumVerts = numberOfDivisions * 4 + 2;
 	vector<vec3> grid;
 	vector<vec3> gridColor;
 	int c = 0;
@@ -51,7 +51,7 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	}
 
 	// Points for the vertical lines
-	for (float x = -size; x < size; x += increments)
+	for (float x = -size; x <= size; x += increments)
 	{
 		// line from
 		vec3 pointA = vec3(x, 0, -size);

@@ -43,6 +43,7 @@
     <ClCompile Include="ShaderLoader.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -90,6 +91,7 @@
     <ClInclude Include="ShaderLoader.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="MeshRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />

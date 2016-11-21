@@ -31,8 +31,6 @@ namespace SushiEngine {
 		static std::string readFileToChar(const std::string _filepath);
 
 		static std::string shader[NUM_SHADER_TYPES];
-
-
 	};
 }
 
