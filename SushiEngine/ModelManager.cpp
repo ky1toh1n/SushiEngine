@@ -249,12 +249,6 @@ namespace SushiEngine
 		return modelScene;
 	}
 
-
-
-	//DrawData ModelManager::getDrawData(const GLuint* _id)
-	//{
-	//}
-
 	const GLuint* ModelManager::LoadTexture(std::string _filepath)
 	{
 
@@ -278,7 +272,7 @@ namespace SushiEngine
 			ILboolean success = ilLoadImage(_filepath.c_str());
 			if (success) 
 			{
-				// printf("DevIL Load Image -- OK\n");
+				// ...
 			}
 			else
 			{
@@ -318,18 +312,13 @@ namespace SushiEngine
 
 			// -----------------------------------
 
-
-			// cout << (GLuint)ilGetInteger(IL_IMAGE_WIDTH) << "x" << (GLuint)ilGetInteger(IL_IMAGE_HEIGHT) << endl;
-
+			// delete image from memory
 			ilDeleteImages(1, &imgID);
 
-			// lastly, return the pointer to the image
-			// cout << sTextureHandles[_filepath] << endl;
 
 			glBindTexture(GL_TEXTURE_2D, 0);
-
-
-
+			
+			// lastly, return the pointer to the image
 			return &sTextureHandles[_filepath];
 		}
 	}

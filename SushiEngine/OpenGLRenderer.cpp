@@ -120,11 +120,24 @@ namespace SushiEngine
 			}
 
 			// ------------------- Lighting -------------------------
+			
+			if (lightX <= -10)
+			{
+				goingright = true;
+			}
+			if (lightX >= 10)
+			{
+				goingright = false;
+			}
 
-
-			lightX += 0.005f;
-
-			// cout << "Light xPos: " <<lightX << endl;
+			if (!goingright)
+			{
+				lightX -= 0.005f;
+			}
+			else
+			{
+				lightX += 0.005f;
+			}
 
 
 			vec4 lightPosition = vec4(lightX, 10.0f, 0.0f,0.0f);

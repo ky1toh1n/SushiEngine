@@ -46,6 +46,8 @@ namespace SushiEngine
 
 
 		GLfloat lightX = -10.0f;
+		bool goingright = true;
+
 	};
 }
 #endif
