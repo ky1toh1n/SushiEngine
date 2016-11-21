@@ -121,10 +121,16 @@ namespace SushiEngine
 
 			// ------------------- Lighting -------------------------
 
-			vec4 lightPosition = vec4(0.0f, 10.0f, 2.0f,0.0f);
+
+			lightX += 0.005f;
+
+			cout << "Light xPos: " <<lightX << endl;
+
+
+			vec4 lightPosition = vec4(lightX, 10.0f, 0.0f,0.0f);
 			glUniform4fv(lightPositionUniformLocation, 1, &lightPosition[0]);
 
-			vec4 ambientLight = vec4(0.1f, 0.1f, 0.1f, 1.0f);
+			vec4 ambientLight = vec4(0.2f, 0.2f, 0.2f, 1.0f);
 			glUniform4fv(ambientUniformLocation, 1, &ambientLight[0]);
 
 			vec4 diffuseLight = vec4(1.0f, 0.80f, 0.80f, 1.0f);
@@ -134,9 +140,15 @@ namespace SushiEngine
 			// Temporary Position Setter
 			Transform* t = (*gameObject)->GetComponent<Transform>();
 			vec3 pos = *t->mPosition;
+			vec3 rot = *t->mRotation;
 
 			glm::mat4 model_view = glm::translate(glm::mat4(1.0), pos);
-			model_view = glm::rotate(model_view, 0.0f, vec3(0.0f, 1.0f, 1.0f));
+
+			// TODO: Use a matrix maybe?
+			model_view = glm::rotate(model_view, rot.x, vec3(1.0f, 0.0f, 0.0f));
+			model_view = glm::rotate(model_view, rot.y, vec3(0.0f, 1.0f, 0.0f));
+			model_view = glm::rotate(model_view, rot.z, vec3(0.0f, 0.0f, 1.0f));
+			// model_view *= glm::orientation(rot, vec3(0.0, 1.0, 0.0));
 			glUniformMatrix4fv(location, 1, GL_FALSE, &model_view[0][0]);
 
 			glUniformMatrix4fv(location2, 1, GL_FALSE, &(camera->getMatrix())[0][0]); // View

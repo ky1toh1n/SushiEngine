@@ -69,8 +69,41 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	debugPlane->modelId = ModelManager::LoadModel("debugPlane", &grid[0][0], &gridColor[0][0], gridNumVerts);
 	glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
 
+	vector<vec3> helper;
+	vector<vec3> helpercolor;
+
+	// +x
+	helper.push_back(vec3(0, 0, 0));
+	helper.push_back(vec3(1, 0, 0));
+	helpercolor.push_back(vec3(1, 0, 0));
+	helpercolor.push_back(vec3(1, 0, 0));
+
+	// +y
+	helper.push_back(vec3(0, 0, 0));
+	helper.push_back(vec3(0, 1, 0));
+	helpercolor.push_back(vec3(0, 1, 0));
+	helpercolor.push_back(vec3(0, 1, 0));
+
+	// +z
+	helper.push_back(vec3(0, 0, 0));
+	helper.push_back(vec3(0, 0, 1));
+	helpercolor.push_back(vec3(0, 0, 1));
+	helpercolor.push_back(vec3(0, 0, 1));
+
+	SuGameObject* orientation = new SuGameObject(vec3(0, 6, 0));
+	orientation->modelId = ModelManager::LoadModel("orientation", &helper[0][0], &helpercolor[0][0], 6);
+	glDisableVertexArrayAttrib(*orientation->modelId, 1);
+
+	// -------------------------------------------------------------------------
+
+	//SuGameObject* terrain = new SuGameObject(vec3(0, 0, 0));
+	//terrain->modelId = ModelManager::LoadModel("models/SnowTerrain/SnowTerrain.obj");
+	// glDisableVertexArrayAttrib(*terrain->modelId, 2);
+	//terrain->textureId = ModelManager::LoadTexture("models/SnowTerrain/resnow.png");
+
 	SuGameObject* box = new SuGameObject(vec3(-2.3f, 1.0f, 0.0f));
-	// Transform* t = box->GetComponent<Transform>();
+	Transform* boxt = box->GetComponent<Transform>();
+	boxt->mRotation = new vec3(0.0f, 0.0f, 0.0f);
 
 
 	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
@@ -84,6 +117,8 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	house->textureId = ModelManager::LoadTexture("models/house/house2.png");
 
 	gameObjects.push_back(debugPlane);
+	gameObjects.push_back(orientation);
+	// gameObjects.push_back(terrain);
 	gameObjects.push_back(box);
 	gameObjects.push_back(house);
 

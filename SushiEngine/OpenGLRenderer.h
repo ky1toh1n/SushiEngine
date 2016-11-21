@@ -10,6 +10,7 @@
 #include <assimp\postprocess.h>
 #include "glm\glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
+#include "glm\gtx\rotate_vector.hpp"
 
 #include "AbstractRenderer.h"
 #include "Window.h"
@@ -17,6 +18,7 @@
 #include "ModelManager.h"
 
 #include "ShaderLoader.h"
+#include "InputManager.h" // remove as soon as done testing
 
 namespace SushiEngine
 {
@@ -41,6 +43,9 @@ namespace SushiEngine
 
 		GLuint vertexShaderID;
 		GLuint fragmentShaderID;
+
+
+		GLfloat lightX = -10.0f;
 	};
 }
 #endif

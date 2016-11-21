@@ -29,9 +29,17 @@ void main()
 
 		float Kdiffuse = max(dot(L, N), 0.0);
 		vec4 diffuse = Kdiffuse*diffuse_light;
-    
 
+		
+		// disabled lighting
+		//fColor =  texture2D(texture, texCoord);
+    
+		// enabled lighting
 		fColor =  texture2D(texture, texCoord) * (ambient_light + diffuse);
+
+		// for testing the normal values via color
+		// fColor = vec4(N, 1);
+
 
 	}
 

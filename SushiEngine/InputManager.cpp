@@ -33,6 +33,7 @@ namespace SushiEngine
 		//Print to console
 		if (action == GLFW_PRESS) 
 		{
+			std::cout << key << std::endl;
 			// std::cout << "Keypressed: " << char(key) << std::endl;
 		}
 		else if (action == GLFW_RELEASE) 

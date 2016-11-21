@@ -13,12 +13,12 @@ namespace SushiEngine
 		// position of the object in world space
 		vec3* mPosition;
 		// rotation of the ojbect in world space
-		quat* mRotation;
+		vec3* mRotation;
 		// scale of the object
 		vec3* mScale;
 
 		// Default constructor, positioned at origin, no rotation and a scale of 1 assumed.
-		Transform(const SuGameObject* fGameObject, vec3 fPosition = vec3(0,0,0), quat fRotation = quat(0,0,0,0), vec3 fScale = vec3(1,1,1));
+		Transform(const SuGameObject* fGameObject, vec3 fPosition = vec3(0,0,0), vec3 fRotation = vec3(0,0,0), vec3 fScale = vec3(1,1,1));
 		~Transform();	
 
 		mat4 getMatrix();
