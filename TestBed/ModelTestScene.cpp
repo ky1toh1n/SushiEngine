@@ -101,15 +101,30 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	// glDisableVertexArrayAttrib(*terrain->modelId, 2);
 	//terrain->textureId = ModelManager::LoadTexture("models/SnowTerrain/resnow.png");
 
-	SuGameObject* box = new SuGameObject(vec3(-2.3f, 1.0f, 0.0f));
+	SuGameObject* box = new SuGameObject(vec3(-2.3f, 1.0f, 2.0f));
 	Transform* boxt = box->GetComponent<Transform>();
 	boxt->mRotation = new vec3(0.0f, 0.0f, 0.0f);
-
 
 	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
 	glDisableVertexArrayAttrib(*box->modelId, 2);
 	box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
 
+
+	SuGameObject* box2 = new SuGameObject(vec3(7.0f, 1.0f, 3.0f));
+	Transform* boxt2 = box2->GetComponent<Transform>();
+	boxt2->mRotation = new vec3(0.0f, 90.0f, 0.0f);
+
+	box2->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
+	glDisableVertexArrayAttrib(*box2->modelId, 2);
+	box2->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+
+	SuGameObject* box3 = new SuGameObject(vec3(-4.0f, 1.0f, 4.0f));
+	Transform* boxt3 = box3->GetComponent<Transform>();
+	boxt3->mRotation = new vec3(0.0f, 45.0f, 0.0f);
+
+	box3->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
+	glDisableVertexArrayAttrib(*box2->modelId, 3);
+	box3->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
 
 	SuGameObject* house = new SuGameObject(vec3(2, 0, 0));
 	house->modelId = ModelManager::LoadModel("models/house/house.obj");
@@ -120,6 +135,8 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	gameObjects.push_back(orientation);
 	// gameObjects.push_back(terrain);
 	gameObjects.push_back(box);
+	gameObjects.push_back(box2);
+	gameObjects.push_back(box3);
 	gameObjects.push_back(house);
 
 }

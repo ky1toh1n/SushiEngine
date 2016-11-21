@@ -2,7 +2,6 @@
 
 namespace SushiEngine 
 {
-	int ModelManager::verts = 0; // to be removed. see header
 	map<const std::string, const GLuint> ModelManager::sModelHandles;
 	map<const std::string, const GLuint> ModelManager::sTextureHandles;
 	map<const GLuint, const DrawData> ModelManager::sModelDrawData;
@@ -43,8 +42,7 @@ namespace SushiEngine
 			Debug::Log(EMessageType::S_INFO, "existing _filepath found", __FILENAME__, __LINE__);
 			// cout << "exisiting _filepath found" << endl;
 			// return the value of that key
-			GLuint id = it->second;
-			return (GLuint*)id;
+			return &sModelHandles[_name];
 		}
 		else
 		{
@@ -79,8 +77,7 @@ namespace SushiEngine
 			Debug::Log(EMessageType::S_INFO, "existing _filepath found" , __FILENAME__, __LINE__);
 			// cout << "exisiting _filepath found" << endl;
 			// return the value of that key
-			GLuint id = it->second;
-			return (GLuint*)id;
+			return &sModelHandles[_filepath];
 		}
 		else
 		{
@@ -275,8 +272,7 @@ namespace SushiEngine
 		it = sTextureHandles.find(_filepath);
 		if (it != sTextureHandles.end())
 		{
-			GLuint id = it->second;
-			return (GLuint*)id;
+			return &sTextureHandles[_filepath];
 		}
 		else
 		{
