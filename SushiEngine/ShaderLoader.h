@@ -7,6 +7,7 @@
 #include <string>
 
 #include "Debug.h"
+#include "Macros.h"
 namespace SushiEngine {
 
 	enum SuShaderType
@@ -21,17 +22,15 @@ namespace SushiEngine {
 	{
 	public:
 
+		ShaderLoader() = delete;
+		NO_COPY_CONSTRUCTORS(ShaderLoader)
+
 		static void loadShader(SuShaderType _type, const std::string _filepath);
 		
 		// Just a helper func to read from a text file for the functions above
 		static std::string readFileToChar(const std::string _filepath);
 
 		static std::string shader[NUM_SHADER_TYPES];
-
-
-	private:
-		ShaderLoader();
-		~ShaderLoader();
 
 
 	};
