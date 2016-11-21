@@ -28,8 +28,8 @@ namespace SushiEngine
 		~GameSceneManager();
 		NO_COPY_CONSTRUCTORS(GameSceneManager)
 
-			/* Instance fields */
-			bool mIsRunning;
+		/* Instance fields */
+		bool mIsRunning;
 		Scene * mCurrentScene;
 		SceneContext * mSceneContext;
 

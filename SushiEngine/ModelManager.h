@@ -36,10 +36,10 @@ namespace SushiEngine
 		/* Constructor */
 		NO_COPY_CONSTRUCTORS(ModelManager)
 
-			/* Static fields */
-			static int verts; // TODO: replace this with something more dynamic
+		/* Static fields */
+		static int verts; // TODO: replace this with something more dynamic
 
-			/* Static methods */
+		/* Static methods */
 		static bool Init();
 
 		// Loads a model from a given path and returns an Id to that model once loaded in the GPU. If the model instance already exists,
