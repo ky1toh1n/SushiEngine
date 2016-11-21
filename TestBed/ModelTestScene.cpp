@@ -107,7 +107,8 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 
 	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
 	glDisableVertexArrayAttrib(*box->modelId, 2);
-	box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+	// box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+	box->textureId = ModelManager::LoadTexture("models/Crate/crate_1.jpg");
 
 
 	SuGameObject* box2 = new SuGameObject(vec3(7.0f, 1.0f, 3.0f));

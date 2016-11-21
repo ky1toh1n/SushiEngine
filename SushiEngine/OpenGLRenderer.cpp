@@ -124,7 +124,7 @@ namespace SushiEngine
 
 			lightX += 0.005f;
 
-			cout << "Light xPos: " <<lightX << endl;
+			// cout << "Light xPos: " <<lightX << endl;
 
 
 			vec4 lightPosition = vec4(lightX, 10.0f, 0.0f,0.0f);

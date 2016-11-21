@@ -28,11 +28,17 @@ namespace SushiEngine
 		bool hasColor = false;
 		bool hasNormals = false;
 		DrawType drawType = SU_LINES;
+		int bufferSize = -1;
+		int positionBufferSize = -1;
+		int colorBufferSize = -1;
+		int uvBufferSize = -1;
+		int normalBufferSize = -1;
 	};
 
 	class ModelManager
 	{
 	public:
+		ModelManager() = delete;
 		NO_COPY_CONSTRUCTORS(ModelManager)
 
 
@@ -50,9 +56,6 @@ namespace SushiEngine
 
 
 	private:
-		ModelManager();
-		~ModelManager();
-
 		static map<const std::string, const GLuint> sModelHandles;
 		static map<const std::string, const GLuint> sTextureHandles;
 		static map<const GLuint, const DrawData> sModelDrawData;

@@ -7,44 +7,36 @@ namespace SushiEngine
 	map<const GLuint, const DrawData> ModelManager::sModelDrawData;
 	Assimp::Importer ModelManager::sImporter;
 
-
-	ModelManager::ModelManager()
-	{
-		Debug::Log(EMessageType::S_INFO, "ModelManager()", __FILENAME__, __LINE__);
-	}
-
-
-	ModelManager::~ModelManager()
-	{
-		Debug::Log(EMessageType::S_INFO, "~ModelManager()", __FILENAME__, __LINE__);
-	}
-
 	bool ModelManager::Init()
 	{
 		ilInit();
 		return true;
 	}
 
-	// TODO: simplify container checks???
+	// TODO: simplify container checks if its even possible
 	const GLuint* ModelManager::LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata,  const unsigned int _numVerts)
 	{
-
+		// Set up drawData for later use
 		DrawData drawData;
 		drawData.numVertices = _numVerts;
 		drawData.hasColor = true;
+		// drawData.positionBufferSize = sizeof(vec3) * _numVerts;
+		// drawData.colorBufferSize = sizeof(vec3) * _numVerts;
+		// drawData.bufferSize = drawData.positionBufferSize + drawData.colorBufferSize;
+
 		map<string, const GLuint>::iterator it;
 
-		// Search for a filepath similar to _filepath
+		// Search for a name similar to _name
 		it = sModelHandles.find(_name);
 
+		// If found
 		if (it != sModelHandles.end())
 		{
-			Debug::Log(EMessageType::S_INFO, "existing _filepath found", __FILENAME__, __LINE__);
-			// cout << "exisiting _filepath found" << endl;
+			Debug::Log(EMessageType::S_INFO, _name + " already has a handle, returning ID", __FILENAME__, __LINE__);
 			// return the value of that key
 			return &sModelHandles[_name];
 		}
-		else
+		else // otherwise,
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
@@ -301,10 +293,20 @@ namespace SushiEngine
 			glGenTextures(1, &mTextureID);
 			glBindTexture(GL_TEXTURE_2D, mTextureID);
 
-			//Generate texture
-			// glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLuint*)ilGetData());
-
+			GLuint imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
+			GLuint imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+			GLuint* imgData = (GLuint*)ilGetData();
+			ILenum format = ilGetInteger(IL_IMAGE_FORMAT);
+			
+			if (format == ILenum(IL_RGB))
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgWidth, imgHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imgData);
+			}
+			else
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
+			}
+			
 			//Set texture parameters
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
