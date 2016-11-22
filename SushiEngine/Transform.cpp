@@ -2,21 +2,23 @@
 
 namespace SushiEngine
 {
-	Transform::Transform(const SuGameObject * fGameObject, vec3 fPosition, vec3 fRotation, vec3 fScale) : Component(fGameObject)
+	Transform::Transform(const SuGameObject * _gameObject, vec3 _position, vec3 _rotation, vec3 _scale) : Component(_gameObject)
 	{
-		mPosition = new vec3(fPosition);
-		mRotation = new vec3(fRotation);
-		mScale = new vec3(fScale);
+		mLocalPosition = new vec3(_position);
+		mLocalRotation = new vec3(_rotation);
+		mPosition = new vec3(_position);
+		mRotation = new vec3(_rotation);
+		mScale = new vec3(_scale);
+
 	}
 
 	Transform::~Transform()
 	{
-		delete mPosition;
-		mPosition = nullptr;
-		delete mRotation;
-		mRotation = nullptr;
-		delete mScale;
-		mScale = nullptr;
+		DELETE_PTR(mPosition)
+		DELETE_PTR(mRotation)
+		DELETE_PTR(mScale)
+		DELETE_PTR(mLocalPosition)
+		DELETE_PTR(mLocalRotation)
 	}
 
 

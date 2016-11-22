@@ -38,6 +38,16 @@ namespace SushiEngine
 		return dynamic_cast<T*>(mComponents[typeid(T).name()]);
 	}
 	
+	void SuGameObject::AddGameObject(SuGameObject * _gameObject)
+	{
+		mGameObjects.push_back(_gameObject);
+	}
+
+	vector<SuGameObject*> * SuGameObject::GetGameObjects()
+	{
+		return &mGameObjects;
+	}
+
 	void SuGameObject::Render() {
 	}
 

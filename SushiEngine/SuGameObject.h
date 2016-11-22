@@ -23,15 +23,24 @@ namespace SushiEngine
 		template<typename T>
 		T* GetComponent();
 
+		void AddGameObject(SuGameObject* _gameObject);
+
+		vector<SuGameObject*> * GetGameObjects();
+
 		void Render();
 
 		// ModelImporter Tests
 		const GLuint* modelId = nullptr;
 		const GLuint* textureId = nullptr;
 
+		// bool to check if the gameobject is a child object
+		bool mIsParent = true;
+
 	protected:
 		// a list of the components this gameobject holds
 		unordered_map<string, Component*> mComponents;
+		// list of child gameobjects
+		vector<SuGameObject*> mGameObjects;
 
 	private:
 		// prototype object, all components must be hashed onto the map for the component system to function properly in external projects
