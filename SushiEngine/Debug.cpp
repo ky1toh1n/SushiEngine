@@ -53,10 +53,10 @@ namespace SushiEngine
 			out << "WARNING: " << message << " (" << pFilename << ":" << pLine << ")" << std::endl;
 			break;
 		case EMessageType::S_ERROR:
-			out << "ERROR: " << " (" << message << pFilename << ":" << pLine << ")" << std::endl;
+			out << "ERROR: " << message << " (" << pFilename << ":" << pLine << ")" << std::endl;
 			break;
 		case EMessageType::S_FATAL_ERROR:
-			out << "FATAL_ERROR: " << " (" << message << pFilename << ":" << pLine << ")" << std::endl;
+			out << "FATAL_ERROR: " << message  << " (" << pFilename << ":" << pLine << ")" << std::endl;
 			break;
 		}
 
