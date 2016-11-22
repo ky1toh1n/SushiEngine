@@ -33,8 +33,9 @@ namespace SushiEngine
 		Debug() = delete;
 
 		/* Static fields */
-		static int sConsoleFilter;
+		static const int sConsoleFilter;
 		static uint8_t sTabLevel;
+		static const uint8_t sTabCap;
 
 		/* Static methods */
 		static void Init();
@@ -46,7 +47,6 @@ namespace SushiEngine
 	private:
 		/* Static fields */
 		static int sObjectsConstructed;
-		static uint8_t sTabCap;
 	};
 }
 #endif

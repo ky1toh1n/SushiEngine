@@ -13,7 +13,6 @@ namespace SushiEngine
 		GetComponent<Transform>();
 		AddComponent<MeshRenderer>(nullptr);
 		GetComponent<MeshRenderer>();
-
 	}
 
 	SuGameObject::SuGameObject(vec3 pPosition)

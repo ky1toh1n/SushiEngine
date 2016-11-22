@@ -3,7 +3,7 @@
 namespace SushiEngine
 {
 	/* ---- STATIC ---- */
-	InputManager* InputManager::sInstance = nullptr; 
+	InputManager* InputManager::sInstance = nullptr;
 
 	void InputManager::KeyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods)
 	{
@@ -13,21 +13,21 @@ namespace SushiEngine
 		//Print to console
 		if (action == GLFW_PRESS)
 		{
-			cout << "Keypressed: " << char(key) << endl;
+			Debug::Print(string("Keypressed: ") + (char(key)));
 		}
 		else if (action == GLFW_RELEASE)
 		{
-			cout << "Released: " << char(key) << endl;
+			Debug::Print(string("Released: ") + (char(key)));
 		}
 		else if (action == GLFW_REPEAT)
 		{
-			cout << "Repeated: " << char(key) << endl;
+			Debug::Print(string("Repeated: ") + (char(key)));
 		}
 	}
 
 	void InputManager::ClickCallback(GLFWwindow* pGlfwWindow, int button, int action, int mods)
 	{
-		cout << "Click: " << endl;
+		Debug::Print("Click.");
 	}
 
 	void InputManager::MouseMoveCallback(GLFWwindow * pGlfwWindow, double pMouseX, double pMouseY)

@@ -2,17 +2,26 @@
 
 namespace SushiEngine
 {
-	//Static fields
+	/* Static fields */
+	// Instance
 	int Debug::sObjectsConstructed = 0;
-	int Debug::sConsoleFilter = 0
+	uint8_t Debug::sTabLevel = 0;
+
+	//Constant
+	int const Debug::sConsoleFilter = 0
 		//+ (int)EMessageType::S_INFO
 		+ (int)EMessageType::S_WARNING 
 		+ (int)EMessageType::S_ERROR 
 		+ (int)EMessageType::S_FATAL_ERROR
 		;
-	uint8_t Debug::sTabLevel = 0;
-	uint8_t Debug::sTabCap = 8;
+	uint8_t const Debug::sTabCap = 8;
 
+	//Verify that no one is clowning around with the const values
+	static_assert(Debug::sConsoleFilter & ((int)EMessageType::S_FATAL_ERROR + (int)EMessageType::S_ERROR),
+		"Please keep ERROR console filters on.");
+	static_assert(Debug::sTabCap >= 2 && Debug::sTabCap <= 10, "Please set sTabCap to a reasonable value.");
+
+	/* Functions below! */
 	void Debug::Init()
 	{
 		std::ofstream out;

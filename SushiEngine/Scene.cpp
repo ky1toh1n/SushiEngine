@@ -27,7 +27,6 @@ namespace SushiEngine
 	//Polls GLFW Events
 	void Scene::update(float pDeltaTime)
 	{
-		
 		/*Poll for input*/
 		glfwPollEvents();
 		
