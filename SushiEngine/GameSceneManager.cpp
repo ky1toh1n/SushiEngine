@@ -53,7 +53,7 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "GameSceneManager() Initialize", __FILENAME__, __LINE__);
 		
 		//Instantiate main components - order is important; a renderer is dependent on a window
-		window = new Window("Hau5tastic", 300, 300);
+		window = new Window("Hau5tastic", 720, 720);
 		renderer = new OpenGLRenderer(window);
 
 		//initialize glfw callbacks

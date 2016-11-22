@@ -2,10 +2,10 @@
 
 namespace SushiEngine
 {
-	Transform::Transform(const SuGameObject * fGameObject, vec3 fPosition, quat fRotation, vec3 fScale) : Component(fGameObject)
+	Transform::Transform(const SuGameObject * fGameObject, vec3 fPosition, vec3 fRotation, vec3 fScale) : Component(fGameObject)
 	{
 		mPosition = new vec3(fPosition);
-		mRotation = new quat(fRotation);
+		mRotation = new vec3(fRotation);
 		mScale = new vec3(fScale);
 	}
 

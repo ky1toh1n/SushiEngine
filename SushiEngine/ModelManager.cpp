@@ -2,48 +2,83 @@
 
 namespace SushiEngine 
 {
-	int ModelManager::verts = 0; // to be removed. see header
-	map<const string, const GLuint> ModelManager::sModelHandles;
+	map<const std::string, const GLuint> ModelManager::sModelHandles;
+	map<const std::string, const GLuint> ModelManager::sTextureHandles;
+	map<const GLuint, const DrawData> ModelManager::sModelDrawData;
 	Assimp::Importer ModelManager::sImporter;
 
-	// std::vector<DrawData>* ModelManager::modelDrawData = nullptr;
-
-	ModelManager::ModelManager()
+	bool ModelManager::Init()
 	{
-		Debug::Log(EMessageType::S_INFO, "ModelManager()", __FILENAME__, __LINE__);
+		ilInit();
+		return true;
 	}
 
-
-	ModelManager::~ModelManager()
+	// TODO: simplify container checks if its even possible
+	const GLuint* ModelManager::LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata,  const unsigned int _numVerts)
 	{
-		Debug::Log(EMessageType::S_INFO, "~ModelManager()", __FILENAME__, __LINE__);
+		// Set up drawData for later use
+		DrawData drawData;
+		drawData.numVertices = _numVerts;
+		drawData.hasColor = true;
+		// drawData.positionBufferSize = sizeof(vec3) * _numVerts;
+		// drawData.colorBufferSize = sizeof(vec3) * _numVerts;
+		// drawData.bufferSize = drawData.positionBufferSize + drawData.colorBufferSize;
+
+		map<string, const GLuint>::iterator it;
+
+		// Search for a name similar to _name
+		it = sModelHandles.find(_name);
+
+		// If found
+		if (it != sModelHandles.end())
+		{
+			Debug::Log(EMessageType::S_INFO, _name + " already has a handle, returning ID", __FILENAME__, __LINE__);
+			// return the value of that key
+			return &sModelHandles[_name];
+		}
+		else // otherwise,
+		{
+			GLuint buffer;
+			glGenBuffers(1, &buffer);
+
+			glBindBuffer(GL_ARRAY_BUFFER, buffer);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * _numVerts * 2, NULL, GL_STATIC_DRAW);
+
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * _numVerts, _vertdata);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * _numVerts, sizeof(vec3) * _numVerts, _coldata);
+
+			sModelHandles.emplace(_name, buffer);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			sModelDrawData.emplace(buffer, drawData);
+			return &sModelHandles[_name];
+		}
 	}
 
-	const GLuint* ModelManager::LoadModel(string fFilepath)
+	const GLuint* ModelManager::LoadModel(std::string _filepath)
 	{
 		
 		map<string, const GLuint>::iterator it;
-
+		unsigned int numVerts = 0;
 		// Search for a filepath similar to _filepath
-		it = sModelHandles.find(fFilepath);
+		it = sModelHandles.find(_filepath);
 		
 		// If found
 		if (it != sModelHandles.end())
 		{
 			Debug::Log(EMessageType::S_INFO, "existing _filepath found" , __FILENAME__, __LINE__);
-			cout << "exisiting _filepath found" << endl;
+			// cout << "exisiting _filepath found" << endl;
 			// return the value of that key
-			GLuint id = it->second;
-			return (GLuint*)id;
+			return &sModelHandles[_filepath];
 		}
 		else
 		{
 			// otherwise,
 			Debug::Log(EMessageType::S_INFO, "exisiting _filepath not found", __FILENAME__, __LINE__);
-			cout << "exisiting _filepath not found" << endl;
+			// cout << "exisiting _filepath not found" << endl;
 
 			// load the model from the filepath
-			const aiScene* modelScene = loadModelScene(fFilepath);
+			const aiScene* modelScene = loadModelScene(_filepath);
 
 			if (!modelScene)
 			{
@@ -52,55 +87,111 @@ namespace SushiEngine
 			}
 			else
 			{
-				cout << "model loaded into CPU" << endl;
+				// cout << "model loaded into CPU" << endl;
 			}
 
-			vector<float> vertices;
+			DrawData drawData;
+			vector<vec3> vertexPositions;
+			vector<vec3> vertexNormals;
+			vector<vec2> vertexUVs;
 
 			if (modelScene->HasMeshes())
 			{
-				cout << "# of Meshes: " << modelScene->mNumMeshes << endl;
+				// cout << "# of Meshes: " << modelScene->mNumMeshes << endl;
 				for (unsigned int m = 0; m < modelScene->mNumMeshes; m++)
 				{
 					const aiMesh* mesh = modelScene->mMeshes[m];
-					cout << m+1 << ": # of Vertices: " << mesh->mNumVertices << endl;
-					verts += mesh->mNumVertices;
-					
+					numVerts += mesh->mNumVertices;
+					// cout << m + 1 << ": # of Vertices: " << mesh->mNumVertices << endl;
+
 					for (unsigned int v = 0; v < mesh->mNumVertices; v++)
 					{
-						aiVector3D* pPos = &mesh->mVertices[v];
 
-						vertices.push_back(pPos->x);
-						vertices.push_back(pPos->y);
-						vertices.push_back(pPos->z);
+						if (mesh->HasPositions())
+						{
+							aiVector3D* pPos = &mesh->mVertices[v];
+							vec3 vPos = vec3(pPos->x, pPos->y, pPos->z);
+							vertexPositions.push_back(vPos);
+						}
+
+						if (mesh->HasNormals())
+						{
+							aiVector3D* pNor = &mesh->mNormals[v];
+							vec3 vNor = vec3(pNor->x, pNor->y, pNor->z);
+							vertexNormals.push_back(vNor);
+						}
+
+
+						if (mesh->HasTextureCoords(0))
+						{
+							aiVector3D* pUV = &mesh->mTextureCoords[0][v];
+							vec2 vUV = vec2(pUV->x, pUV->y);
+							vertexUVs.push_back(vUV);
+						}
+
 					}
 					//if (mesh->HasPositions())
 
 				}
-				cout << "total verts: " << verts << endl;
+				// cout << "total verts: " << verts << endl;
+				// printf("# Textures: %i\n", modelScene->mNumTextures);
+				// printf("# Materials: %i\n", modelScene->mNumMaterials);
+				if (modelScene->HasTextures())
+				{
+
+				}
+
+				if (modelScene->HasMaterials())
+				{
+					//for (int mat = 0; mat < modelScene->mNumMaterials; mat++)
+				}
+
 			}
 
-			// Condition OK 
+			// Condition: being improved
 			GLuint buffer;
 
 			glGenBuffers(1, &buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, buffer);
-			// glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts * 3, &vertices[0], GL_STATIC_DRAW); // The same thing as below
-			glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts * 2 + sizeof(vec2) * numVerts, NULL, GL_STATIC_DRAW); // allocate buffer memory for the actual size of vertices container
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * numVerts, &vertexPositions[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts, sizeof(vec3) * numVerts, &vertexNormals[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts * 2, sizeof(vec2) * numVerts, &vertexUVs[0]);
 
 			//store the pointer inside modelHandles with the corresponding key
-			sModelHandles.emplace(fFilepath, buffer);
-			GLuint test = sModelHandles[fFilepath];
+			sModelHandles.emplace(_filepath, buffer);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			drawData.numVertices = numVerts;
+			drawData.hasTexture = true;
+			drawData.drawType = SU_TRIANGLES;
+			drawData.hasNormals = true;
+
+			sModelDrawData.emplace(buffer, drawData);
+
 			// lastly, return the pointer to the model
 			// TODO: make this more efficient by just returning the buffer.. im just not sure how its gonna work if i return it locally
-			return &sModelHandles[fFilepath];
+			return &sModelHandles[_filepath];
 		}
+	}
+
+	DrawData ModelManager::getDrawData(const GLuint* _id)
+	{
+		map<const GLuint, const DrawData>::iterator it;
+
+		it = sModelDrawData.find(*_id);
+		if (it != sModelDrawData.end())
+		{
+			DrawData drawData = it->second;
+			return drawData;
+		}
+		return sModelDrawData[*_id];
 	}
 
 	// Untested
 	void ModelManager::destroyModel(GLuint fID)
 	{
-		
 		/// Remove from the GPU
 		// if the id is a vbo
 		if (glIsBuffer(fID))
@@ -158,10 +249,77 @@ namespace SushiEngine
 		return modelScene;
 	}
 
+	const GLuint* ModelManager::LoadTexture(std::string _filepath)
+	{
+
+		map<string, const GLuint>::iterator it;
+
+		// Search for a filepath similar to _filepath
+		it = sTextureHandles.find(_filepath);
+		if (it != sTextureHandles.end())
+		{
+			return &sTextureHandles[_filepath];
+		}
+		else
+		{
+
+			//Generate and set current image ID
+			ILuint imgID = 0;
+			ilGenImages(1, &imgID);
+			ilBindImage(imgID);
+
+			//Load image
+			ILboolean success = ilLoadImage(_filepath.c_str());
+			if (success) 
+			{
+				// ...
+			}
+			else
+			{
+				Debug::Log(EMessageType::S_ERROR, "ModelManager::LoadTexture() FILEPATH NOT FOUND", __FILENAME__, __LINE__);
+				return nullptr;
+			}
+
+			//  OPEN GL STUFF-----------------------
 
 
-	//DrawData ModelManager::getDrawData(const GLuint* _id)
-	//{
-	//}
+			GLuint mTextureID;
+			glGenTextures(1, &mTextureID);
+			glBindTexture(GL_TEXTURE_2D, mTextureID);
 
+			GLuint imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
+			GLuint imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+			GLuint* imgData = (GLuint*)ilGetData();
+			ILenum format = ilGetInteger(IL_IMAGE_FORMAT);
+			
+			if (format == ILenum(IL_RGB))
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgWidth, imgHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imgData);
+			}
+			else
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
+			}
+			
+			//Set texture parameters
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+
+			sTextureHandles.emplace(_filepath, mTextureID);
+
+			// -----------------------------------
+
+			// delete image from memory
+			ilDeleteImages(1, &imgID);
+
+
+			glBindTexture(GL_TEXTURE_2D, 0);
+			
+			// lastly, return the pointer to the image
+			return &sTextureHandles[_filepath];
+		}
+	}
 }

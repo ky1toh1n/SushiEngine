@@ -18,11 +18,12 @@ namespace SushiEngine
 	{
 		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
 		window = GameSceneManager::GetInstance()->getWindowInstance();
-		mainCamera = new Camera(vec3(0,0,20), vec3(0,1,0));
+		mainCamera = new Camera(vec3(0,2,15), vec3(0,1,0));
 		renderer = pRenderer;
 		renderer->setCamera(mainCamera);
 
 		// SuMesh ananas = SuMesh("models/ananas.fbx");
+
 	}
 
 	//Polls GLFW Events
@@ -68,7 +69,7 @@ namespace SushiEngine
 			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * deltaTime;
 			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * deltaTime;
 
-			mainCamera->rotate(rotateX, rotateY);
+		mainCamera->rotate(rotateX, rotateY);
 		}
 #endif 
 	}
@@ -76,6 +77,11 @@ namespace SushiEngine
 	//Swaps GLFW Buffers
 	void Scene::Render()
 	{
-		renderer->render();
+		//vector<SuGameObject*>::iterator it;
+		//for (it = gameObjects.begin(); it != gameObjects.end(); ++it)
+		//{
+		//	renderer->render(*it);
+		//}
+		renderer->render(gameObjects);
 	}
 }

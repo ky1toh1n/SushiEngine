@@ -7,6 +7,8 @@
 
 #include "Window.h"
 #include "Camera.h"
+#include "Macros.h"
+#include "SuGameObject.h"
 
 namespace SushiEngine
 {
@@ -16,7 +18,7 @@ namespace SushiEngine
 		AbstractRenderer(Window*);
 		virtual ~AbstractRenderer() = 0;
 
-		virtual void render() = 0;
+		virtual void render(vector<SuGameObject*> _gameObjects) = 0;
 		void setCamera(Camera*);
 	protected:
 		Window* window;

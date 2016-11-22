@@ -15,9 +15,7 @@ public:
 	virtual ~ModelTestScene();
 	void Initialize(AbstractRenderer* abstractRenderer);
 	void Destroy();
-
-	SuGameObject* go;
-	MeshRenderer* houseMesh;
+	void Update(float _deltaTime);
 };
 
 #endif

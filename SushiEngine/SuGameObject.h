@@ -1,12 +1,11 @@
 #ifndef SU_GAME_OBJECT_H
 #define SU_GAME_OBJECT_H
 
+#include <GL\glew.h>
 #include "Macros.h"
 #include "Component.h"
 #include "Transform.h"
 #include "MeshRenderer.h"
-
-#include "GL\glew.h"
 
 namespace SushiEngine 
 {
@@ -25,6 +24,10 @@ namespace SushiEngine
 		T* GetComponent();
 
 		void Render();
+
+		// ModelImporter Tests
+		const GLuint* modelId = nullptr;
+		const GLuint* textureId = nullptr;
 
 	protected:
 		// a list of the components this gameobject holds

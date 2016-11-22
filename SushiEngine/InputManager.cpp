@@ -33,21 +33,22 @@ namespace SushiEngine
 		//Print to console
 		if (action == GLFW_PRESS) 
 		{
-			std::cout << "Keypressed: " << char(key) << std::endl;
+			std::cout << key << std::endl;
+			// std::cout << "Keypressed: " << char(key) << std::endl;
 		}
 		else if (action == GLFW_RELEASE) 
 		{
-			std::cout << "Released: " << char(key) << std::endl;
+			// std::cout << "Released: " << char(key) << std::endl;
 		}
 		else if (action == GLFW_REPEAT)
 		{
-			std::cout << "Repeated: " << char(key) << std::endl;
+			// std::cout << "Repeated: " << char(key) << std::endl;
 		}
 	}
 
 	void InputManager::ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods)
 	{
-		std::cout << "Click: " << std::endl;
+		// std::cout << "Click: " << std::endl;
 	}
 
 
