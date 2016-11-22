@@ -18,16 +18,24 @@ namespace SushiEngine
 	//Creates the GameSceneManager.
 	GameSceneManager::GameSceneManager()
 	{
-		Debug::Log(EMessageType::S_INFO, "GameSceneManager()", __FILENAME__, __LINE__);
+		Debug::LogConstructor("GameSceneManager", __FILENAME__, __LINE__);
+		Debug::sTabLevel++;
 	}
 
 	//Destroys the GameSceneManager.
 	GameSceneManager::~GameSceneManager()
 	{
-		Debug::Log(EMessageType::S_INFO, "~GameSceneManager()", __FILENAME__, __LINE__);
+		Debug::sTabLevel--;
+		Debug::LogDeconstructor("GameSceneManager", __FILENAME__, __LINE__);
+		//Debug::Log(EMessageType::S_INFO, "~GameSceneManager()", __FILENAME__, __LINE__);
 
-		delete(mSceneContext);
-		delete(mCurrentScene);
+		DELETE_PTR(mSceneContext)
+		
+		if (Debug::GetObjectsConstructed() != 0)
+		{
+			Debug::Log(EMessageType::S_ERROR, "Uneven amount of constructors and deconstructors called: "
+			 + std::to_string(Debug::GetObjectsConstructed()) + ") " , __FILENAME__, __LINE__);
+		}
 	}
 
 	//Initialzes all the data and context for a game scene to function.

@@ -5,18 +5,20 @@ namespace SushiEngine
 	//Constructs a Scene
 	Scene::Scene()
 	{
-		Debug::Log(EMessageType::S_INFO, "\tScene()", __FILENAME__, __LINE__);
+		Debug::LogConstructor("Scene", __FILENAME__, __LINE__);
+		Debug::sTabLevel++;
 	}
 
 	Scene::~Scene() 
 	{
-		Debug::Log(EMessageType::S_INFO, "\t~Scene()", __FILENAME__, __LINE__);
+		Debug::sTabLevel--;
+		Debug::LogDeconstructor("Scene", __FILENAME__, __LINE__);
 	}
 
 	//Initializes scene with a scene context
 	void Scene::initialize(SceneContext* pSceneContext)
 	{
-		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "Scene::Initialize()", __FILENAME__, __LINE__);
 		mSceneContext = pSceneContext;
 		mMainCamera = new Camera(vec3(0,2,10), vec3(0,1,0));
 		mSceneContext->renderer->setCamera(mMainCamera);

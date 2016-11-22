@@ -4,14 +4,14 @@ namespace SushiEngine
 {
 	OpenGLRenderer::OpenGLRenderer(Window* window) : AbstractRenderer(window)
 	{
-		Debug::Log(EMessageType::S_INFO, "\tOpenGLRenderer()", __FILENAME__, __LINE__);
+		Debug::LogConstructor("OpenGLRenderer", __FILENAME__, __LINE__);
 		ModelManager::Init();
 		init();
 	}
 
 	OpenGLRenderer::~OpenGLRenderer()
 	{
-		Debug::Log(EMessageType::S_INFO, "\t~OpenGLRenderer()", __FILENAME__, __LINE__);
+		Debug::LogDeconstructor("OpenGLRenderer", __FILENAME__, __LINE__);
 		glDetachShader(programID, vertexShaderID);
 		glDetachShader(programID, fragmentShaderID);
 		glDeleteShader(vertexShaderID);
@@ -39,7 +39,7 @@ namespace SushiEngine
 
 	void OpenGLRenderer::init()
 	{
-		Debug::Log(EMessageType::S_INFO, "\tOpenGLRenderer::init", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "OpenGLRenderer::init", __FILENAME__, __LINE__);
 		glewInit();
 
 		/* Set up program and load shaders into it */

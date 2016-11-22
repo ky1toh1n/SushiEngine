@@ -2,13 +2,13 @@
 
 ComponentTestScene::ComponentTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\tComponentTestScene()", __FILENAME__, __LINE__);
+	Debug::LogConstructor("ComponentTestScene", __FILENAME__, __LINE__);
 }
 
 
 ComponentTestScene::~ComponentTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\t~ComponentTestScene()", __FILENAME__, __LINE__);
+	Debug::LogDeconstructor("ComponentTestScene", __FILENAME__, __LINE__);
 }
 
 void ComponentTestScene::initialize(SceneContext* pSceneContext)

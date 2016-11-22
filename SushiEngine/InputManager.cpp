@@ -39,7 +39,7 @@ namespace SushiEngine
 	/* ---- INSTANCE ---- */
 	InputManager::InputManager()
 	{
-		Debug::Log(EMessageType::S_INFO, "\tInputManager()", __FILENAME__, __LINE__);
+		Debug::LogConstructor("InputManager", __FILENAME__, __LINE__);
 		if (sInstance == nullptr)
 		{
 			sInstance = this;
@@ -52,7 +52,7 @@ namespace SushiEngine
 
 	InputManager::~InputManager()
 	{
-		Debug::Log(EMessageType::S_INFO, "\t~InputManager()", __FILENAME__, __LINE__);
+		Debug::LogDeconstructor("InputManager", __FILENAME__, __LINE__);
 	}
 
 	bool InputManager::isKeyDown(int pKey)

@@ -19,6 +19,9 @@
 #include <glm\gtc\quaternion.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 
+// sushi yo
+#include "Debug.h"
+
 namespace SushiEngine
 {
 	// macro for ensuring constructors arent implicitly created

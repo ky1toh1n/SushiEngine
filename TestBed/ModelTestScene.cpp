@@ -2,13 +2,13 @@
 
 ModelTestScene::ModelTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\tModelTestScene()", __FILENAME__, __LINE__);
+	Debug::LogConstructor("ModelTestScene", __FILENAME__, __LINE__);
 }
 
 
 ModelTestScene::~ModelTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\t~ModelTestScene()", __FILENAME__, __LINE__);
+	Debug::LogDeconstructor("ModelTestScene", __FILENAME__, __LINE__);
 }
 
 void ModelTestScene::initialize(SceneContext* pSceneContext)

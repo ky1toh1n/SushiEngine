@@ -239,7 +239,7 @@ namespace SushiEngine
 		}
 		else
 		{
-			Debug::Log(EMessageType::S_ERROR, "ModelManager::loadModelScene() SUCCESS ", __FILENAME__, __LINE__);
+			Debug::Log(EMessageType::S_INFO, "ModelManager::loadModelScene() SUCCESS ", __FILENAME__, __LINE__);
 		}
 
 		return modelScene;
