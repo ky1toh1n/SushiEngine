@@ -34,8 +34,8 @@ namespace SushiEngine
 		const GLuint* modelId = nullptr;
 		const GLuint* textureId = nullptr;
 
-		// bool to check if the gameobject is a child object
-		SuGameObject* parent = nullptr;
+		// pointer to parent object
+		SuGameObject* mParent = nullptr;
 
 	protected:
 		// a list of the components this gameobject holds
