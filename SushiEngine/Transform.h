@@ -17,10 +17,9 @@ namespace SushiEngine
 		// scale of the object
 		vec3* mScale;
 
-		// local position
 		vec3* mLocalPosition;
-		// local rotation
 		vec3* mLocalRotation;
+		vec3* mLocalScale;
 
 		// Default constructor, positioned at origin, no rotation and a scale of 1 assumed.
 		Transform(const SuGameObject* fGameObject, vec3 fPosition = vec3(0,0,0), vec3 fRotation = vec3(0,0,0), vec3 fScale = vec3(1,1,1));

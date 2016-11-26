@@ -5,7 +5,7 @@
 
 namespace SushiEngine
 {
-	extern 	class SuGameObject;
+	class SuGameObject;
 
 	class Component
 	{

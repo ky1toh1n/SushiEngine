@@ -7,6 +7,7 @@
 #include "Transform.h"
 #include "MeshRenderer.h"
 
+
 namespace SushiEngine 
 {
 	class SuGameObject
@@ -34,7 +35,7 @@ namespace SushiEngine
 		const GLuint* textureId = nullptr;
 
 		// bool to check if the gameobject is a child object
-		bool mIsParent = true;
+		SuGameObject* parent = nullptr;
 
 	protected:
 		// a list of the components this gameobject holds

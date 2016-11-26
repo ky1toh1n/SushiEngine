@@ -40,6 +40,11 @@ namespace SushiEngine
 	
 	void SuGameObject::AddGameObject(SuGameObject * _gameObject)
 	{
+		*_gameObject->GetComponent<Transform>()->mPosition += *(GetComponent<Transform>()->mPosition);
+		*_gameObject->GetComponent<Transform>()->mRotation += *(GetComponent<Transform>()->mRotation);
+		*_gameObject->GetComponent<Transform>()->mScale *= *(GetComponent<Transform>()->mScale);
+
+		_gameObject->parent = this;
 		mGameObjects.push_back(_gameObject);
 	}
 
