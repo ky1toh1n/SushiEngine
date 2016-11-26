@@ -44,6 +44,7 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -92,6 +93,7 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="Collider.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />

@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractRenderer.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractRenderer.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="InputManager.h" />
