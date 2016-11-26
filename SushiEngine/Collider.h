@@ -5,6 +5,8 @@
 
 #include "Debug.h"
 #include "Macros.h"
+#include "SuGameObject.h"
+#include "Component.h"
 
 namespace SushiEngine
 {
@@ -13,9 +15,13 @@ namespace SushiEngine
 	template <typename T>
 	class ColliderImpl;
 
-	class Collider
+	class Collider : public Component
 	{
 	public:
+		Collider(const SuGameObject * fGameObject) : Component(fGameObject)
+		{
+
+		}
 		virtual void overlaps(const Collider &o) const = 0;
 	protected:
 		template <typename T>
@@ -29,6 +35,10 @@ namespace SushiEngine
 	{
 
 	public:
+		ColliderImpl(const SuGameObject * fGameObject) : Collider(fGameObject)
+		{
+
+		}
 		virtual void overlaps(const Collider &o) const
 		{
 			//assert(typeid(*this) == typeid(T));
@@ -38,6 +48,11 @@ namespace SushiEngine
 
 	class Box : public ColliderImpl<Box>
 	{
+	public:
+		Box(const SuGameObject * fGameObject) : ColliderImpl(fGameObject)
+		{
+			
+		}
 	protected:
 		virtual void dispatchOverlapsWith(const Box &b) const
 		{
@@ -54,6 +69,11 @@ namespace SushiEngine
 
 	class Sphere : public ColliderImpl<Sphere>
 	{
+	public:
+		Sphere(const SuGameObject * fGameObject) : ColliderImpl(fGameObject)
+		{
+
+		}
 	protected:
 		virtual void dispatchOverlapsWith(const Box &b) const
 		{
@@ -66,16 +86,5 @@ namespace SushiEngine
 			cout << "Sphere on sphere baby." << endl;
 		}
 	};
-
-
-
-	/*
-	int main()
-	{
-		
-		getchar();
-
-		return 0x0;
-	}*/
 }
 #endif

@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Debug.h"
 #include "Collider.h"
+#include "SuGameObject.h"
 
 using namespace SushiEngine;
 

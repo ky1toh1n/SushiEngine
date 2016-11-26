@@ -15,8 +15,14 @@ VolumeTestScene::~VolumeTestScene()
 void VolumeTestScene::Initialize(AbstractRenderer* abstractRenderer) {
 	Scene::Initialize(abstractRenderer);
 	
-	Collider * c0 = new Sphere();
-	Collider * c1 = new Box();
+	SuGameObject * go1 = new SuGameObject(vec3(0,0,0));
+	go1->AddComponent<Collider>(new Box(go1));
+
+	SuGameObject * go2 = new SuGameObject(vec3(0,0,0));
+	go2->AddComponent<Collider>(new Sphere(go2));
+
+	Collider * c0 = go1->GetComponent<Collider>();
+	Collider * c1 = go2->GetComponent<Collider>();
 
 	c0->overlaps(*c0);
 	c0->overlaps(*c1);

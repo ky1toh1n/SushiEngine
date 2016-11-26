@@ -12,6 +12,9 @@ namespace SushiEngine
 		MeshRenderer * _houseMesh = new MeshRenderer(this, "models/Crate/Crate1.3ds");
 		AddComponent<MeshRenderer>(_houseMesh);
 		GetComponent<MeshRenderer>();
+
+		AddComponent<Collider>(nullptr);
+		GetComponent<Collider>();
 	}
 
 	SuGameObject::SuGameObject(vec3 fPosition)

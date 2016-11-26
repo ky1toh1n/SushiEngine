@@ -6,6 +6,7 @@
 #include "Component.h"
 #include "Transform.h"
 #include "MeshRenderer.h"
+#include "Collider.h"
 
 namespace SushiEngine 
 {
