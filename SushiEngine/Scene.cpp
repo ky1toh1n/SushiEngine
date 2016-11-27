@@ -21,9 +21,6 @@ namespace SushiEngine
 		mainCamera = new Camera(vec3(0,2,15), vec3(0,1,0));
 		renderer = pRenderer;
 		renderer->setCamera(mainCamera);
-
-		// SuMesh ananas = SuMesh("models/ananas.fbx");
-
 	}
 
 	//Polls GLFW Events

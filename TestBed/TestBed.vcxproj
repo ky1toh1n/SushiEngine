@@ -121,6 +121,7 @@
     <ClCompile Include="ComponentTestScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModelTestScene.cpp" />
+    <ClCompile Include="SceneGraphTestScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="ComponentTestScene.h" />
     <ClInclude Include="ModelTestScene.h" />
+    <ClInclude Include="SceneGraphTestScene.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
