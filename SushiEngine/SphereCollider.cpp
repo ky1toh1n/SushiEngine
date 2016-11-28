@@ -16,6 +16,8 @@ namespace SushiEngine
 	}
 
 
+	// Forward declare that BoxCollider inherits from ColliderImpl.,
+	// so that it can be casted to a Collider in overlaps().
 	class BoxCollider : public ColliderImpl<BoxCollider> {};
 	bool SphereCollider::dispatchOverlapsWith(const BoxCollider &b) const
 	{
@@ -27,14 +29,12 @@ namespace SushiEngine
 		//Find square distance between spheres
 		//glm::length()  is an alternative.
 		vec3 difference = (position - s.position);
-		float distance = difference.x * difference.x
-			+ difference.y * difference.y
-			+ difference.z * difference.z;
+		float distance = glm::length(difference);
 
 		//Subtract by both sphere radii squared.
 		distance -= (size * size + s.size * s.size);
 
 		//If distance is negative, they are overlapping. 
-		return distance < 0;
+		return distance <= 0;
 	}
 }

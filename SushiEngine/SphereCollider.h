@@ -1,7 +1,7 @@
 #ifndef SPHERE_COLLIDER_H
 #define SPHERE_COLLIDER_H
-#include "Collider.h"
 
+#include "Collider.h"
 
 namespace SushiEngine
 {
@@ -19,6 +19,5 @@ namespace SushiEngine
 		virtual bool dispatchOverlapsWith(const BoxCollider &b) const;
 		virtual bool dispatchOverlapsWith(const SphereCollider &s) const;
 	};
-
 }
 #endif

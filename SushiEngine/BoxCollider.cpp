@@ -24,12 +24,12 @@ namespace SushiEngine
 		vec3 box2Max = b.position + b.size / 2;
 
 		// Check for that overlap yo
-		return (box1Max.x > box2Min.x &&
-			box1Min.x < box2Max.x &&
-			box1Max.y > box2Min.y &&
-			box1Min.y < box2Max.y &&
-			box1Max.z > box2Min.z &&
-			box1Min.z < box2Max.z);
+		return (box1Max.x >= box2Min.x &&
+			box1Min.x <= box2Max.x &&
+			box1Max.y >= box2Min.y &&
+			box1Min.y <= box2Max.y &&
+			box1Max.z >= box2Min.z &&
+			box1Min.z <= box2Max.z);
 	}
 
 	bool BoxCollider::dispatchOverlapsWith(const SphereCollider &s) const
@@ -50,6 +50,6 @@ namespace SushiEngine
 			(z - s.position.z) * (z - s.position.z));
 
 		// It's overlapping if the distance is within the radius of the sphere
-		return distance < s.size;
+		return distance <= s.size;
 	}
 }
