@@ -18,9 +18,9 @@ namespace SushiEngine
 	//Initializes scene with a scene context
 	void Scene::initialize(SceneContext* pSceneContext)
 	{
-		Debug::Log(EMessageType::S_INFO, "Scene::Initialize()", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
 		mSceneContext = pSceneContext;
-		mMainCamera = new Camera(vec3(0,2,10), vec3(0,1,0));
+		mMainCamera = new Camera(vec3(0, 2, 15), vec3(0, 1, 0));
 		mSceneContext->renderer->setCamera(mMainCamera);
 	}
 
@@ -76,10 +76,6 @@ namespace SushiEngine
 	//Draw the whole scene
 	void Scene::render()
 	{
-		vector<SuGameObject*>::iterator it;
-		for (it = mGameObjects.begin(); it != mGameObjects.end(); ++it)
-		{
-			mSceneContext->renderer->render(*it);
-		}
+		mSceneContext->renderer->render(mGameObjects);
 	}
 }

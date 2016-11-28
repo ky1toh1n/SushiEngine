@@ -6,9 +6,8 @@
 #include <string>
 /* SushiEngine */
 #include "Debug.h"
-/* ---- */
-namespace SushiEngine
-{
+#include "Macros.h"
+namespace SushiEngine {
 	enum SuShaderType
 	{
 		SU_VERTEX_SHADER,
@@ -19,18 +18,17 @@ namespace SushiEngine
 	class ShaderLoader
 	{
 	public:
+		/*Delete Constructors */
+		ShaderLoader() = delete;
+		NO_COPY_CONSTRUCTORS(ShaderLoader)
+
 		/* Static fields */
 		static std::string shader[NUM_SHADER_TYPES];
 
-		/* Static methods */
+		/* Static methods */	
 		static void loadShader(SuShaderType _type, const std::string _filepath);
-
 		// Just a helper func to read from a text file for the functions above
 		static std::string readFileToChar(const std::string _filepath);
-	private:
-		/* Constructor */
-		ShaderLoader();
-		~ShaderLoader();
 	};
 }
 

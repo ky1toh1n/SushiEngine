@@ -43,9 +43,17 @@
     <ClCompile Include="ShaderLoader.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="SceneContext.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +102,21 @@
     <ClInclude Include="ShaderLoader.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="Collider.h">
+      <Filter>GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneContext.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>GameObjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -124,5 +144,8 @@
     <Filter Include="TestFilter">
       <UniqueIdentifier>{643528fd-5bef-43c9-9a82-12d646bd7cea}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SushiEngine.rc" />
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ namespace SushiEngine
 		const char* adapter[1];
 		adapter[0] = ShaderLoader::shader[pShaderType].c_str();
 
-		//Compile and attach the shader to the program
+		//Compile and attach the shader to the programID
 		GLuint shaderHandle = glCreateShader(pGlShaderType);
 		glShaderSource(shaderHandle, 1, adapter, 0);
 		glCompileShader(shaderHandle);
@@ -58,67 +58,130 @@ namespace SushiEngine
 		mModelLocation = glGetUniformLocation(programID, "model_matrix");
 		mCameraLocation = glGetUniformLocation(programID, "camera_matrix");
 		mProjectionLocation = glGetUniformLocation(programID, "projection_matrix");
+
+		lightPositionUniformLocation = glGetUniformLocation(programID, "lightPosition");
+		ambientUniformLocation = glGetUniformLocation(programID, "ambient_light");
+		diffuseUniformLocation = glGetUniformLocation(programID, "diffuse_light");
 	}
+		// glClearColor(0.6, 0.6, 0.6, 1.0);
 
 
-	void OpenGLRenderer::render(SuGameObject* gameObject)
+	void OpenGLRenderer::render(vector<SuGameObject*> gameObjects)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-		DrawData data = ModelManager::getDrawData(gameObject->modelId);
-		glBindBuffer(GL_ARRAY_BUFFER, *gameObject->modelId);
-
-		GLuint shaderPosition = 0;// glGetAttribLocation(programID, "vPosition");
-		glEnableVertexAttribArray(shaderPosition);
-		glVertexAttribPointer(shaderPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-		// Warning: for some reason glGetAttribLocation isnt returning the right value
-		GLuint shaderColor = 1;// glGetAttribLocation(programID, "vColor");
-		glDisableVertexAttribArray(shaderColor);
-
-		// glBindAttribLocation(programID, 1, "vColor");
-		if (data.hasColor)
+		
+		vector<SuGameObject*>::iterator gameObject = gameObjects.begin();
+		for (gameObject; gameObject != gameObjects.end(); ++gameObject)
 		{
-			glEnableVertexAttribArray(shaderColor);
-			glVertexAttribPointer(shaderColor, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices));
-		}
-		else
-		{
-			glEnableVertexAttribArray(shaderColor);
-		}
+			DrawData data = ModelManager::getDrawData((*gameObject)->modelId);
+			glBindBuffer(GL_ARRAY_BUFFER, *(*gameObject)->modelId);
+
+			GLuint shaderPosition = glGetAttribLocation(programID, "vPosition");
+			glEnableVertexAttribArray(shaderPosition);
+			glVertexAttribPointer(shaderPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+			// Warning: for some reason glGetAttribLocation isnt returning the right value
+			GLuint shaderColor = glGetAttribLocation(programID, "vColor");
+			glDisableVertexAttribArray(shaderColor);
+
+			// glBindAttribLocation(programID, 1, "vColor");
+			if (data.hasColor)
+			{
+				glEnableVertexAttribArray(shaderColor);
+				glVertexAttribPointer(shaderColor, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices));
+			}
+			else
+			{
+				glEnableVertexAttribArray(shaderColor);
+			}
 
 
-		GLuint shaderUVs = 2;// glGetAttribLocation(programID, "vTexCoord");
-		if (data.hasTexture)
-		{
-			glEnableVertexAttribArray(shaderUVs);
-			glVertexAttribPointer(shaderUVs, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices));
-			glBindTexture(GL_TEXTURE_2D, *gameObject->textureId);
-		}
-		else
-		{
-			glDisableVertexAttribArray(shaderUVs);
-			glBindTexture(GL_TEXTURE_2D, NULL);
-		}
+			GLuint shaderUVs = glGetAttribLocation(programID, "vTexCoord");
+			if (data.hasTexture)
+			{
+				glEnableVertexAttribArray(shaderUVs);
+				glVertexAttribPointer(shaderUVs, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices * 2));
+				glBindTexture(GL_TEXTURE_2D, *(*gameObject)->textureId);
+			}
+			else
+			{
+				glDisableVertexAttribArray(shaderUVs);
+				glBindTexture(GL_TEXTURE_2D, NULL);
+			}
 
-		/* Applying matrices/uniforms*/
-		glm::mat4 model_view = glm::translate(glm::mat4(1.0), vec3(0.0f, 0.0f, 0.0f));
-		model_view = glm::rotate(model_view, rotation, vec3(0.0f, 1.0f, 1.0f));
-		glUniformMatrix4fv(mModelLocation, 1, GL_FALSE, &model_view[0][0]);
 
-		glUniformMatrix4fv(mCameraLocation, 1, GL_FALSE, &(mCamera->getMatrix())[0][0]); // View
+			GLuint shaderNormals = glGetAttribLocation(programID, "vNormal");
+			if (data.hasNormals)
+			{
+				glEnableVertexAttribArray(shaderNormals);
+				glVertexAttribPointer(shaderNormals, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(sizeof(vec3) * data.numVertices));
+			}
+			else
+			{
+				glDisableVertexAttribArray(shaderNormals);
 
-		glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 1.0f, 100.0f);  // Projection
-		glUniformMatrix4fv(mProjectionLocation, 1, GL_FALSE, &projection_matrix[0][0]);
+			}
 
-		/* Submit rendering command */
-		if (data.drawType == SU_LINES)
-		{
-			glDrawArrays(GL_LINES, 0, data.numVertices);
-		}
-		else
-		{
-			glDrawArrays(GL_TRIANGLES, 0, data.numVertices);
+			// ------------------- Lighting -------------------------
+			
+			if (lightX <= -10)
+			{
+				goingright = true;
+			}
+			if (lightX >= 10)
+			{
+				goingright = false;
+			}
+
+			if (!goingright)
+			{
+				lightX -= 0.005f;
+			}
+			else
+			{
+				lightX += 0.005f;
+			}
+
+
+			vec4 lightPosition = vec4(lightX, 3.0f, 1.0f,0.0f);
+			glUniform4fv(lightPositionUniformLocation, 1, &lightPosition[0]);
+
+			vec4 ambientLight = vec4(0.2f, 0.2f, 0.2f, 1.0f);
+			glUniform4fv(ambientUniformLocation, 1, &ambientLight[0]);
+
+			vec4 diffuseLight = vec4(1.0f, 0.80f, 0.80f, 1.0f);
+			glUniform4fv(diffuseUniformLocation, 1, &diffuseLight[0]);
+
+			// ------------------- Model View Projection -------------------------
+			// Temporary Position Setter
+			Transform* t = (*gameObject)->GetComponent<Transform>();
+			vec3 pos = *t->mPosition;
+			vec3 rot = *t->mRotation;
+
+			glm::mat4 model_view = glm::translate(glm::mat4(1.0), pos);
+
+			// TODO: Use a matrix maybe?
+			model_view = glm::rotate(model_view, rot.x, vec3(1.0f, 0.0f, 0.0f));
+			model_view = glm::rotate(model_view, rot.y, vec3(0.0f, 1.0f, 0.0f));
+			model_view = glm::rotate(model_view, rot.z, vec3(0.0f, 0.0f, 1.0f));
+			// model_view *= glm::orientation(rot, vec3(0.0, 1.0, 0.0));
+			glUniformMatrix4fv(mModelLocation, 1, GL_FALSE, &model_view[0][0]);
+
+			glUniformMatrix4fv(mCameraLocation, 1, GL_FALSE, &(mCamera->getMatrix())[0][0]); // View
+
+			glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 1.0f, 100.0f);  // Projection
+			glUniformMatrix4fv(mProjectionLocation, 1, GL_FALSE, &projection_matrix[0][0]);
+
+			// ------------------------------------------------------------------
+
+			if (data.drawType == SU_LINES)
+			{
+				glDrawArrays(GL_LINES, 0, data.numVertices);
+			}
+			else
+			{
+				glDrawArrays(GL_TRIANGLES, 0, data.numVertices);
+			}
 		}
 
 		/* Swap that buffer */

@@ -27,13 +27,20 @@ namespace SushiEngine
 		unsigned int numVertices = 0;
 		bool hasTexture = false;
 		bool hasColor = false;
+		bool hasNormals = false;
 		DrawType drawType = SU_LINES;
+		int bufferSize = -1;
+		int positionBufferSize = -1;
+		int colorBufferSize = -1;
+		int uvBufferSize = -1;
+		int normalBufferSize = -1;
 	};
 	/* ---- */
 	class ModelManager
 	{
 	public:
-		/* Constructor */
+		/* Delete Constructors */
+		ModelManager() = delete;
 		NO_COPY_CONSTRUCTORS(ModelManager)
 
 		/* Static fields */
@@ -50,13 +57,9 @@ namespace SushiEngine
 		// Retrieves a struct that contains all neccessary attributes for a draw call
 		static DrawData getDrawData(const GLuint* _ID);
 
-		// Test ModelImporter
+
 		static const GLuint* LoadTexture(std::string _filepath); // currently a member but can be changed later..?
 	private:
-		/* Constructor */
-		ModelManager();
-		~ModelManager();
-
 		/* Static fields */
 		static map<const std::string, const GLuint> sModelHandles;
 		static map<const std::string, const GLuint> sTextureHandles;

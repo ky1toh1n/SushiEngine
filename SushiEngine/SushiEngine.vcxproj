@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractRenderer.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="SceneContext.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="SuGameObject.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -170,7 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractRenderer.h" />
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="InputManager.h" />
@@ -178,14 +182,19 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneContext.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="SuGameObject.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SushiEngine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,8 +13,10 @@ class ModelTestScene :
 public:
 	ModelTestScene();
 	virtual ~ModelTestScene();
+
 	void initialize(SceneContext* pSceneContext);
 	void destroy();
+	void update(float _deltaTime);
 };
 
 #endif

@@ -3,15 +3,6 @@
 namespace SushiEngine {
 	std::string ShaderLoader::shader[NUM_SHADER_TYPES];
 
-	ShaderLoader::ShaderLoader()
-	{
-	}
-
-
-	ShaderLoader::~ShaderLoader()
-	{
-	}
-
 	void ShaderLoader::loadShader(SuShaderType _type, const std::string _filepath)
 	{
 		shader[_type] = readFileToChar(_filepath);

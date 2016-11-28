@@ -2,21 +2,10 @@
 
 namespace SushiEngine 
 {
-	int ModelManager::verts = 0; // to be removed. see header
 	map<const std::string, const GLuint> ModelManager::sModelHandles;
 	map<const std::string, const GLuint> ModelManager::sTextureHandles;
 	map<const GLuint, const DrawData> ModelManager::sModelDrawData;
 	Assimp::Importer ModelManager::sImporter;
-
-	ModelManager::ModelManager()
-	{
-		Debug::Log(EMessageType::S_INFO, "ModelManager()", __FILENAME__, __LINE__);
-	}
-
-	ModelManager::~ModelManager()
-	{
-		Debug::Log(EMessageType::S_INFO, "~ModelManager()", __FILENAME__, __LINE__);
-	}
 
 	bool ModelManager::Init()
 	{
@@ -24,26 +13,30 @@ namespace SushiEngine
 		return true;
 	}
 
-	// TODO: simplify container checks???
+	// TODO: simplify container checks if its even possible
 	const GLuint* ModelManager::LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata,  const unsigned int _numVerts)
 	{
+		// Set up drawData for later use
 		DrawData drawData;
 		drawData.numVertices = _numVerts;
 		drawData.hasColor = true;
+		// drawData.positionBufferSize = sizeof(vec3) * _numVerts;
+		// drawData.colorBufferSize = sizeof(vec3) * _numVerts;
+		// drawData.bufferSize = drawData.positionBufferSize + drawData.colorBufferSize;
+
 		map<string, const GLuint>::iterator it;
 
-		// Search for a filepath similar to _filepath
+		// Search for a name similar to _name
 		it = sModelHandles.find(_name);
 
+		// If found
 		if (it != sModelHandles.end())
 		{
-			Debug::Log(EMessageType::S_INFO, "existing _filepath found", __FILENAME__, __LINE__);
-			// cout << "exisiting _filepath found" << endl;
+			Debug::Log(EMessageType::S_INFO, _name + " already has a handle, returning ID", __FILENAME__, __LINE__);
 			// return the value of that key
-			GLuint id = it->second;
-			return (GLuint*)id;
+			return &sModelHandles[_name];
 		}
-		else
+		else // otherwise,
 		{
 			GLuint buffer;
 			glGenBuffers(1, &buffer);
@@ -75,13 +68,12 @@ namespace SushiEngine
 			Debug::Log(EMessageType::S_INFO, "existing _filepath found" , __FILENAME__, __LINE__);
 			// cout << "exisiting _filepath found" << endl;
 			// return the value of that key
-			GLuint id = it->second;
-			return (GLuint*)id;
+			return &sModelHandles[_filepath];
 		}
 		else
 		{
 			// otherwise,
-			Debug::Log(EMessageType::S_INFO, "exisiting _filepath not found", __FILENAME__, __LINE__);
+			Debug::Log(EMessageType::S_INFO, "existing _filepath not found", __FILENAME__, __LINE__);
 			// cout << "exisiting _filepath not found" << endl;
 
 			// load the model from the filepath
@@ -113,21 +105,27 @@ namespace SushiEngine
 
 					for (unsigned int v = 0; v < mesh->mNumVertices; v++)
 					{
-						aiVector3D* pPos = &mesh->mVertices[v];
-						aiVector3D* pNor = &mesh->mNormals[v];
 
-						vec3 vPos = vec3(pPos->x, pPos->y, pPos->z);
-						vec3 vNor = vec3(pNor->x, pNor->y, pNor->z);
+						if (mesh->HasPositions())
+						{
+							aiVector3D* pPos = &mesh->mVertices[v];
+							vec3 vPos = vec3(pPos->x, pPos->y, pPos->z);
+							vertexPositions.push_back(vPos);
+						}
 
-						vertexPositions.push_back(vPos);
-						vertexNormals.push_back(vNor);
+						if (mesh->HasNormals())
+						{
+							aiVector3D* pNor = &mesh->mNormals[v];
+							vec3 vNor = vec3(pNor->x, pNor->y, pNor->z);
+							vertexNormals.push_back(vNor);
+						}
+
 
 						if (mesh->HasTextureCoords(0))
 						{
 							aiVector3D* pUV = &mesh->mTextureCoords[0][v];
 							vec2 vUV = vec2(pUV->x, pUV->y);
 							vertexUVs.push_back(vUV);
-							// if (v < 1) cout << "			sample vTexCoord: (" << pUV->x << "," << pUV->y << ")" << endl;
 						}
 
 					}
@@ -153,9 +151,10 @@ namespace SushiEngine
 			glGenBuffers(1, &buffer);
 			glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts + sizeof(vec2) * numVerts, NULL, GL_STATIC_DRAW); // allocate buffer memory for the actual size of vertices container
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts * 2 + sizeof(vec2) * numVerts, NULL, GL_STATIC_DRAW); // allocate buffer memory for the actual size of vertices container
 			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vec3) * numVerts, &vertexPositions[0]);
-			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts, sizeof(vec2) * numVerts, &vertexUVs[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts, sizeof(vec3) * numVerts, &vertexNormals[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(vec3) * numVerts * 2, sizeof(vec2) * numVerts, &vertexUVs[0]);
 
 			//store the pointer inside modelHandles with the corresponding key
 			sModelHandles.emplace(_filepath, buffer);
@@ -164,6 +163,7 @@ namespace SushiEngine
 			drawData.numVertices = numVerts;
 			drawData.hasTexture = true;
 			drawData.drawType = SU_TRIANGLES;
+			drawData.hasNormals = true;
 
 			sModelDrawData.emplace(buffer, drawData);
 
@@ -245,12 +245,6 @@ namespace SushiEngine
 		return modelScene;
 	}
 
-
-
-	//DrawData ModelManager::getDrawData(const GLuint* _id)
-	//{
-	//}
-
 	const GLuint* ModelManager::LoadTexture(std::string _filepath)
 	{
 		map<string, const GLuint>::iterator it;
@@ -259,8 +253,7 @@ namespace SushiEngine
 		it = sTextureHandles.find(_filepath);
 		if (it != sTextureHandles.end())
 		{
-			GLuint id = it->second;
-			return (GLuint*)id;
+			return &sTextureHandles[_filepath];
 		}
 		else
 		{
@@ -274,7 +267,7 @@ namespace SushiEngine
 			ILboolean success = ilLoadImage(_filepath.c_str());
 			if (success) 
 			{
-				// printf("DevIL Load Image -- OK\n");
+				// ...
 			}
 			else
 			{
@@ -289,10 +282,20 @@ namespace SushiEngine
 			glGenTextures(1, &mTextureID);
 			glBindTexture(GL_TEXTURE_2D, mTextureID);
 
-			//Generate texture
-			// glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLuint*)ilGetData());
-
+			GLuint imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
+			GLuint imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+			GLuint* imgData = (GLuint*)ilGetData();
+			ILenum format = ilGetInteger(IL_IMAGE_FORMAT);
+			
+			if (format == ILenum(IL_RGB))
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imgWidth, imgHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imgData);
+			}
+			else
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
+			}
+			
 			//Set texture parameters
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -304,18 +307,13 @@ namespace SushiEngine
 
 			// -----------------------------------
 
-
-			// cout << (GLuint)ilGetInteger(IL_IMAGE_WIDTH) << "x" << (GLuint)ilGetInteger(IL_IMAGE_HEIGHT) << endl;
-
+			// delete image from memory
 			ilDeleteImages(1, &imgID);
 
-			// lastly, return the pointer to the image
-			// cout << sTextureHandles[_filepath] << endl;
 
 			glBindTexture(GL_TEXTURE_2D, 0);
-
-
-
+			
+			// lastly, return the pointer to the image
 			return &sTextureHandles[_filepath];
 		}
 	}

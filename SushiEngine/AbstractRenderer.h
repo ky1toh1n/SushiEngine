@@ -4,6 +4,7 @@
 /* SushiEngine */
 #include "Window.h"
 #include "Camera.h"
+#include "Macros.h"
 #include "SuGameObject.h"
 /* ---- */
 namespace SushiEngine
@@ -16,7 +17,7 @@ namespace SushiEngine
 		virtual ~AbstractRenderer() = 0;
 
 		/* Instance methods */
-		virtual void render(SuGameObject* gameObject) = 0;
+		virtual void render(vector<SuGameObject*>) = 0;
 		void setCamera(Camera*);
 	protected:
 		/* Instance fields */
