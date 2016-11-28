@@ -6,6 +6,8 @@
 #include "Debug.h"
 #include "Collider.h"
 #include "SuGameObject.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
 
 using namespace SushiEngine;
 

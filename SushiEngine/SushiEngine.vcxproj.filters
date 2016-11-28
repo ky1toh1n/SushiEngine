@@ -44,7 +44,11 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp" />
-    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Collider.cpp">
+      <Filter>GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -93,7 +97,12 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="MeshRenderer.h" />
-    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Collider.h">
+      <Filter>GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="SphereCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="EngineReadMe.txt" />
@@ -120,5 +129,8 @@
     <Filter Include="TestFilter">
       <UniqueIdentifier>{643528fd-5bef-43c9-9a82-12d646bd7cea}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SushiEngine.rc" />
   </ItemGroup>
 </Project>
