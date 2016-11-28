@@ -18,9 +18,9 @@ int main(int count, char** args) {
 
 	//scene = new TestScene();
 	//scene = new ComponentTestScene();
-	//scene = new ModelTestScene();
+	scene = new ModelTestScene();
 	//scene = new VolumeTestScene();
-	scene = new SceneGraphTestScene();
+	//scene = new SceneGraphTestScene();
 
 	game->run(scene);
 
