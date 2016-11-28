@@ -29,7 +29,7 @@ void ModelTestScene::initialize(SceneContext* pSceneContext)
 	float size = 20;
 	float numberOfDivisions = 20;
 	float increments = size * 2.0f / numberOfDivisions;
-	unsigned int gridNumVerts = numberOfDivisions * 4 + 4;
+	unsigned int gridNumVerts = int(numberOfDivisions * 4 + 4);
 	vector<vec3> grid;
 	vector<vec3> gridColor;
 	int c = 0;

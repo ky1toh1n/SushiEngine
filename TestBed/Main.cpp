@@ -4,6 +4,7 @@
 #include "ComponentTestScene.h"
 #include "ModelTestScene.h"
 #include "VolumeTestScene.h"
+#include "SceneGraphTestScene.h"
 
 using namespace SushiEngine;
 
@@ -18,7 +19,8 @@ int main(int count, char** args) {
 	//scene = new TestScene();
 	//scene = new ComponentTestScene();
 	//scene = new ModelTestScene();
-	scene = new VolumeTestScene();
+	//scene = new VolumeTestScene();
+	scene = new SceneGraphTestScene();
 
 	game->run(scene);
 

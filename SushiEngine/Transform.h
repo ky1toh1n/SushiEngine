@@ -17,6 +17,9 @@ namespace SushiEngine
 		vec3* mRotation;
 		// scale of the object
 		vec3* mScale;
+		vec3* mLocalPosition;
+		vec3* mLocalRotation;
+		vec3* mLocalScale;
 
 		/* Constructor */
 		// Default constructor, positioned at origin, no rotation and a scale of 1 assumed.

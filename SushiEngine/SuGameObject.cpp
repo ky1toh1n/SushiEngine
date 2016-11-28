@@ -42,6 +42,23 @@ namespace SushiEngine
 		return dynamic_cast<T*>(mComponents[typeid(T).name()]);
 	}
 	
+	void SuGameObject::AddGameObject(SuGameObject * _gameObject)
+	{
+		// add transform parent gameobject transform values to child gameobject
+		*_gameObject->GetComponent<Transform>()->mPosition += *(GetComponent<Transform>()->mPosition);
+		*_gameObject->GetComponent<Transform>()->mRotation += *(GetComponent<Transform>()->mRotation);
+		*_gameObject->GetComponent<Transform>()->mScale *= *(GetComponent<Transform>()->mScale);
+		// set the parent object to this gameobject
+		_gameObject->mParent = this;
+		// add it to the list
+		mGameObjects.push_back(_gameObject);
+	}
+
+	vector<SuGameObject*> * SuGameObject::GetGameObjects()
+	{
+		return &mGameObjects;
+	}
+
 	void SuGameObject::Render() {
 
 	}
