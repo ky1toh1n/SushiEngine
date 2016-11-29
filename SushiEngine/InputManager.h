@@ -18,6 +18,8 @@ namespace SushiEngine
 		/* Instance methods */
 		bool isKeyDown(int key);
 		void getMousePosition(double*, double*);
+		void getMouseDragDifference(double*, double*);
+		bool isMouseOutsideWindow();
 	private:
 		// Allow this class to instantiate InputManager.
 		friend SceneContext;
@@ -30,6 +32,11 @@ namespace SushiEngine
 		int mKeyData[GLFW_KEY_LAST];	
 		double mMouseX=-1;
 		double mMouseY=-1;
+		bool mIsMouseOutsideOfScreen=true;
+		//Draggin'
+		bool mMouseDragOn = false;
+		double mStartDragX=-1;
+		double mStartDragY = -1;
 
 		/* Static fields*/
 		static InputManager* sInstance;
@@ -39,6 +46,7 @@ namespace SushiEngine
 		static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
 		static void ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods);
 		static void MouseMoveCallback(GLFWwindow *, double, double);
+		static void WindowEnterCallback(GLFWwindow* window, int entered);
 	};
 }
 #endif INPUT_MANAGER_H

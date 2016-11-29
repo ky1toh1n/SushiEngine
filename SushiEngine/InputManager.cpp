@@ -27,13 +27,32 @@ namespace SushiEngine
 
 	void InputManager::ClickCallback(GLFWwindow* pGlfwWindow, int button, int action, int mods)
 	{
-		Debug::Print("Click.");
+		if (button == GLFW_MOUSE_BUTTON_LEFT)
+		{
+			if (action == GLFW_PRESS)
+			{
+				sInstance->mMouseDragOn = true;
+				sInstance->mStartDragX = sInstance->mMouseX;
+				sInstance->mStartDragY = sInstance->mMouseY;
+				Debug::Print("Press.");
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				sInstance->mMouseDragOn = false;
+				Debug::Print("Release.");
+			}
+		}
 	}
 
 	void InputManager::MouseMoveCallback(GLFWwindow * pGlfwWindow, double pMouseX, double pMouseY)
 	{
 		sInstance->mMouseX = pMouseX;
 		sInstance->mMouseY = pMouseY;
+	}
+
+	void InputManager::WindowEnterCallback(GLFWwindow* window, int entered)
+	{
+		sInstance->mIsMouseOutsideOfScreen = !entered;
 	}
 	/* ---- End of STATIC ---- */
 	/* ---- INSTANCE ---- */
@@ -55,9 +74,23 @@ namespace SushiEngine
 		Debug::LogDeconstructor("InputManager", __FILENAME__, __LINE__);
 	}
 
+	bool InputManager::isMouseOutsideWindow()
+	{
+		return mIsMouseOutsideOfScreen;
+	}
+
 	bool InputManager::isKeyDown(int pKey)
 	{
 		return mKeyData[pKey] == GLFW_PRESS || mKeyData[pKey] == GLFW_REPEAT;
+	}
+
+	void InputManager::getMouseDragDifference(double*pXreference, double* pYReference)
+	{
+		if (mMouseDragOn)
+		{
+			*pXreference = mStartDragX - mMouseX;
+			*pYReference = mStartDragY - mMouseY;
+		}
 	}
 
 	void InputManager::getMousePosition(double* pXreference, double* pYReference)

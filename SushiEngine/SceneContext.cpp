@@ -32,6 +32,7 @@ namespace SushiEngine
 		//glfwSetCharCallback(glfwHandle, InputManager::CharCallback);
 		glfwSetMouseButtonCallback(glfwHandle, InputManager::ClickCallback);
 		glfwSetCursorPosCallback(glfwHandle, InputManager::MouseMoveCallback);
+		glfwSetCursorEnterCallback(glfwHandle, InputManager::WindowEnterCallback);
 	}
 
 	SceneContext::~SceneContext()
