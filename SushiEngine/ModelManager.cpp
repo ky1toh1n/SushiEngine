@@ -276,6 +276,38 @@ namespace SushiEngine
 		return modelScene;
 	}
 
+	//const GLuint * ModelManager::LoadSkyBox()
+	//{
+	//	GLuint textureID;
+	//	glGenTextures(1, &textureID);
+	//	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	//	//Generate and set current image ID
+	//	ILuint imgID = 0;
+	//	ilGenImages(1, &imgID);
+	//	ilBindImage(imgID);
+
+	//	//Load image
+	//	ILboolean success = ilLoadImage("models/");
+	//	if (!success)
+	//	{
+	//		Debug::Log(EMessageType::S_ERROR, "ModelManager::LoadTexture() FILEPATH NOT FOUND", __FILENAME__, __LINE__);
+	//		return nullptr;
+	//	}
+
+	//	//  OPEN GL STUFF-----------------------
+
+
+	//	GLuint mTextureID;
+	//	glGenTextures(1, &mTextureID);
+	//	glBindTexture(GL_TEXTURE_2D, mTextureID);
+
+	//	GLuint imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
+	//	GLuint imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+	//	GLuint* imgData = (GLuint*)ilGetData();
+	//	ILenum format = ilGetInteger(IL_IMAGE_FORMAT);
+	//}
+
 	const GLuint* ModelManager::LoadTexture(std::string _filepath)
 	{
 		map<string, const GLuint>::iterator it;

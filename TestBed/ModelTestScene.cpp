@@ -94,7 +94,7 @@ void ModelTestScene::initialize(SceneContext* pSceneContext)
 	orientation->modelId = ModelManager::LoadModel("orientation", &helper[0][0], &helpercolor[0][0], 6);
 	//glDisableVertexArrayAttrib(*orientation->modelId, 1);
 
-	mGameObjects.push_back(debugPlane);
+	//mGameObjects.push_back(debugPlane);
 	mGameObjects.push_back(orientation);
 
 	// -------------------------------------------------------------------------
@@ -157,6 +157,13 @@ void ModelTestScene::initialize(SceneContext* pSceneContext)
 	mGameObjects.push_back(neptune);
 
 	sunTransform->mScale = new vec3(5.0, 5.0, 5.0);
+
+	SuGameObject* space = new SuGameObject(vec3(0.0f, 0.0f, 0.0f));
+	Transform* spaceTransform = space->GetComponent<Transform>();
+	spaceTransform->mScale = new vec3(50.0, 50.0, 50.0);
+	space->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	space->textureId = ModelManager::LoadTexture("models/planets/skybox/space_bk.png");
+	mGameObjects.push_back(space);
 }
 
 void ModelTestScene::destroy()

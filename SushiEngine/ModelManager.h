@@ -57,6 +57,8 @@ namespace SushiEngine
 		static const GLuint* LoadModel(const std::string _name, const GLfloat* _vertdata, const GLfloat* _coldata, const unsigned int numVerts);
 		static const GLuint* LoadModel(std::string _filepath);
 
+		static const GLuint* LoadSkyBox();
+
 		// Retrieves a struct that contains all neccessary attributes for a draw call
 		static DrawData getDrawData(const GLuint* _ID);
 
