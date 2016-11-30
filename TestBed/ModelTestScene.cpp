@@ -170,25 +170,31 @@ void ModelTestScene::destroy()
 void ModelTestScene::update(float deltaTime)
 {
 	Scene::update(deltaTime);
-
-	if (input->isKeyUp(GLFW_KEY_O))
+	elapsed += deltaTime;
+	if (elapsed > 0.25f)
 	{
-		if (speedMultiplier < 10.0f)
+		if (input->isKeyDown(GLFW_KEY_O))
 		{
-			speedMultiplier += 1.0f;
+			if (speedMultiplier < 10.0f)
+			{
+				speedMultiplier += 1.0f;
+				elapsed = 0.0f;
+			}
 		}
-	}
-	if (input->isKeyUp(GLFW_KEY_P))
-	{
-		if (speedMultiplier > 1.0f)
+		if (input->isKeyDown(GLFW_KEY_P))
 		{
-			speedMultiplier -= 1.0f;
+			if (speedMultiplier > 1.0f)
+			{
+				speedMultiplier -= 1.0f;
+				elapsed = 0.0f;
+			}
 		}
-	}
 
-	if (input->isKeyUp(GLFW_KEY_SPACE))
-	{
-		pause = !pause;
+		if (input->isKeyDown(GLFW_KEY_SPACE))
+		{
+			pause = !pause;
+			elapsed = 0.0f;
+		}
 	}
 
 	if (!pause)

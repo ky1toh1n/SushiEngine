@@ -23,6 +23,7 @@ public:
 
 	float speedMultiplier = 1.0f;
 	bool pause = false;
+	float elapsed = 0.0f;
 };
 
 #endif
