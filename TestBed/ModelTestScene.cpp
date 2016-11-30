@@ -2,18 +2,18 @@
 
 ModelTestScene::ModelTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\tModelTestScene()", __FILENAME__, __LINE__);
+	Debug::LogConstructor("ModelTestScene", __FILENAME__, __LINE__);
 }
 
 
 ModelTestScene::~ModelTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\t~ModelTestScene()", __FILENAME__, __LINE__);
+	Debug::LogDeconstructor("ModelTestScene", __FILENAME__, __LINE__);
 }
 
-void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
+void ModelTestScene::initialize(SceneContext* pSceneContext)
 {
-	Scene::Initialize(abstractRenderer);
+	Scene::initialize(pSceneContext);
 
 	//SuGameObject* go;
 	//MeshRenderer* houseMesh;
@@ -67,7 +67,7 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	SuGameObject* debugPlane = new SuGameObject(vec3(0, 0, 0));
 
 	debugPlane->modelId = ModelManager::LoadModel("debugPlane", &grid[0][0], &gridColor[0][0], gridNumVerts);
-	glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
+	//glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
 
 	vector<vec3> helper;
 	vector<vec3> helpercolor;
@@ -92,65 +92,84 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 
 	SuGameObject* orientation = new SuGameObject(vec3(0, 1, 5));
 	orientation->modelId = ModelManager::LoadModel("orientation", &helper[0][0], &helpercolor[0][0], 6);
-	glDisableVertexArrayAttrib(*orientation->modelId, 1);
+	//glDisableVertexArrayAttrib(*orientation->modelId, 1);
+
+	mGameObjects.push_back(debugPlane);
+	mGameObjects.push_back(orientation);
 
 	// -------------------------------------------------------------------------
+	
+	sun = new SuGameObject(vec3(0.0f, 0.0f, 0.0f));
+	sunTransform = sun->GetComponent<Transform>();
+	
+	sun->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	sun->textureId = ModelManager::LoadTexture("models/planets/sun.jpg");
+	mGameObjects.push_back(sun);
 
-	//SuGameObject* terrain = new SuGameObject(vec3(0, 0, 0));
-	//terrain->modelId = ModelManager::LoadModel("models/SnowTerrain/SnowTerrain.obj");
-	// glDisableVertexArrayAttrib(*terrain->modelId, 2);
-	//terrain->textureId = ModelManager::LoadTexture("models/SnowTerrain/resnow.png");
+	mercury = new SuGameObject(vec3(3.5f, 0.0f, 0.0f));
+	mercuryTransform = mercury->GetComponent<Transform>();
+	mercuryTransform->mScale = new vec3(0.25, 0.25, 0.25);
+	mercury->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	mercury->textureId = ModelManager::LoadTexture("models/planets/mercury.jpg");
+	sun->AddGameObject(mercury);
+	mGameObjects.push_back(mercury);
 
-	SuGameObject* box = new SuGameObject(vec3(-2.3f, 1.0f, 2.0f));
-	Transform* boxt = box->GetComponent<Transform>();
-	boxt->mRotation = new vec3(0.0f, 0.0f, 0.0f);
+	venus = new SuGameObject(vec3(2.0f, 0.0f, 0.0f));
+	venusTransform = venus->GetComponent<Transform>();
+	venus->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	venus->textureId = ModelManager::LoadTexture("models/planets/venus.jpg");
+	mGameObjects.push_back(venus);
 
-	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box->modelId, 2);
-	// box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
-	box->textureId = ModelManager::LoadTexture("models/Crate/crate_1.jpg");
+	earth = new SuGameObject(vec3(3.0f, 0.0f, 0.0f));
+	earthTransform = earth->GetComponent<Transform>();
+	earth->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	earth->textureId = ModelManager::LoadTexture("models/planets/earth.jpg");
+	mGameObjects.push_back(earth);
 
+	mars = new SuGameObject(vec3(4.0f, 0.0f, 0.0f));
+	marsTransform = mars->GetComponent<Transform>();
+	mars->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	mars->textureId = ModelManager::LoadTexture("models/planets/mars.jpg");
+	mGameObjects.push_back(mars);
 
-	SuGameObject* box2 = new SuGameObject(vec3(7.0f, 1.0f, 3.0f));
-	Transform* boxt2 = box2->GetComponent<Transform>();
-	boxt2->mRotation = new vec3(0.0f, 90.0f, 0.0f);
+	jupiter = new SuGameObject(vec3(5.0f, 0.0f, 0.0f));
+	jupiterTransform = jupiter->GetComponent<Transform>();
+	jupiter->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	jupiter->textureId = ModelManager::LoadTexture("models/planets/jupiter.jpg");
+	mGameObjects.push_back(jupiter);
 
-	box2->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box2->modelId, 2);
-	box2->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate_flipped.png");
+	saturn = new SuGameObject(vec3(6.0f, 0.0f, 0.0f));
+	saturnTransform = saturn->GetComponent<Transform>();
+	saturn->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	saturn->textureId = ModelManager::LoadTexture("models/planets/saturn.jpg");
+	mGameObjects.push_back(saturn);
 
-	SuGameObject* box3 = new SuGameObject(vec3(-4.0f, 1.0f, 4.0f));
-	Transform* boxt3 = box3->GetComponent<Transform>();
-	boxt3->mRotation = new vec3(0.0f, 45.0f, 0.0f);
+	uranus = new SuGameObject(vec3(7.0f, 0.0f, 0.0f));
+	uranusTransform = uranus->GetComponent<Transform>();
+	uranus->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	uranus->textureId = ModelManager::LoadTexture("models/planets/uranus.jpg");
+	mGameObjects.push_back(uranus);
 
-	box3->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box2->modelId, 3);
-	box3->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
+	neptune = new SuGameObject(vec3(8.0f, 0.0f, 0.0f));
+	neptuneTransform = neptune->GetComponent<Transform>();
+	neptune->modelId = ModelManager::LoadModel("models/planets/planet.obj");
+	neptune->textureId = ModelManager::LoadTexture("models/planets/neptune.jpg");
+	mGameObjects.push_back(neptune);
 
-	SuGameObject* house = new SuGameObject(vec3(2, 0, 0));
-	house->modelId = ModelManager::LoadModel("models/house/house.obj");
-	glDisableVertexArrayAttrib(*house->modelId, 2);
-	house->textureId = ModelManager::LoadTexture("models/house/house2.png");
-
-	gameObjects.push_back(debugPlane);
-	gameObjects.push_back(orientation);
-	// gameObjects.push_back(terrain);
-	gameObjects.push_back(box);
-	gameObjects.push_back(box2);
-	gameObjects.push_back(box3);
-	gameObjects.push_back(house);
-
+	sunTransform->mScale = new vec3(5.0, 5.0, 5.0);
 }
 
-void ModelTestScene::Destroy()
+void ModelTestScene::destroy()
 {
 }
 
 
-void ModelTestScene::Update(float _deltaTime)
+void ModelTestScene::update(float _deltaTime)
 {
-	Scene::Update(_deltaTime);
-	float rotValue = 1.0f;
-	Transform* t = gameObjects[4]->GetComponent<Transform>();
-	t->mRotation = new vec3(t->mRotation->x, t->mRotation->y + rotValue * _deltaTime, t->mRotation->z);
+	Scene::update(_deltaTime);
+	float rotValue = 0.1f;
+
+	sunTransform->mRotation->y += rotValue * _deltaTime;
+	
+	mercuryTransform->mRotation->y += 1.0f * _deltaTime;
 }

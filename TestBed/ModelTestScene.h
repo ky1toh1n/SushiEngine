@@ -13,9 +13,13 @@ class ModelTestScene :
 public:
 	ModelTestScene();
 	virtual ~ModelTestScene();
-	void Initialize(AbstractRenderer* abstractRenderer);
-	void Destroy();
-	void Update(float _deltaTime);
+
+	void initialize(SceneContext* pSceneContext);
+	void destroy();
+	void update(float _deltaTime);
+
+	SuGameObject *sun, *mercury, *venus, *earth, *mars, *jupiter, *saturn, *uranus, *neptune;
+	Transform *sunTransform, *mercuryTransform, *venusTransform, *earthTransform, *marsTransform, *jupiterTransform, *saturnTransform, *uranusTransform, *neptuneTransform;
 };
 
 #endif

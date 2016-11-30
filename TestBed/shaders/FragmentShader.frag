@@ -18,7 +18,7 @@ void main()
 
 
 	// temporary
-	if (texCoord == 0) {
+	if (texCoord == vec2(0,0)) {
 		fColor = myColor;
 	} else {
 		// fColor = vec4(1,0,0,1);

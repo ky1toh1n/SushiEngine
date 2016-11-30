@@ -9,16 +9,16 @@ SceneGraphTestScene::~SceneGraphTestScene()
 {
 }
 
-void SceneGraphTestScene::Initialize(AbstractRenderer * abstractRenderer)
+void SceneGraphTestScene::initialize(SceneContext* pSceneContext)
 {
-	Scene::Initialize(abstractRenderer);
+	Scene::initialize(pSceneContext);
 
 	SuGameObject* box = new SuGameObject(vec3(1.0f, 0.0f, 0.0f));
 	Transform* boxt = box->GetComponent<Transform>();
 	boxt->mRotation = new vec3(0.0f, 0.0f, 0.0f);
 
 	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box->modelId, 2);
+	//glDisableVertexArrayAttrib(*box->modelId, 2);
 	box->textureId = ModelManager::LoadTexture("models/Crate/crate_1.jpg");
 
 	SuGameObject* box2 = new SuGameObject(vec3(1.0f, 1.0f, 1.0f));
@@ -29,6 +29,6 @@ void SceneGraphTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	cout << "localposition: " << box2t->mLocalPosition->x << ", " << box2t->mLocalPosition->y << ", " << box2t->mLocalPosition->z << endl;
 }
 
-void SceneGraphTestScene::Destroy()
+void SceneGraphTestScene::destroy()
 {
 }
