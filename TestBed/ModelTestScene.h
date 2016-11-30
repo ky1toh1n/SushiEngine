@@ -20,6 +20,9 @@ public:
 
 	SuGameObject *sun, *mercury, *venus, *earth, *mars, *jupiter, *saturn, *uranus, *neptune;
 	Transform *sunTransform, *mercuryTransform, *venusTransform, *earthTransform, *marsTransform, *jupiterTransform, *saturnTransform, *uranusTransform, *neptuneTransform;
+
+	float speedMultiplier = 1.0f;
+	bool pause = false;
 };
 
 #endif

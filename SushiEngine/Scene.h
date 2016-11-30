@@ -23,6 +23,8 @@ namespace SushiEngine
 		virtual void update(float deltaTime);
 		virtual void render();
 		virtual void destroy() = 0;
+
+		InputManager* input;
 	protected:
 		/* Instance Fields */
 		SceneContext * mSceneContext;

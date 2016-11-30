@@ -135,20 +135,26 @@ namespace SushiEngine
 			vec4 diffuseLight = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 			//vec4 diffuseLight = vec4(1.0f, 0.80f, 0.80f, 1.0f);		
 			glUniform4fv(diffuseUniformLocation, 1, &diffuseLight[0]);
+			
 
 			// ------------------- Model View Projection -------------------------
 			// Temporary Position Setter
 			Transform* t = (*gameObject)->GetComponent<Transform>();
 			vec3 pos = *t->mPosition;
 			vec3 rot = *t->mRotation;
+			vec3 localRot = *t->mLocalRotation;
 
-			glm::mat4 model_view = glm::translate(glm::mat4(1.0), vec3(0, 0, 0));
+			glm::mat4 model_view = glm::mat4(1.0);
 
 			model_view = glm::rotate(model_view, rot.x, vec3(1.0f, 0.0f, 0.0f));
 			model_view = glm::rotate(model_view, rot.y, vec3(0.0f, 1.0f, 0.0f));
 			model_view = glm::rotate(model_view, rot.z, vec3(0.0f, 0.0f, 1.0f));
 
 			model_view = glm::translate(model_view, pos);
+
+			model_view = glm::rotate(model_view, localRot.x, vec3(1.0f, 0.0f, 0.0f));
+			model_view = glm::rotate(model_view, localRot.y, vec3(0.0f, 1.0f, 0.0f));
+			model_view = glm::rotate(model_view, localRot.z, vec3(0.0f, 0.0f, 1.0f));
 
 			// TODO: Use a matrix maybe?
 
@@ -160,7 +166,7 @@ namespace SushiEngine
 
 			glUniformMatrix4fv(mCameraLocation, 1, GL_FALSE, &(mCamera->getMatrix())[0][0]); // View
 
-			glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 1.0f, 100.0f);  // Projection
+			glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 0.1f, 100.0f);  // Projection
 			glUniformMatrix4fv(mProjectionLocation, 1, GL_FALSE, &projection_matrix[0][0]);
 
 			// ------------------------------------------------------------------

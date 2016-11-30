@@ -60,6 +60,11 @@ namespace SushiEngine
 		return mKeyData[pKey] == GLFW_PRESS || mKeyData[pKey] == GLFW_REPEAT;
 	}
 
+	bool InputManager::isKeyUp(int pKey)
+	{
+		return mKeyData[pKey] == GLFW_RELEASE;
+	}
+
 	void InputManager::getMousePosition(double* pXreference, double* pYReference)
 	{
 		*pXreference = mMouseX;

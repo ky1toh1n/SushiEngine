@@ -44,7 +44,7 @@ namespace SushiEngine
 		Debug::Log(EMessageType::S_INFO, "GameSceneManager() Initialize", __FILENAME__, __LINE__);
 
 		// Instantiate scene context 
-		mSceneContext = new SceneContext(u8"Hau5tastic", 720, 720);
+		mSceneContext = new SceneContext(u8"Hau5tastic", 1000, 1000);
 
 		return true;
 	}

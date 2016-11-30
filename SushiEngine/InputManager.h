@@ -17,6 +17,7 @@ namespace SushiEngine
 	public:
 		/* Instance methods */
 		bool isKeyDown(int key);
+		bool isKeyUp(int key);
 		void getMousePosition(double*, double*);
 	private:
 		// Allow this class to instantiate InputManager.

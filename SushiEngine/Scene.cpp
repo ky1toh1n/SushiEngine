@@ -20,8 +20,9 @@ namespace SushiEngine
 	{
 		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
 		mSceneContext = pSceneContext;
-		mMainCamera = new Camera(vec3(3.5, 2, 5), vec3(0, 1, 0));
+		mMainCamera = new Camera(vec3(3.5, 2, 20), vec3(0, 1, 0));
 		mSceneContext->renderer->setCamera(mMainCamera);
+		input = mSceneContext->input;
 	}
 
 	//Polls GLFW Events
@@ -34,15 +35,24 @@ namespace SushiEngine
 #define ENABLE_CAMERA
 
 #ifdef ENABLE_CAMERA
-		InputManager * input = mSceneContext->input;
+		
+		float speed = 5.0f;
+		if (input->isKeyDown(GLFW_KEY_LEFT_SHIFT))
+		{
+			speed = 5.0f;
+		}
+		else
+		{
+			speed = 1.0f;
+		}
 
 		//Translation
 		float translateX = (float)
 			(input->isKeyDown(GLFW_KEY_A) ? 1 : 0
-			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0) * pDeltaTime;
+			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0) * speed * pDeltaTime;
 		float translateY = (float)
 			(input->isKeyDown(GLFW_KEY_W) ? -1 : 0
-			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0) * pDeltaTime;
+			+ input->isKeyDown(GLFW_KEY_S) ? 1 : 0) * speed * pDeltaTime;
 
 		mMainCamera->translate(translateX, translateY);
 
