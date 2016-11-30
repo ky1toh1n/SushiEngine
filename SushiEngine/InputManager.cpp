@@ -50,6 +50,7 @@ namespace SushiEngine
 				sInstance->mStartDragY = sInstance->mMouseY;
 				Debug::Print("Press.");
 			}
+
 			else if (action == GLFW_RELEASE)
 			{
 				sInstance->mMouseDragOn = false;

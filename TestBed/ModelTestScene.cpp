@@ -79,12 +79,12 @@ void ModelTestScene::initialize(SceneContext* pSceneContext)
 	helpercolor.push_back(vec3(0, 0, 1));
 	helpercolor.push_back(vec3(0, 0, 1));
 
-	SuGameObject* orientation = new SuGameObject(vec3(0, 1, 5));
+	SuGameObject* orientation = new SuGameObject(vec3(0, 0, 0));
 	orientation->modelId = ModelManager::LoadModel("orientation", &helper[0][0], &helpercolor[0][0], 6);
 	//glDisableVertexArrayAttrib(*orientation->modelId, 1);
 
-	mGameObjects.push_back(debugPlane);
-	//mGameObjects.push_back(orientation);
+	//mGameObjects.push_back(debugPlane);
+	mGameObjects.push_back(orientation);
 
 	// -------------------------------------------------------------------------
 	
@@ -132,6 +132,7 @@ void ModelTestScene::initialize(SceneContext* pSceneContext)
 	mGameObjects.push_back(jupiter);
 
 	saturn = new SuGameObject(vec3(13.29f, 0.0f, 0.0f));
+	saturn->name = "Saturn";
 	saturnTransform = saturn->GetComponent<Transform>();
 	saturnTransform->mScale = new vec3(0.83f, 0.83f, 0.83f);
 	saturn->modelId = ModelManager::LoadModel("models/planets/planet.obj");
@@ -158,7 +159,7 @@ void ModelTestScene::initialize(SceneContext* pSceneContext)
 	Transform* spaceTransform = space->GetComponent<Transform>();
 	spaceTransform->mScale = new vec3(100.0, 100.0, 100.0);
 	space->modelId = ModelManager::LoadModel("models/planets/planet.obj");
-	space->textureId = ModelManager::LoadTexture("models/planets/skybox/space_rt.png");
+	space->textureId = ModelManager::LoadTexture("models/planets/skybox/space_bk.png");
 	mGameObjects.push_back(space);
 }
 
@@ -202,23 +203,27 @@ void ModelTestScene::update(float deltaTime)
 		sunTransform->mRotation->y += 0.1f * speedMultiplier * deltaTime;
 
 		mercuryTransform->mRotation->y += 0.4787f * speedMultiplier * deltaTime;
+		mercuryTransform->mLocalRotation->y += 0.1f * speedMultiplier * deltaTime;
 
 		venusTransform->mRotation->y += 0.3502f * speedMultiplier * deltaTime;
-		//venusTransform->mLocalRotation->y += 1.0f * deltaTime;
+		venusTransform->mLocalRotation->y -= 0.2f * speedMultiplier * deltaTime;
 
 		earthTransform->mRotation->y += 0.2978f * speedMultiplier * deltaTime;
-		//earthTransform->mLocalRotation->y += 1.0f * deltaTime;
+		earthTransform->mLocalRotation->y += 0.4f * speedMultiplier * deltaTime;
 
 		marsTransform->mRotation->y += 0.2407f * speedMultiplier * deltaTime;
+		marsTransform->mLocalRotation->y += 0.3f * speedMultiplier * deltaTime;
 
 		jupiterTransform->mRotation->y += 0.1307f * speedMultiplier * deltaTime;
-
+		jupiterTransform->mLocalRotation->y += 0.5f * speedMultiplier * deltaTime;
 
 		saturnTransform->mRotation->y += 0.0969f * speedMultiplier * deltaTime;
+		saturnTransform->mLocalRotation->y += 0.5f * speedMultiplier * deltaTime;
 
 		uranusTransform->mRotation->y += 0.0681f * speedMultiplier * deltaTime;
-
+		uranusTransform->mLocalRotation->y -= 0.7f * speedMultiplier * deltaTime;
 
 		neptuneTransform->mRotation->y += 0.0543f * speedMultiplier * deltaTime;
+		neptuneTransform->mLocalRotation->y += 0.7f * speedMultiplier * deltaTime;
 	}
 }

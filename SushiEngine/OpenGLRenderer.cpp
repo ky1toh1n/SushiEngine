@@ -123,8 +123,16 @@ namespace SushiEngine
 			}
 
 			// ------------------- Lighting -------------------------
-
-			vec4 lightPosition = vec4(0.0f, 0.1f, 0.0f, 0.0f);
+			vec4 lightPosition;
+			if ((*gameObject)->name == "Sun")
+			{
+				lightPosition = vec4(0.0f, 0.1f, 0.0f, 0.0f);
+			}
+			else
+			{
+				lightPosition = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+			}
+			
 			//vec4 lightPosition = vec4(lightX, 3.0f, 1.0f,0.0f);
 			glUniform4fv(lightPositionUniformLocation, 1, &lightPosition[0]);
 
@@ -161,6 +169,12 @@ namespace SushiEngine
 			// model_view *= glm::orientation(rot, vec3(0.0, 1.0, 0.0));
 
 			model_view = glm::scale(model_view, *t->mScale);
+
+			if ((*gameObject)->name == "Saturn")
+			{
+				
+
+			}
 
 			glUniformMatrix4fv(mModelLocation, 1, GL_FALSE, &model_view[0][0]);
 
