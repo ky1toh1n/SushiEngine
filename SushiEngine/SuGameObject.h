@@ -33,7 +33,6 @@ namespace SushiEngine
 		vector<SuGameObject*> * GetGameObjects();
 		void Render();
 
-
 		string name;
 		/* Instance fields */
 		// ModelImporter Tests

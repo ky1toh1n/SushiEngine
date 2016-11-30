@@ -62,8 +62,6 @@ namespace SushiEngine
 		// Retrieves a struct that contains all neccessary attributes for a draw call
 		static DrawData getDrawData(const GLuint* _ID);
 
-		
-
 		static const GLuint* LoadTexture(std::string _filepath); // currently a member but can be changed later..?
 	private:
 		/* Static fields */

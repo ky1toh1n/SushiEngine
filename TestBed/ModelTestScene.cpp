@@ -213,9 +213,11 @@ void ModelTestScene::update(float deltaTime)
 
 		jupiterTransform->mRotation->y += 0.1307f * speedMultiplier * deltaTime;
 
+
 		saturnTransform->mRotation->y += 0.0969f * speedMultiplier * deltaTime;
 
 		uranusTransform->mRotation->y += 0.0681f * speedMultiplier * deltaTime;
+
 
 		neptuneTransform->mRotation->y += 0.0543f * speedMultiplier * deltaTime;
 	}

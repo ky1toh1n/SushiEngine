@@ -25,6 +25,7 @@ namespace SushiEngine
 		virtual void destroy() = 0;
 
 		InputManager* input;
+
 	protected:
 		/* Instance Fields */
 		SceneContext * mSceneContext;

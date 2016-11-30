@@ -20,9 +20,11 @@ namespace SushiEngine
 	{
 		Debug::Log(EMessageType::S_INFO, "\tScene::Initialize()", __FILENAME__, __LINE__);
 		mSceneContext = pSceneContext;
+
 		mMainCamera = new Camera(vec3(3.5, 2, 20), vec3(0, 1, 0));
 		mSceneContext->renderer->setCamera(mMainCamera);
 		input = mSceneContext->input;
+
 	}
 
 	//Polls GLFW Events
@@ -34,8 +36,7 @@ namespace SushiEngine
 		/*Handle Camera Controls.*/
 #define ENABLE_CAMERA
 
-#ifdef ENABLE_CAMERA
-		
+#ifdef ENABLE_CAMERA		
 		float speed = 5.0f;
 		if (input->isKeyDown(GLFW_KEY_LEFT_SHIFT))
 		{
@@ -46,7 +47,7 @@ namespace SushiEngine
 			speed = 1.0f;
 		}
 
-		//Translation
+		//WASD Camera Translation
 		float translateX = (float)
 			(input->isKeyDown(GLFW_KEY_A) ? 1 : 0
 			+ input->isKeyDown(GLFW_KEY_D) ? -1 : 0) * speed * pDeltaTime;
@@ -56,29 +57,36 @@ namespace SushiEngine
 
 		mMainCamera->translate(translateX, translateY);
 
-		//Rotation
+		//Mouse Camera Rotation
+		//IF Mouse is outside of screen, don't do the thing.
+		if (input->isMouseOutsideWindow()) { return; }
+
 		int screenWidth, screenHeight;
 		mSceneContext->window->GetSize(&screenWidth, &screenHeight);
 
-		double mouseX, mouseY;
-		mSceneContext->input->getMousePosition(&mouseX, &mouseY);
+		double mouseX = -1;
+		double mouseY = -1;
+		mSceneContext->input->getMouseDragDifference(&mouseX, &mouseY);
 
 		//If mouse is within the screenWidth-ish area of the screen
-		if (mouseX >= screenWidth / 2 - screenWidth / 10 &&
-			mouseX <= screenWidth / 2 + screenWidth / 10 &&
-			mouseY >= screenHeight / 2 - screenHeight / 10 &&
-			mouseY <= screenHeight / 2 + screenHeight / 10)
+		if (mouseX == -1 && mouseY == -1)
 		{
+			cout << mouseX << ", " << mouseY << endl;
 			//Do nothing
 			return;
 		}
 		else 
 		{
+			cout << mouseX << ", " << mouseY << endl;
+
 			//Otherwise, let's rotate!
 			float rotateX = float(mouseX - screenWidth / 2) / (float)screenWidth / 1 * pDeltaTime;
 			float rotateY = float(mouseY - screenHeight / 2) / (float)screenHeight / -1 * pDeltaTime;
 
-		mMainCamera->rotate(rotateX, rotateY);
+			rotateX = (screenWidth / 2 * pDeltaTime - mouseX) / 10000;
+			rotateY = (screenHeight / 2  * pDeltaTime + mouseY) / 10000;
+
+			mMainCamera->rotate(rotateX, rotateY);
 		}
 #endif 
 	}

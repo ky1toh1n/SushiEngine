@@ -167,6 +167,7 @@ namespace SushiEngine
 			glUniformMatrix4fv(mCameraLocation, 1, GL_FALSE, &(mCamera->getMatrix())[0][0]); // View
 
 			glm::mat4 projection_matrix = glm::perspective(45.0f, 1024.0f / 1024.0f, 0.1f, 100.0f);  // Projection
+
 			glUniformMatrix4fv(mProjectionLocation, 1, GL_FALSE, &projection_matrix[0][0]);
 
 			// ------------------------------------------------------------------
