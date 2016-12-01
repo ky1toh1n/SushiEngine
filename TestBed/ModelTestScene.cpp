@@ -148,7 +148,7 @@ void ModelTestScene::initialize(SceneContext* pSceneContext)
 
 	neptune = new SuGameObject(vec3(35.35f, 0.0f, 0.0f));
 	neptuneTransform = neptune->GetComponent<Transform>();
-	neptuneTransform->mScale = new vec3(0.53f, 0.35f, 0.35f);
+	neptuneTransform->mScale = new vec3(0.35f, 0.35f, 0.35f);
 	neptune->modelId = ModelManager::LoadModel("models/planets/planet.obj");
 	neptune->textureId = ModelManager::LoadTexture("models/planets/neptune.jpg");
 	mGameObjects.push_back(neptune);
