@@ -29,7 +29,7 @@ namespace SushiEngine
 	void Camera::rotate(float x, float y) 
 	{
 		mAngleX += x;
-		mAngleY += y;
+		//mAngleY += y; kakaka
 		computeLookAt();
 	}
 

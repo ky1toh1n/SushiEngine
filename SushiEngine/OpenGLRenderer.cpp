@@ -157,6 +157,7 @@ namespace SushiEngine
 			Transform* t = (*gameObject)->GetComponent<Transform>();
 			vec3 pos = *t->mPosition;
 			vec3 rot = *t->mRotation;
+			vec3 sca = *t->mScale;
 
 			glm::mat4 model_view = glm::translate(glm::mat4(1.0), pos);
 
@@ -165,6 +166,9 @@ namespace SushiEngine
 			model_view = glm::rotate(model_view, rot.y, vec3(0.0f, 1.0f, 0.0f));
 			model_view = glm::rotate(model_view, rot.z, vec3(0.0f, 0.0f, 1.0f));
 			// model_view *= glm::orientation(rot, vec3(0.0, 1.0, 0.0));
+			model_view = glm::scale(model_view, sca);
+
+
 			glUniformMatrix4fv(mModelLocation, 1, GL_FALSE, &model_view[0][0]);
 
 			glUniformMatrix4fv(mCameraLocation, 1, GL_FALSE, &(mCamera->getMatrix())[0][0]); // View

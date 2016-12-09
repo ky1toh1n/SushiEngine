@@ -32,10 +32,10 @@ void main()
 
 		
 		// disabled lighting
-		//fColor =  texture2D(texture, texCoord);
+		fColor =  texture2D(texture, texCoord);
     
 		// enabled lighting
-		fColor =  texture2D(texture, texCoord) * (ambient_light + diffuse);
+		//fColor =  texture2D(texture, texCoord) * (ambient_light + diffuse);
 
 		// for testing the normal values via color
 		// fColor = vec4(N, 1);
