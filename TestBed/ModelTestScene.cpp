@@ -2,18 +2,18 @@
 
 ModelTestScene::ModelTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\tModelTestScene()", __FILENAME__, __LINE__);
+	Debug::LogConstructor("ModelTestScene", __FILENAME__, __LINE__);
 }
 
 
 ModelTestScene::~ModelTestScene()
 {
-	Debug::Log(EMessageType::S_INFO, "\t~ModelTestScene()", __FILENAME__, __LINE__);
+	Debug::LogDeconstructor("ModelTestScene", __FILENAME__, __LINE__);
 }
 
-void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
+void ModelTestScene::initialize(SceneContext* pSceneContext)
 {
-	Scene::Initialize(abstractRenderer);
+	Scene::initialize(pSceneContext);
 
 	//SuGameObject* go;
 	//MeshRenderer* houseMesh;
@@ -67,7 +67,7 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	SuGameObject* debugPlane = new SuGameObject(vec3(0, 0, 0));
 
 	debugPlane->modelId = ModelManager::LoadModel("debugPlane", &grid[0][0], &gridColor[0][0], gridNumVerts);
-	glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
+	//glDisableVertexArrayAttrib(*debugPlane->modelId, 1);
 
 	vector<vec3> helper;
 	vector<vec3> helpercolor;
@@ -92,13 +92,13 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 
 	SuGameObject* orientation = new SuGameObject(vec3(0, 1, 5));
 	orientation->modelId = ModelManager::LoadModel("orientation", &helper[0][0], &helpercolor[0][0], 6);
-	glDisableVertexArrayAttrib(*orientation->modelId, 1);
+	//glDisableVertexArrayAttrib(*orientation->modelId, 1);
 
 	// -------------------------------------------------------------------------
 
 	//SuGameObject* terrain = new SuGameObject(vec3(0, 0, 0));
 	//terrain->modelId = ModelManager::LoadModel("models/SnowTerrain/SnowTerrain.obj");
-	// glDisableVertexArrayAttrib(*terrain->modelId, 2);
+	// //glDisableVertexArrayAttrib(*terrain->modelId, 2);
 	//terrain->textureId = ModelManager::LoadTexture("models/SnowTerrain/resnow.png");
 
 	SuGameObject* box = new SuGameObject(vec3(-2.3f, 1.0f, 2.0f));
@@ -106,17 +106,16 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	boxt->mRotation = new vec3(0.0f, 0.0f, 0.0f);
 
 	box->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box->modelId, 2);
+	//glDisableVertexArrayAttrib(*box->modelId, 2);
+
 	// box->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
 	box->textureId = ModelManager::LoadTexture("models/Crate/crate_1.jpg");
-
-
 	SuGameObject* box2 = new SuGameObject(vec3(7.0f, 1.0f, 3.0f));
 	Transform* boxt2 = box2->GetComponent<Transform>();
 	boxt2->mRotation = new vec3(0.0f, 90.0f, 0.0f);
 
 	box2->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box2->modelId, 2);
+	//glDisableVertexArrayAttrib(*box2->modelId, 2);
 	box2->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate_flipped.png");
 
 	SuGameObject* box3 = new SuGameObject(vec3(-4.0f, 1.0f, 4.0f));
@@ -124,33 +123,34 @@ void ModelTestScene::Initialize(AbstractRenderer * abstractRenderer)
 	boxt3->mRotation = new vec3(0.0f, 45.0f, 0.0f);
 
 	box3->modelId = ModelManager::LoadModel("models/Crate/Crate1.3ds");
-	glDisableVertexArrayAttrib(*box2->modelId, 3);
+	//glDisableVertexArrayAttrib(*box2->modelId, 3);
 	box3->textureId = ModelManager::LoadTexture("models/Crate/RTS_Crate.png");
 
 	SuGameObject* house = new SuGameObject(vec3(2, 0, 0));
 	house->modelId = ModelManager::LoadModel("models/house/house.obj");
-	glDisableVertexArrayAttrib(*house->modelId, 2);
+	//glDisableVertexArrayAttrib(*house->modelId, 2);
 	house->textureId = ModelManager::LoadTexture("models/house/house2.png");
 
-	gameObjects.push_back(debugPlane);
-	gameObjects.push_back(orientation);
-	// gameObjects.push_back(terrain);
-	gameObjects.push_back(box);
-	gameObjects.push_back(box2);
-	gameObjects.push_back(box3);
-	gameObjects.push_back(house);
+
+	mGameObjects.push_back(debugPlane);
+	mGameObjects.push_back(orientation);
+	// mGameObjects.push_back(terrain);
+	mGameObjects.push_back(box);
+	mGameObjects.push_back(box2);
+	mGameObjects.push_back(box3);
+	mGameObjects.push_back(house);
 
 }
 
-void ModelTestScene::Destroy()
+void ModelTestScene::destroy()
 {
 }
 
 
-void ModelTestScene::Update(float _deltaTime)
+void ModelTestScene::update(float _deltaTime)
 {
-	Scene::Update(_deltaTime);
+	Scene::update(_deltaTime);
 	float rotValue = 1.0f;
-	Transform* t = gameObjects[4]->GetComponent<Transform>();
+	Transform* t = mGameObjects[4]->GetComponent<Transform>();
 	t->mRotation = new vec3(t->mRotation->x, t->mRotation->y + rotValue * _deltaTime, t->mRotation->z);
 }

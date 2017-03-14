@@ -27,6 +27,7 @@ namespace SushiEngine
 	{
 		//TODO: Implement this function. How the f**k do we use quaternions to rotate, House?!
 		// FFS learn to rotate :{X
+		// *cries*
 
 		//Rotate then translate.
 

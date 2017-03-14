@@ -1,73 +1,102 @@
 #include "InputManager.h"
 
-
 namespace SushiEngine
 {
-	/// See the header file reguarding unique_ptr
-	std::unique_ptr<InputManager> InputManager::instance(nullptr);
+	/* ---- STATIC ---- */
+	InputManager* InputManager::sInstance = nullptr;
 
+	void InputManager::KeyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods)
+	{
+		//Update state
+		sInstance->mKeyData[key] = action;
+
+		//Print to console
+		if (action == GLFW_PRESS)
+		{
+			Debug::Print(string("Keypressed: ") + (char(key)));
+		}
+		else if (action == GLFW_RELEASE)
+		{
+			Debug::Print(string("Released: ") + (char(key)));
+		}
+		else if (action == GLFW_REPEAT)
+		{
+			Debug::Print(string("Repeated: ") + (char(key)));
+		}
+	}
+
+	void InputManager::ClickCallback(GLFWwindow* pGlfwWindow, int button, int action, int mods)
+	{
+		if (button == GLFW_MOUSE_BUTTON_LEFT)
+		{
+			if (action == GLFW_PRESS)
+			{
+				sInstance->mMouseDragOn = true;
+				sInstance->mStartDragX = sInstance->mMouseX;
+				sInstance->mStartDragY = sInstance->mMouseY;
+				Debug::Print("Press.");
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				sInstance->mMouseDragOn = false;
+				Debug::Print("Release.");
+			}
+		}
+	}
+
+	void InputManager::MouseMoveCallback(GLFWwindow * pGlfwWindow, double pMouseX, double pMouseY)
+	{
+		sInstance->mMouseX = pMouseX;
+		sInstance->mMouseY = pMouseY;
+	}
+
+	void InputManager::WindowEnterCallback(GLFWwindow* window, int entered)
+	{
+		sInstance->mIsMouseOutsideOfScreen = !entered;
+	}
+	/* ---- End of STATIC ---- */
+	/* ---- INSTANCE ---- */
 	InputManager::InputManager()
 	{
-		Debug::Log(EMessageType::S_INFO, "\tInputManager()", __FILENAME__, __LINE__);
+		Debug::LogConstructor("InputManager", __FILENAME__, __LINE__);
+		if (sInstance == nullptr)
+		{
+			sInstance = this;
+		}
+		else
+		{
+			Debug::Log(EMessageType::S_WARNING, "\tInputManager() - More than one InputManager has been created.", __FILENAME__, __LINE__);
+		}
 	}
 
 	InputManager::~InputManager()
 	{
-		Debug::Log(EMessageType::S_INFO, "\t~InputManager()", __FILENAME__, __LINE__);
+		Debug::LogDeconstructor("InputManager", __FILENAME__, __LINE__);
 	}
 
-	InputManager* InputManager::GetInstance()
+	bool InputManager::isMouseOutsideWindow()
 	{
-		if (instance == nullptr)
-		{
-			instance.reset(new InputManager());
-		}
-		return instance.get();
+		return mIsMouseOutsideOfScreen;
 	}
 
-	void InputManager::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) 
+	bool InputManager::isKeyDown(int pKey)
 	{
-		//Update state
-		GetInstance()->keyData[key] = action;
+		return mKeyData[pKey] == GLFW_PRESS || mKeyData[pKey] == GLFW_REPEAT;
+	}
 
-		//Print to console
-		if (action == GLFW_PRESS) 
+	void InputManager::getMouseDragDifference(double*pXreference, double* pYReference)
+	{
+		if (mMouseDragOn)
 		{
-			std::cout << key << std::endl;
-			// std::cout << "Keypressed: " << char(key) << std::endl;
-		}
-		else if (action == GLFW_RELEASE) 
-		{
-			// std::cout << "Released: " << char(key) << std::endl;
-		}
-		else if (action == GLFW_REPEAT)
-		{
-			// std::cout << "Repeated: " << char(key) << std::endl;
+			*pXreference = mStartDragX - mMouseX;
+			*pYReference = mStartDragY - mMouseY;
 		}
 	}
 
-	void InputManager::ClickCallback(GLFWwindow* glfwWindow, int button, int action, int mods)
+	void InputManager::getMousePosition(double* pXreference, double* pYReference)
 	{
-		// std::cout << "Click: " << std::endl;
+		*pXreference = mMouseX;
+		*pYReference = mMouseY;
 	}
-
-
-	void InputManager::MouseMoveCallback(GLFWwindow * glfwWindow, double x, double y)
-	{
-		InputManager * input = InputManager::GetInstance();
-		input->mouseX = x;
-		input->mouseY = y;
-	}
-	
-	bool InputManager::isKeyDown(int key)
-	{
-		return keyData[key] == GLFW_PRESS || keyData[key] == GLFW_REPEAT;
-	}
-
-
-	void InputManager::getMousePosition(double* xRef, double* yRef)
-	{
-		*xRef = mouseX;
-		*yRef = mouseY;
-	}
+	/* ---- End of INSTANCE ---- */
 }

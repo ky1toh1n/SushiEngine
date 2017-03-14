@@ -123,6 +123,7 @@
     <ClCompile Include="ModelTestScene.cpp" />
     <ClCompile Include="SceneGraphTestScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="VolumeTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SushiEngine\SushiEngine.vcxproj">
@@ -137,6 +138,7 @@
     <ClInclude Include="ModelTestScene.h" />
     <ClInclude Include="SceneGraphTestScene.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="VolumeTestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\FragmentShader.frag" />

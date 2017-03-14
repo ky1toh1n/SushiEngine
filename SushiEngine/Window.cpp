@@ -5,21 +5,21 @@ namespace SushiEngine
 	//Creates a window with specificed parameters
 	Window::Window(const char* title, const int width, const int height)
 	{
-		Debug::Log(EMessageType::S_INFO, "\tWindow(char*,int,int)", __FILENAME__, __LINE__);
+		Debug::LogConstructor("Window", __FILENAME__, __LINE__);
 		Initialize(title, width, height);
 	}
 
 	//Handles termination of the GLFW library.
 	Window::~Window() 
 	{
-		Debug::Log(EMessageType::S_INFO, "\t~Window()", __FILENAME__, __LINE__);
+		Debug::LogDeconstructor("Window", __FILENAME__, __LINE__);
 		glfwTerminate();
 	}
 
 	//Attempts to create a GLFW window and set its title and screen dimensions.
 	bool Window::Initialize(const char* title, const int width, const int height)
 	{
-		Debug::Log(EMessageType::S_INFO, "\tWindow::Initialize()", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "Window::Initialize()", __FILENAME__, __LINE__);
 		isInitialized = false;
 
 		if (!glfwInit()) 
@@ -54,7 +54,7 @@ namespace SushiEngine
 	//Terminates the GLFW Window.
 	void Window::Destroy() 
 	{
-		Debug::Log(EMessageType::S_INFO, "\tWindow->Destroy()", __FILENAME__, __LINE__);
+		Debug::Log(EMessageType::S_INFO, "Window::Destroy()", __FILENAME__, __LINE__);
 		/*
 		When a window is no longer needed, destroy it with glfwDestroyWindow.
 

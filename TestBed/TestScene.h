@@ -12,7 +12,7 @@ class TestScene : public SushiEngine::Scene
 public:
 	TestScene();
 	~TestScene();
-	void Initialize(AbstractRenderer* abstractRenderer);
-	void Destroy();
+	void initialize(SceneContext* pSceneContext);
+	void destroy();
 };
 #endif
