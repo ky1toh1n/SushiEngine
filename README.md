@@ -19,8 +19,8 @@ Project dependencies are included in the repo.
 * Developer Image Library (devIL)
 
 # Screenshots
-![Rendering of houses and crates with textures and lighting.](/../Screenshots/Screenshots/Models.png)
+![Rendering of houses and crates with textures and lighting.](/../Screenshots/Screenshots/Models.PNG)
 
-![3D maze game.](/Screenshots/Maze.png "Maze")
+![3D maze game.](/Screenshots/Maze.PNG "Maze")
 
-![Solar system simulation.](../Screenshots/Screenshots/SolarSystem.png "Solar System")
+![Solar system simulation.](../Screenshots/Screenshots/SolarSystem.PNG "Solar System")
