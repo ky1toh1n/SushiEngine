@@ -1,5 +1,3 @@
-// Currently untested, don't use yet.
-
 #include "Timer.h"
 
 namespace SushiEngine
@@ -14,38 +12,20 @@ namespace SushiEngine
 	{
 	
 	}
-
-	void Timer::UpdateFrameTicks() 
-	{
-		prevTicks = currTicks;
-		currTicks = glfwGetTime();
-	}
-
-	void Timer::Start() 
+	
+	// Initializes the timer.
+	void Timer::start() 
 	{
 		prevTicks = glfwGetTime();
 		currTicks = glfwGetTime();
 	}
 
-	double Timer::GetDeltaTime() const 
+	// Updates the timer and returns the resulting DeltaTime.
+	double Timer::update()
 	{
+		prevTicks = currTicks;
+		currTicks = glfwGetTime();
+
 		return (currTicks - prevTicks);
-	}
-
-	unsigned int Timer::GetSleepTime(const unsigned int fps) const
-	{
-		unsigned int milliSecsPerFrame = 1000 / fps;
-		if (milliSecsPerFrame == 0)
-		{
-			return 0;
-		}
-
-		unsigned int sleepTime = milliSecsPerFrame - (unsigned int)(glfwGetTime() - currTicks);
-		if (sleepTime > milliSecsPerFrame) 
-		{
-			return milliSecsPerFrame;
-		}
-
-		return sleepTime;
 	}
 }

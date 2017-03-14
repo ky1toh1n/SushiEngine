@@ -11,8 +11,8 @@ class SceneGraphTestScene : public Scene
 public:
 	SceneGraphTestScene();
 	virtual ~SceneGraphTestScene();
-	void Initialize(AbstractRenderer* abstractRenderer);
-	void Destroy();
+	void initialize(SceneContext* pSceneContext);
+	void destroy();
 };
 
 #endif

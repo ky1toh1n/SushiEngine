@@ -12,8 +12,8 @@ class ComponentTestScene : public Scene
 public:
 	ComponentTestScene();
 	virtual ~ComponentTestScene();
-	void Initialize(AbstractRenderer* abstractRenderer);
-	void Destroy();
+	void initialize(SceneContext* pSceneContext);
+	void destroy();
 };
 
 #endif

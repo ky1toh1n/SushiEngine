@@ -57,7 +57,6 @@ namespace SushiEngine
 
 	const GLuint* ModelManager::LoadModel(std::string _filepath)
 	{
-		
 		map<string, const GLuint>::iterator it;
 		unsigned int numVerts = 0;
 		// Search for a filepath similar to _filepath
@@ -74,7 +73,7 @@ namespace SushiEngine
 		else
 		{
 			// otherwise,
-			Debug::Log(EMessageType::S_INFO, "exisiting _filepath not found", __FILENAME__, __LINE__);
+			Debug::Log(EMessageType::S_INFO, "existing _filepath not found", __FILENAME__, __LINE__);
 			// cout << "exisiting _filepath not found" << endl;
 
 			// load the model from the filepath
@@ -131,7 +130,6 @@ namespace SushiEngine
 
 					}
 					//if (mesh->HasPositions())
-
 				}
 				// cout << "total verts: " << verts << endl;
 				// printf("# Textures: %i\n", modelScene->mNumTextures);
@@ -145,7 +143,6 @@ namespace SushiEngine
 				{
 					//for (int mat = 0; mat < modelScene->mNumMaterials; mat++)
 				}
-
 			}
 
 			// Condition: being improved
@@ -219,7 +216,6 @@ namespace SushiEngine
 	// Condition OK
 	const aiScene* ModelManager::loadModelScene(std::string fFilepath)
 	{
-
 		const aiScene* modelScene;
 
 		ifstream fileIn(fFilepath.c_str());
@@ -243,7 +239,7 @@ namespace SushiEngine
 		}
 		else
 		{
-			Debug::Log(EMessageType::S_ERROR, "ModelManager::loadModelScene() SUCCESS ", __FILENAME__, __LINE__);
+			Debug::Log(EMessageType::S_INFO, "ModelManager::loadModelScene() SUCCESS ", __FILENAME__, __LINE__);
 		}
 
 		return modelScene;
@@ -251,7 +247,6 @@ namespace SushiEngine
 
 	const GLuint* ModelManager::LoadTexture(std::string _filepath)
 	{
-
 		map<string, const GLuint>::iterator it;
 
 		// Search for a filepath similar to _filepath

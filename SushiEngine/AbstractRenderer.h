@@ -1,28 +1,28 @@
-//AbstractRenderer - The purpose of an abstract renderer is to make it possible
-//to extend different types of Renderers which use different graphical libraries,
-//while maintaining a consistent interface amongst all of them.
-
+/* AbstractRenderer - A base renderer which can be extended to use any graphics API. */
 #ifndef ABSTRACT_RENDERER_H
 #define ABSTRACT_RENDERER_H
-
+/* SushiEngine */
 #include "Window.h"
 #include "Camera.h"
 #include "Macros.h"
 #include "SuGameObject.h"
-
+/* ---- */
 namespace SushiEngine
 {
 	class AbstractRenderer
 	{
 	public:
+		/* Constructor */
 		AbstractRenderer(Window*);
 		virtual ~AbstractRenderer() = 0;
 
-		virtual void render(vector<SuGameObject*> _gameObjects) = 0;
+		/* Instance methods */
+		virtual void render(vector<SuGameObject*>) = 0;
 		void setCamera(Camera*);
 	protected:
-		Window* window;
-		Camera* camera;
+		/* Instance fields */
+		Window* mWindow;
+		Camera* mCamera;
 	};
 }
 #endif

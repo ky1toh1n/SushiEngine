@@ -1,31 +1,29 @@
-//TIMER - Keeps track of the time. 
+/** A simple timer - keeps track of delta time through GLFW. */ 
 #ifndef TIMER_H
 #define TIMER_H
-
+/* System */
+/* Third Party */
 #include <GLFW\glfw3.h>
-
+/* SushiEngine */
+#include "Macros.h"
+/* ---- */
 namespace SushiEngine 
 {
-	class Timer {
+	class Timer 
+	{
 	public:
+		/* Constructor */
 		Timer();
 		~Timer();
+		NO_COPY_CONSTRUCTORS(Timer)
 
-		/// C11 precautions
-		Timer(const Timer&) = delete;
-		Timer(Timer&&) = delete;
-		Timer& operator=(const Timer&) = delete;
-		Timer& operator=(Timer&&) = delete;
-
-		void Start();
-		void UpdateFrameTicks();
-		double GetDeltaTime() const;
-		unsigned int GetSleepTime(const unsigned int fps) const;
-
+		/* Instance Methods */
+		void start();
+		double update();
 	private:
+		/* Instance Fields */
 		double prevTicks;
 		double currTicks;
-
 	};
 }
 #endif
